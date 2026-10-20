@@ -44,11 +44,11 @@
 ## Подключение
 
 ```html
-<link rel="stylesheet" href="../DS/organisms/app-header-content/header-content.css?v=1">
-<script src="../DS/organisms/app-header-content/header-content.js?v=1" defer></script>
+<link rel="stylesheet" href="../Design-System/organisms/app-header-content/header-content.css?v=1">
+<script src="../Design-System/organisms/app-header-content/header-content.js?v=1" defer></script>
 ```
 
-Страницы-прототипы подключают организм по этим путям (через `../DS/connect.js` он не приходит —
+Страницы-прототипы подключают организм по этим путям (через `../Design-System/connect.js` он не приходит —
 блок нужен не каждой странице). Ассеты считаются от расположения скрипта, поэтому разметка
 работает с любой страницы и при переносе папки.
 

@@ -113,22 +113,22 @@
 ## Подключение
 
 ```html
-<link rel="stylesheet" href="../DS/organisms/app-table-card-adaptive/table-card-adaptive.css?v=2">
-<script src="../DS/organisms/app-table-card-adaptive/table-card-adaptive.js?v=2" defer></script>
+<link rel="stylesheet" href="../Design-System/organisms/app-table-card-adaptive/table-card-adaptive.css?v=2">
+<script src="../Design-System/organisms/app-table-card-adaptive/table-card-adaptive.js?v=2" defer></script>
 ```
 
 Для карточки с чекбоксом страница дополнительно подключает чекбокс ДС (в
 `components/index.css` его нет):
 
 ```html
-<link rel="stylesheet" href="../DS/components-web/components/Checkbox_DS/checkbox.css">
-<link rel="stylesheet" href="../DS/components-web/components/Checkbox_DS/checkbox-icons.css">
+<link rel="stylesheet" href="../Design-System/components-web/components/Checkbox_DS/checkbox.css">
+<link rel="stylesheet" href="../Design-System/components-web/components/Checkbox_DS/checkbox-icons.css">
 ```
 
 Ассеты считаются от расположения скрипта — разметка работает с любой страницы
 и при переносе папки (тот же приём, что у app-header, header-content, page-footer
 и table-header-actions). Страницы-прототипы подключают организм вручную по этим
-путям (через `../DS/connect.js` он не приходит — блок нужен не каждой странице).
+путям (через `../Design-System/connect.js` он не приходит — блок нужен не каждой странице).
 
 ## Разметка (декларативно)
 

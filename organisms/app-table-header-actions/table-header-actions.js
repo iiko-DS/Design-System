@@ -1,5 +1,5 @@
 /* table-header-actions - «полоса над таблицей» (шапка таблицы) - организм дизайн-системы.
-   Страницы подключают его как ../DS/organisms/app-table-header-actions/table-header-actions.css + .js.
+   Страницы подключают его как ../Design-System/organisms/app-table-header-actions/table-header-actions.css + .js.
    Скрипт делает ровно две вещи:
      1) подставляет иконки <img data-tha-icon="..."> из папки организма: база считается
         по адресу самого скрипта, поэтому разметка работает с любой страницы и при переносе

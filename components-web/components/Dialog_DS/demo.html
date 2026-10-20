@@ -47,6 +47,11 @@
   .snap-dlg-block { display: flex; flex-direction: column; gap: var(--ds-dialog-content-gap-text, 8px); width: 100%; }
   .snap-dlg-text { color: var(--ds-color-dialog-content-text-color, #616161); }
   .snap-dlg-actions { align-items: flex-end; }
+  /* Basic: живой скролл контента (витрины — статика; нативный скроллбар скрыт, полосу ведёт компонент Scroll) */
+  .snap-dlg-slot--live { max-height: 204px; box-sizing: border-box; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .snap-dlg-slot--live::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  .snap-dlg-scrollrot .ds-scroll__background { position: relative; overflow: hidden; height: var(--ds-size-2x, 8px); flex: none; }
+  .snap-dlg-scrollrot .ds-scroll__knob { position: absolute; top: 0; left: 0; cursor: pointer; touch-action: none; }
   /* Scroll контента: в Figma инстанс повёрнут на 90° (вертикальная полоса 12×204) — поворот обвязкой */
   .snap-dlg-scrollcol { width: 12px; flex: none; align-self: stretch; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .snap-dlg-scrollrot { transform: rotate(90deg); width: 204px; flex: none; }
@@ -56,7 +61,8 @@
   .snap-dlg-picture { width: 500px; height: 200px; background: var(--ds-color-brand-neutral-lightest, #ebebeb); }
   /* Basic: живой диалог на сцене */
   .snap-dlg-stage { position: relative; width: 720px; height: 420px; box-sizing: border-box; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #fff; }
-  .snap-dlg-stage__dim { position: absolute; inset: 0; }
+  /* затемнение Basic: в Figma у слоя Backdrop прозрачность 15%, в css она не выгружается (журнал №194) — задана обвязкой */
+  .snap-dlg-stage__dim { position: absolute; inset: 0; opacity: .15; }
   .snap-dlg-stage__dlg { position: absolute; }
   .snap-dlg-closeic { cursor: pointer; }
 </style>
@@ -86,7 +92,7 @@
             <div class="snap-dlg-head">
               <div class="ds-dialog-header__title-container">
                 <span class="ds-dialog-header__label">Dialog title</span>
-                <span class="ds-dialog-header__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span>
+                <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span>
               </div>
               <span class="ds-dialog-header__description">Подзаголовок</span>
             </div>
@@ -107,7 +113,7 @@
         </div>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) собрано классами ДС: ds-dialog-view → ds-dialog-header (__title-container/__label/__icon/__description) → ds-dialog-content (слот + Scroll) → ds-dialog-view__footer/__action; разделителей в State=Default нет (в наборе divider=false у шапки и подвала); (б) паддинги шапки (24/24/8) и слота контента (8/24) в css не выгружены — обвязка на токенах (--ds-dialog-header-pad-*, --ds-dialog-content-pad-*); (в) фон описания шапки в css = цвет текста (артефакт) — снят в fixes.css; (г) Scroll — инстанс компонента, в Figma повёрнут на 90° (полоса 12×204, ползунок 96, Position=First) — поворот обвязкой; (д) высота 92+204+68=364 (min-height компонента). Журнал №129.</p>
+    <p class="snap-note">Пометки для ревью: (а) собрано классами ДС: ds-dialog-view → ds-dialog-header (__title-container/__label/__icon/__description) → ds-dialog-content (слот + Scroll) → ds-dialog-view__footer/__action; разделителей в State=Default нет (в наборе divider=false у шапки и подвала); (б) паддинги шапки (24/24/8) и слота контента (8/24) в css не выгружены — обвязка на токенах (--ds-dialog-header-pad-*, --ds-dialog-content-pad-*); (в) фон описания шапки в css = цвет текста (артефакт) — снят в fixes.css; (г) Scroll — инстанс компонента, в Figma повёрнут на 90° (полоса 12×204, ползунок 96, Position=First) — поворот обвязкой; (д) высота 92+204+68=364 (min-height компонента); крестик в шапке — инстанс Icon size (ds-icon-size--6x; в Figma слой Icon size 24, глиф 14). Журнал №129.</p>
   </div>
 
   <!-- 3. Dialog header (53535:1322; Type=Text 53619:17897 500×93; Type=Picture 59215:16647 500×200) -->
@@ -119,7 +125,7 @@
             <div class="snap-dlg-head">
               <div class="ds-dialog-header__title-container">
                 <span class="ds-dialog-header__label">Dialog title</span>
-                <span class="ds-dialog-header__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span>
+                <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span>
               </div>
               <span class="ds-dialog-header__description">Подзаголовок</span>
             </div>
@@ -131,7 +137,7 @@
         </div>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) Type=Text: паддинги 24/24/8 и гэп 8 — обвязка на токенах (классов в css нет); разделитель — компонент Divider (ds-divider): у css-классов `__divider` фон белый (артефакт); (б) Type=Picture — по канве вариант показывает только слот картинки 500×200 (Brand/Neutral/Lightest #EBEBEB), заголовок в кадре набора не отрисован; (в) иконка крестика — #616161 (Icon/Primary): в css цвет не задан — обвязка. Журнал №129.</p>
+    <p class="snap-note">Пометки для ревью: (а) Type=Text: паддинги 24/24/8 и гэп 8 — обвязка на токенах (классов в css нет); разделитель — компонент Divider (ds-divider): у css-классов `__divider` фон белый (артефакт); (б) Type=Picture — по канве вариант показывает только слот картинки 500×200 (Brand/Neutral/Lightest #EBEBEB), заголовок в кадре набора не отрисован; (в) иконка крестика — слот ds-dialog-header__icon → инстанс Icon size (ds-icon-size--6x; в Figma Icon size 24, глиф 14), цвет #616161 (Icon/Primary): в css цвет не задан — обвязка. Журнал №129.</p>
   </div>
 
   <!-- 4. Dialog content (53535:1369; State=Default 53531:2416 — 3 блока + Scroll; 500×204) -->
@@ -186,7 +192,7 @@
   <!-- 1. Basic example: живой диалог (набор Dialog view State=Default поверх Backdrop; открыт по умолчанию) -->
   <div class="panel" data-vpanel="basic" role="tabpanel">
     <div class="snap-sect">
-      <p class="snap-cap snap-live-hint">Basic example: живой диалог поверх затемнения (Backdrop) — крестик или Esc закрывают; «Открыть диалог» показывает окно снова</p>
+      <p class="snap-cap snap-live-hint">Basic example: живой диалог — открывается кнопкой «Открыть диалог», закрывается крестиком, Esc, кнопкой «Подробнее» и кликом по затемнению; контент прокручивается — колесом мыши и перетаскиванием ползунка</p>
       <div class="snap-dlg-stage" id="dlg-stage">
         <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" id="dlg-open" hidden><span class="ds-btn__label">Открыть диалог</span></button>
         <div class="ds-backdrop snap-dlg-stage__dim" id="dlg-dim"></div>
@@ -195,13 +201,16 @@
             <div class="snap-dlg-head">
               <div class="ds-dialog-header__title-container">
                 <span class="ds-dialog-header__label">Dialog title</span>
-                <span class="ds-dialog-header__icon snap-dlg-closeic" id="dlg-close" role="button" tabindex="0" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span>
+                <span class="ds-dialog-header__icon snap-dlg-closeic" id="dlg-close" role="button" tabindex="0" aria-label="Закрыть"><span class="ds-icon-size ds-icon-size--6x ds-icon-size--state"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span>
               </div>
               <span class="ds-dialog-header__description">Подзаголовок</span>
             </div>
           </div>
           <div class="ds-dialog-content">
-            <div class="snap-dlg-slot">
+            <div class="snap-dlg-slot snap-dlg-slot--live">
+              <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ds-text-body-s-14-normal-regular snap-dlg-text">В блоке контента может быть всё что угодно</span></div>
+              <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ds-text-body-s-14-normal-regular snap-dlg-text">В блоке контента может быть всё что угодно</span></div>
+              <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ds-text-body-s-14-normal-regular snap-dlg-text">В блоке контента может быть всё что угодно</span></div>
               <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ds-text-body-s-14-normal-regular snap-dlg-text">В блоке контента может быть всё что угодно</span></div>
               <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ds-text-body-s-14-normal-regular snap-dlg-text">В блоке контента может быть всё что угодно</span></div>
               <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ds-text-body-s-14-normal-regular snap-dlg-text">В блоке контента может быть всё что угодно</span></div>
@@ -216,7 +225,7 @@
         </div>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) Basic — живой диалог в составе набора Dialog view (State=Default: шапка + контент + подвал), поверх затемнения — компонент Backdrop (ds-backdrop); (б) закрывают — крестик (ds-dialog-header__icon) или Esc; «Открыть диалог» возвращает окно (кнопка — обвязка стенда); (в) паддинги/гэпы шапки и контента и выравнивание кнопки — обвязка на токенах; фон описания шапки — артефакт css, снят в fixes.css; (г) примеры канвы (16 инстансов: «Удалить карту?», «Ошибка сохранения цен», «Импорт» и др.) на стенде не воспроизводятся — Basic показывает компонент живьём. Журнал №129.</p>
+    <p class="snap-note">Пометки для ревью: (а) Basic — живой диалог в составе набора Dialog view (State=Default: шапка + контент + подвал), поверх затемнения — компонент Backdrop (ds-backdrop); прозрачность слоя 15% (как в Figma) в css не выгружается — задана обвязкой (журнал №194); (б) закрывают — крестик (слот ds-dialog-header__icon → инстанс Icon size ds-icon-size--6x; у живого крестика — `--state`: при наведении подложка 32×32 #EBEBEB, при нажатии #E0E0E0, как State=Hover в Figma), Esc, кнопка «Подробнее» или клик по затемнению; «Открыть диалог» возвращает окно (кнопка — обвязка стенда); (в) паддинги/гэпы шапки и контента — обвязка на токенах; скругление корня (12) обрезает содержимое и выравнивание кнопки вправо — в компоненте (fixes.css п. 43); фон описания шапки — артефакт css, снят в fixes.css (п. 31); (г) примеры канвы (16 инстансов: «Удалить карту?», «Ошибка сохранения цен», «Импорт» и др.) на стенде не воспроизводятся — Basic показывает компонент живьём; (д) в Basic всё работает: диалог открывается/закрывается (крестик, Esc, «Подробнее», клик по затемнению), контент прокручивается колесом, ползунок Scroll перетаскивается и синхронизирован. Журнал №129, №202.</p>
   </div>
 </div>
 
@@ -240,7 +249,7 @@
     });
   });
 
-  /* Basic: живой диалог (открыть/закрыть) */
+  /* Basic: живой диалог — открыть/закрыть (крестик, Esc, кнопка, клик по затемнению) + рабочий скролл контента */
   (function () {
     var stage = document.getElementById('dlg-stage');
     if (!stage) return;
@@ -249,12 +258,48 @@
     var dlg = document.getElementById('dlg-live');
     var closeBtn = document.getElementById('dlg-close');
     var doneBtn = document.getElementById('dlg-done');
-    function show() { openBtn.hidden = true; dim.hidden = false; dlg.hidden = false; }
+    function show() { openBtn.hidden = true; dim.hidden = false; dlg.hidden = false; syncKnob(); }
     function hide() { openBtn.hidden = false; dim.hidden = true; dlg.hidden = true; }
     openBtn.addEventListener('click', show);
     closeBtn.addEventListener('click', hide);
     if (doneBtn) doneBtn.addEventListener('click', hide);
+    dim.addEventListener('click', hide);
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !dlg.hidden) hide(); });
+
+    /* Скролл контента: колесо мыши — нативно (overflow-y), ползунок — перетаскивание.
+       В Figma полоса Scroll повёрнута на 90°, поэтому локальный left ползунка = вертикаль на экране. */
+    var slot = dlg.querySelector('.snap-dlg-slot');
+    var knob = dlg.querySelector('.ds-scroll__knob');
+    var track = dlg.querySelector('.ds-scroll__background');
+    if (!slot || !knob || !track) return;
+    function maxScroll() { return Math.max(0, slot.scrollHeight - slot.clientHeight); }
+    function trackRange() { return Math.max(0, track.clientWidth - knob.offsetWidth); }
+    function syncKnob() {
+      var m = maxScroll(), r = trackRange();
+      knob.style.left = (m ? (slot.scrollTop / m) * r : 0) + 'px';
+    }
+    slot.addEventListener('scroll', syncKnob);
+    knob.addEventListener('pointerdown', function (e) {
+      e.preventDefault();
+      var startY = e.clientY;
+      var startLeft = parseFloat(knob.style.left) || 0;
+      try { knob.setPointerCapture(e.pointerId); } catch (err) { /* синтетические события */ }
+      function move(ev) {
+        var r = trackRange(), m = maxScroll();
+        var left = Math.min(r, Math.max(0, startLeft + (ev.clientY - startY)));
+        knob.style.left = left + 'px';
+        slot.scrollTop = r ? (left / r) * m : 0;
+      }
+      function up() {
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', up);
+        window.removeEventListener('pointercancel', up);
+      }
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+      window.addEventListener('pointercancel', up);
+    });
+    syncKnob();
   })();
 </script>
 </body>

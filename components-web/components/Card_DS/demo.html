@@ -47,6 +47,7 @@
   .snap-ct { color: var(--ds-color-text-primary, #333); margin: 0; }
   .snap-cs { color: var(--ds-color-text-secondary, #616161); margin: 0; }
   .snap-card-body { display: flex; flex-direction: column; gap: var(--ds-card-content-gap, 8px); width: 100%; }
+  .snap-note { font-size: 12px; line-height: 16px; color: var(--ds-color-text-secondary, #616161); margin: 24px 0 0; max-width: 980px; }
 </style>
 </head>
 <body>
@@ -84,6 +85,7 @@
         </div>
       </div>
     </div>
+    <p class="snap-note">Пометки для ревью: (а) сверка с Figma («Card_DS»): размеры, паддинги, типы, тень и радиус совпадают; паддинги в сгенерированном css отстали от Figma — перекрыты fixes п.21 (журнал №104); (б) косяк токена: Card/Content/Text weight = Medium, в Figma текст контента Regular (400) — обойдено утилитой ds-text-body-m-16-normal-regular (журнал №256); (в) правила Figma: действия — справа; заголовок не дублировать в контенте; подвал — только когда есть действия; Type=Shadow — «кликабельна», но состояний hover/pressed/focus нет ни в Figma, ни в ДС; (г) Angular Material (референс): actions align=end — есть (footer--right); медиа-слота (изображение S/M/L/XL) в ДС нет. Журнал №104, №256.</p>
   </div>
 
   <!-- 2. Card header (52916:15126): Content=Default (53745:3292), 500×117 — разделитель снизу -->

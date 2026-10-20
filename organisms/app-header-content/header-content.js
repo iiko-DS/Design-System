@@ -1,5 +1,5 @@
 /* header-content - «хедер контента» (шапка раздела) - организм дизайн-системы.
-   Страницы подключают его как ../DS/organisms/app-header-content/header-content.css + header-content.js.
+   Страницы подключают его как ../Design-System/organisms/app-header-content/header-content.css + header-content.js.
    Скрипт делает ровно две вещи:
      1) подставляет иконки <img data-hc-icon="..."> из папки организма: база считается
         по адресу самого скрипта, поэтому разметка работает с любой страницы и при переносе

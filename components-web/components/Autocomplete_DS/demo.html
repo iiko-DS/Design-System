@@ -22,7 +22,8 @@
   Замороженные состояния — st-hover/st-focus (в ДС :hover/:focus-within) и реальные классы инпута
   ds-input--error/--disabled; значения — токенами.
   Basic example — только живой пример (правило заказчика: динамический элемент; фреймы «(Examples)» не воспроизводим):
-  ввод фильтрует подсказки, выбор подставляет текст, Esc/клик вне закрывают список. Журнал №128, №136, №138, №153, №154, №156.
+  ввод фильтрует подсказки, выбор подставляет текст (мышь и клавиатура), ↑↓/Home/End — активная строка, Enter — выбрать,
+  Esc/Tab/клик вне — закрыть, ARIA combobox/listbox, список со скроллом и ползунком Scroll. Журнал №128, №136, №138, №153, №154, №156, №206.
 -->
 <link rel="stylesheet" href="../../font.css">
 <link rel="stylesheet" href="../../tokens.css">
@@ -57,6 +58,20 @@
 
   /* поле и список — встык (поле → список через 2px, как в компоненте) */
   .snap-ac-block { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; }
+
+  /* список Basic: контейнер по содержимому (в css min-height 406 — артефакт), зона значений со скроллом — как в Select */
+  .snap-ac-list { min-height: 0; width: 240px; }
+  .snap-ac-list .ds-select-item { cursor: pointer; flex: none; }
+  .snap-ac-ccontent { display: flex; flex-direction: row; align-items: stretch; width: 100%; }
+  .snap-ac-ccontent > .ds-select-container__content { flex: 1 1 auto; min-width: 0; max-height: 272px; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+  .snap-ac-ccontent > .ds-select-container__content::-webkit-scrollbar { width: 0; height: 0; }
+  .snap-ac-scroll { flex: none; width: var(--ds-size-3x, 12px); align-self: stretch; }
+  .snap-ac-scroll .ds-scroll__background { width: 100%; height: 100%; justify-content: center; }
+  .snap-ac-scroll .ds-scroll__knob { width: var(--ds-size-2x, 8px); height: 96px; padding: 0; gap: 0; }
+  /* активная строка (навигация клавиатурой) — тот же фон, что :hover пункта */
+  .snap-ac-list .ds-select-item.is-active { background: var(--ds-color-select-item-hover-background, #f5f5f5); }
+  /* крестик очистки — слот Element right инпута (Icon size 20 + State) */
+  .snap-ac-clear { cursor: pointer; }
 
   /* подложка витрины — фон компонента в Figma (#F8F9FC), как у Card/Banners; поля — обвязка стенда */
   .snap-stage { width: fit-content; padding: 16px; background: var(--ds-paint-surface-default-v2, #f8f9fc); }
@@ -104,32 +119,49 @@
   <!-- 1. Basic example: живой пример (фреймы «(Examples)» на стенде не воспроизводим — правило заказчика) -->
   <div class="panel" data-vpanel="basic" role="tabpanel">
     <div class="snap-sect">
-      <p class="snap-cap" style="margin: 0 0 16px;">Basic example — живой автокомплит: начните вводить — подсказки фильтруются; выбор строки подставляет текст; Esc или клик вне закрывают список</p>
+      <p class="snap-cap" style="margin: 0 0 16px;">Basic example — живой автокомплит: поле «Город» с подсказками-городами; клик — лейбл уезжает наверх и открывается список; ввод фильтрует; ↑↓/Enter — выбрать; крестик справа очищает значение; Esc или клик вне — закрыть</p>
       <div class="snap-ac-block">
         <div class="ds-autocomplete-form ds-autocomplete-form--empty snap-ac snap-ac--240" id="ac-live">
           <div class="ds-input ds-input--m ds-input--empty" id="ac-live-input-wrap">
             <div class="ds-input__frame">
               <div class="ds-input__content">
-                <span class="ds-input__label" id="ac-live-label" hidden>Label</span>
-                <input class="ds-input__field" id="ac-live-input" type="text" placeholder="Label" autocomplete="off" spellcheck="false" aria-label="Autocomplete">
+                <span class="ds-input__label" id="ac-live-label" hidden>Город</span>
+                <input class="ds-input__field" id="ac-live-input" type="text" placeholder="Город" autocomplete="off" spellcheck="false" aria-label="Город" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="ac-live-list" aria-haspopup="listbox">
               </div>
+              <span class="ds-input__icon snap-ac-clear" id="ac-live-clear" role="button" tabindex="0" aria-label="Очистить" hidden><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span>
             </div>
           </div>
         </div>
-        <div class="ds-select-container" id="ac-live-list" role="listbox" hidden>
-          <div class="ds-select-item ds-select-item--false" role="option"><span class="ds-select-item__label">Select item text</span></div>
-          <div class="ds-select-item ds-select-item--false" role="option"><span class="ds-select-item__label">Select list item text</span></div>
-          <div class="ds-select-item ds-select-item--false" role="option"><span class="ds-select-item__label">Select item text</span></div>
-          <div class="ds-select-item ds-select-item--false" role="option"><span class="ds-select-item__label">Select item text list</span></div>
-          <div class="ds-select-item ds-select-item--false" role="option"><span class="ds-select-item__label">List item text</span></div>
-          <div class="ds-select-item ds-select-item--false" role="option"><span class="ds-select-item__label">Select item text</span></div>
+        <div class="ds-select-container snap-ac-list" id="ac-live-list" role="listbox" aria-label="Подсказки" hidden>
+          <div class="snap-ac-ccontent">
+            <div class="ds-select-container__content" id="ac-live-content">
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-1" aria-selected="false"><span class="ds-select-item__label">Москва</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-2" aria-selected="false"><span class="ds-select-item__label">Санкт-Петербург</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-3" aria-selected="false"><span class="ds-select-item__label">Новосибирск</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-4" aria-selected="false"><span class="ds-select-item__label">Екатеринбург</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-5" aria-selected="false"><span class="ds-select-item__label">Казань</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-6" aria-selected="false"><span class="ds-select-item__label">Нижний Новгород</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-7" aria-selected="false"><span class="ds-select-item__label">Челябинск</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-8" aria-selected="false"><span class="ds-select-item__label">Самара</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-9" aria-selected="false"><span class="ds-select-item__label">Омск</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-10" aria-selected="false"><span class="ds-select-item__label">Ростов-на-Дону</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-11" aria-selected="false"><span class="ds-select-item__label">Уфа</span></div>
+              <div class="ds-select-item ds-select-item--false" role="option" id="ac-opt-12" aria-selected="false"><span class="ds-select-item__label">Красноярск</span></div>
+            </div>
+            <div class="ds-scroll ds-scroll--middle snap-ac-scroll"><div class="ds-scroll__background"><div class="ds-scroll__knob"></div></div></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <p class="snap-note">Пометки для ревью: (а) живой пример компонента «Autocomplete form»: список — компоненты ДС («Select (Сontainer)» + «Select item»); старт — Empty (подпись-плейсхолдер «Label» 16/24, список скрыт), при вводе подпись поднимается (12/16, accent), подсказки фильтруются; выбранная строка при повторном открытии помечается Back selected (#f5f9ff); (б) поле — инстанс инпута (ds-input внутри обёртки автокомплита, как у Селекта); пробелы инпута обойдены fixes п. 15/16, живой ховер — №136; (в) автокомплит — динамический элемент: статичные кадры примеров на стенде не воспроизводим — правило заказчика (только живой пример). Журнал №128, №136, №138, №153, №154, №156.</p>
+    <p class="snap-note">Пометки для ревью: (а) живой пример компонента «Autocomplete form»: список — компоненты ДС («Select (Сontainer)» + «Select item»); старт — Empty (подпись-плейсхолдер «Город» 16/24, список скрыт), при вводе подпись поднимается (12/16, accent), подсказки фильтруются; выбранная строка при повторном открытии помечается Back selected (#f5f9ff); (б) поле — инстанс инпута (ds-input внутри обёртки автокомплита, как у Селекта); пробелы инпута обойдены fixes п. 15/16, живой ховер — №136; (в) автокомплит — динамический элемент: статичные кадры примеров на стенде не воспроизводим — правило заказчика (только живой пример); (г) поведение (как в Material): открытие — фокус/клик/ввод; при открытии лейбл «Город» уезжает наверх (12/16, accent при фокусе — floating label), а в пустом поле остаётся плейсхолдер-подсказка «Начните вводить название»; стрелки ↑↓ — активная строка (фон hover #F5F5F5, скроллится в видимую зону), Home/End, Enter — подставить, Esc/Tab — закрыть, клик вне — закрыть (пустое поле при закрытии возвращает лейбл вниз); иконки слотов (Element left / Element right) в Figma скрыты — в живом примере не показываются; крестик очистки — слот Element right инпута (ds-input__icon → ds-icon-size--5x ds-icon-size--state, глиф close 14 в 20): виден, когда есть значение, клик/Enter — очистить и открыть полный список; ARIA: input role=combobox + aria-expanded/aria-controls/aria-activedescendant, список role=listbox, пункты role=option + aria-selected; (д) список — 12 значений в зоне 272px со скроллом: системный скроллбар скрыт, полоса компонента Scroll пропорциональна содержимому и перетаскивается; когда прокручивать нечего (мало пунктов/фильтр) — полоса скрыта целиком, а не только ползунок; (е) min-height 406 у контейнера в css — артефакт выгрузки, в списке снят (журнал №128). Журнал №128, №136, №138, №153, №154, №156, №206.</p>
   </div>
 </div>
+
+<!-- иконки -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ic-close-24" viewBox="0 0 24 24"><path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"/></symbol>
+</svg>
 
 <script>
   /* табы стенда */
@@ -146,8 +178,8 @@
     });
   });
 
-  /* Basic example: живой автокомплит — старт в Empty (пустое поле, список скрыт); ввод фильтрует строки;
-     выбор подставляет текст (Populated) и помечает строку выбранной (Back selected при повторном открытии) */
+  /* Basic example: живой автокомплит — открытие по фокусу/клику/вводу, фильтрация, выбор мышью и клавиатурой
+     (↑↓/Home/End/Enter/Esc/Tab), активная строка, ARIA (combobox → listbox/option), скролл списка с ползунком */
   (function () {
     var root = document.getElementById('ac-live');
     var wrap = document.getElementById('ac-live-input-wrap');
@@ -155,47 +187,135 @@
     var input = document.getElementById('ac-live-input');
     var list = document.getElementById('ac-live-list');
     if (!root || !wrap || !label || !input || !list) return;
+    var content = document.getElementById('ac-live-content');
+    var scroll = list.querySelector('.snap-ac-scroll');
+    var knob = scroll ? scroll.querySelector('.ds-scroll__knob') : null;
+    var track = scroll ? scroll.querySelector('.ds-scroll__background') : null;
     var items = Array.prototype.slice.call(list.querySelectorAll('.ds-select-item'));
+    var clearBtn = document.getElementById('ac-live-clear');
     var open = false;
+    var active = -1;
 
+    function visible() { return items.filter(function (i) { return !i.hidden; }); }
+    function renderScroll() {
+      if (!content || !knob || !track || !scroll) return;
+      var max = Math.max(0, content.scrollHeight - content.clientHeight);
+      if (!max) { knob.style.display = 'none'; scroll.style.display = 'none'; return; }   /* скроллить нечего — полосу Scroll не показываем */
+      if (scroll.style.display === 'none') scroll.style.display = '';
+      knob.style.display = '';
+      var trackH = track.clientHeight;   /* forced reflow — замер уже с видимой полосой */
+      if (!trackH) return;
+      var h = Math.max(24, Math.round(trackH * content.clientHeight / content.scrollHeight));
+      knob.style.height = h + 'px';
+      knob.style.marginTop = Math.round((trackH - h) * content.scrollTop / max) + 'px';
+    }
     function filter() {
       var q = input.value.trim().toLowerCase();
-      var visible = 0;
       items.forEach(function (item) {
-        var ok = q === '' || item.textContent.toLowerCase().indexOf(q) !== -1;
-        item.hidden = !ok;
-        if (ok) visible++;
+        item.hidden = q !== '' && item.textContent.toLowerCase().indexOf(q) === -1;
       });
-      return visible > 0;
+    }
+    function showAll() { items.forEach(function (i) { i.hidden = false; }); }
+    function setActive(idx) {
+      var vis = visible();
+      vis.forEach(function (i) { i.classList.remove('is-active'); });
+      active = vis.length ? Math.max(0, Math.min(vis.length - 1, idx)) : -1;
+      if (active >= 0) {
+        var it = vis[active];
+        it.classList.add('is-active');
+        input.setAttribute('aria-activedescendant', it.id);
+        if (content) {
+          var top = it.offsetTop, bottom = top + it.offsetHeight;
+          if (top < content.scrollTop) content.scrollTop = top;
+          else if (bottom > content.scrollTop + content.clientHeight) content.scrollTop = bottom - content.clientHeight;
+          renderScroll();
+        }
+      } else {
+        input.removeAttribute('aria-activedescendant');
+      }
     }
     function render() {
       var hasValue = input.value !== '';
+      var labelUp = hasValue || open;   /* лейбл уезжает наверх при фокусе/открытии списка (floating label, как в Material) */
       root.classList.toggle('ds-autocomplete-form--empty', !hasValue);
       root.classList.toggle('ds-autocomplete-form--populated', hasValue);
       wrap.classList.toggle('ds-input--empty', !hasValue);
       wrap.classList.toggle('ds-input--populated', hasValue);
-      label.hidden = !hasValue;
-      var any = filter();
-      list.hidden = !(open && any);
+      label.hidden = !labelUp;
+      /* когда лейбл наверху, а поле пустое — в поле плейсхолдер-подсказка (действие) */
+      input.placeholder = labelUp ? 'Начните вводить название' : 'Город';
+      if (clearBtn) clearBtn.hidden = !hasValue;   /* крестик — когда есть что очищать */
+      list.hidden = !(open && visible().length > 0);
+      input.setAttribute('aria-expanded', list.hidden ? 'false' : 'true');
+      if (list.hidden) { active = -1; input.removeAttribute('aria-activedescendant'); }
+      renderScroll();
     }
-    function openList() { open = true; render(); }
-    function closeList() { open = false; render(); }
-
-    input.addEventListener('focus', openList);
-    input.addEventListener('input', openList);
-    input.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeList(); });
-    root.addEventListener('click', openList);
-    list.addEventListener('click', function (e) {
-      var item = e.target.closest('.ds-select-item');
+    function closeList() { open = false; active = -1; render(); }
+    function choose(item) {
       if (!item) return;
       input.value = item.querySelector('.ds-select-item__label').textContent;
-      items.forEach(function (i) { i.classList.remove('ds-select-item--back-selected'); });
+      items.forEach(function (i) {
+        i.classList.remove('ds-select-item--back-selected', 'is-active');
+        i.setAttribute('aria-selected', 'false');
+      });
       item.classList.add('ds-select-item--back-selected');
+      item.setAttribute('aria-selected', 'true');
       closeList();
+    }
+
+    input.addEventListener('focus', function () { open = true; showAll(); render(); });
+    input.addEventListener('input', function () { open = true; active = -1; filter(); render(); if (content) content.scrollTop = 0; renderScroll(); });
+    input.addEventListener('keydown', function (e) {
+      var vis = visible();
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (!open) { open = true; render(); } setActive(active + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); if (!open) { open = true; render(); } setActive(active - 1); }
+      else if (e.key === 'Home' && open) { e.preventDefault(); setActive(0); }
+      else if (e.key === 'End' && open) { e.preventDefault(); setActive(vis.length - 1); }
+      else if (e.key === 'Enter') {
+        if (open && active >= 0 && vis[active]) { e.preventDefault(); choose(vis[active]); }
+        else if (open) { e.preventDefault(); closeList(); }
+      }
+      else if (e.key === 'Escape') { e.preventDefault(); closeList(); }
+      else if (e.key === 'Tab') { closeList(); }
     });
+    root.addEventListener('click', function () { open = true; showAll(); render(); input.focus(); });
+    list.addEventListener('click', function (e) {
+      var item = e.target.closest('.ds-select-item');
+      if (item) choose(item);
+    });
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        input.value = '';
+        items.forEach(function (i) { i.classList.remove('ds-select-item--back-selected', 'is-active'); i.setAttribute('aria-selected', 'false'); });
+        open = true; active = -1; showAll(); render();
+        if (content) content.scrollTop = 0;
+        input.focus();
+      });
+      clearBtn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clearBtn.click(); }
+      });
+    }
     document.addEventListener('pointerdown', function (e) {
       if (!root.contains(e.target) && !list.contains(e.target)) closeList();
     });
+    if (content) content.addEventListener('scroll', renderScroll);
+    if (knob && track) {
+      knob.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        var startY = e.clientY, startTop = content.scrollTop;
+        var max = Math.max(0, content.scrollHeight - content.clientHeight);
+        var range = Math.max(1, track.clientHeight - knob.offsetHeight);
+        function move(ev) { content.scrollTop = startTop + (ev.clientY - startY) * max / range; renderScroll(); }
+        function up() {
+          document.removeEventListener('mousemove', move);
+          document.removeEventListener('mouseup', up);
+        }
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', up);
+      });
+    }
+    render();
   })();
 </script>
 </body>

@@ -106,6 +106,9 @@
   .snap-live .ds-table-content-cell:focus,
   .snap-live .ds-table-content-cell:focus-within,
   .snap-live .ds-table-content-cell--editing { box-shadow: inset 0 0 0 1px var(--ds-color-table-cell-content-focus-border-color, #448aff); }
+  /* Первый живой блок (1 версия): наведение — рамкой, как было в 1 версии (глобальный слой ячейко-подсветку
+     снял — на страницах продукта подсветка «по строчке»; на стенде обе версии остаются для сравнения) */
+  .snap-live:not(.snap-live--v2) .ds-table-content-cell:hover:not(:focus):not(:focus-within) { border: none; box-shadow: inset 0 0 0 1px var(--ds-color-table-cell-content-hover-border-color, #9e9e9e); background: transparent; }
   /* фокус-рамка — только у ячеек реального редактирования (замечание владельца 14.10.2026): у ячеек
      с компонентами (слот __element — иконка, тумбл, чекбокс, группа иконок, кнопка, кнопка-иконка,
      статус, text ui, чипсы, input number) рамку не рисуем — фокус живёт в самих контролах */
@@ -121,9 +124,15 @@
      на выбранной строке виден; в ДС фон ховера ячейки есть (Table cell/Content/Hover/Background),
      но равен поверхности строки */
   .ds-table-content-cell--error-text .ds-text-ui__list-item { color: var(--ds-color-text-negative, #ff5252); }
-  /* 2 версия — живой пример в «Basic example»: наведение — фон ячейки вместо рамки, ошибка — красный текст вместо рамки;
-     фокус/редактирование рамку сохраняют (наведение не перебивает состояние) */
-  .snap-live--v2 .ds-table-content-cell:not(.snap-readonly-cell):hover:not(:focus):not(:focus-within) { box-shadow: none; background: var(--ds-palette-neutral-100, #ebebeb); }
+  /* Витрина 1 версии («Table content cell — 8 вариантов»): Error — красной рамкой, как в Figma 1-й версии
+     (секция «2 версия» использует --error-text). Глобально --error теперь = 2 версия (красный текст, без рамки) —
+     fixes.css п. 42, журнал №195 */
+  .panel[data-vpanel="content-cell"] .ds-table-content-cell--error { border: none; box-shadow: inset 0 0 0 var(--ds-table-cell-content-error-border-size, 1px) var(--ds-color-table-cell-content-error-border-color, #ff5252); }
+  .panel[data-vpanel="content-cell"] .ds-table-content-cell--error .ds-text-ui__list-item { color: var(--ds-color-text-ui-text-color, #333333); }
+  /* 2 версия — живой пример в «Basic example»: наведение — ЕДИНЫЙ ТОН ПО СТРОКЕ Table/Hover #F5F5F5 (пятно
+     ячейки #EBEBEB снято — решение владельца 16.10 вечер: «смотри на ховер по строчке», как в прототипах;
+     журнал №197); ошибка — красный текст вместо рамки; фокус/редактирование рамку сохраняют */
+  .snap-live--v2 .ds-table-content-cell:not(.snap-readonly-cell):hover:not(:focus):not(:focus-within) { box-shadow: none; background: transparent; }
   /* 2 версия: не редактируемая ячейка — реакции нет: гасим и ховер-рамку (fixes.css), и фон */
   .snap-live--v2 .ds-table-content-cell.snap-readonly-cell:hover { box-shadow: none; background: transparent; border: none; }
   /* 2 версия: у всех вариантов Element cell в css белая заливка (артефакт выгрузки): в живой строке
@@ -232,14 +241,15 @@
   .snap-tci { background: transparent; }
   /* Шапка v2: иконки сортировки/фильтра — в слоте Element right компонента Text UI ячейки шапки
      (как в Figma: ячейка шапки = Element cell → Text UI; сверка 14.10.2026, примерка владельца 60190:56884).
-     Цвета: сортировка активная — Icon/Accent #448AFF, покой — Icon/primary #616161; наведение иконки —
-     круглая подложка 24 (--ds-size-6x) #EBEBEB (подложка состояния иконок — как в примерке и образце владельца) */
+     Цвета: сортировка активная — Icon/Accent #448AFF, покой — Icon/primary #616161; наведение/нажатие иконки —
+     круглая подложка состояния компонента Icon size (модификатор --state: подложка = иконка + 8, hover #EBEBEB,
+     press #E0E0E0 — fixes.css; замечание владельца 16.10: «фоны компонента должны применяться») */
   .snap-live--v2 .ds-table-header-cell.snap-th-sort { cursor: pointer; }
   .snap-live--v2 .ds-table-header-cell.snap-th-sort:hover { background: var(--ds-color-table-cell-header-hover-background, #f8f9fc); }
-  .snap-th-icon { position: relative; border-radius: 50%; color: var(--ds-color-icon-primary, #616161); }
-  .snap-th-icon::before { content: ""; position: absolute; left: 50%; top: 50%; width: var(--ds-size-6x, 24px); height: var(--ds-size-6x, 24px); transform: translate(-50%, -50%); border-radius: 50%; }
+  .snap-th-icon { color: var(--ds-color-icon-primary, #616161); }
+  /* подложки состояний иконок шапки — модификатор --state компонента Icon size (fixes.css: hover #EBEBEB /
+     press #E0E0E0, подложка = иконка + 8); самодельная hover-подложка снята — замечание владельца 16.10, журнал №196 */
   .snap-th-icon svg { position: relative; transition: transform 0.15s ease; }
-  .snap-live--v2 .snap-th-icon:hover::before { background: var(--ds-palette-neutral-100, #ebebeb); }
   .snap-live--v2 .snap-th--active .snap-th-icon { color: var(--ds-color-icon-accent, #448aff); }
   /* активная колонка: стрелка разворачивается вниз ↔ вверх (повторный клик) — направление сортировки */
   .snap-live--v2 .snap-th--asc .snap-th-icon svg { transform: rotate(180deg); }
@@ -513,16 +523,16 @@
         </div>
       </div>
     </div>
-    <!-- 2 версия ячеек (замечание заказчика 13.10.2026): ховер — фоном, ошибка — красным текстом, первая колонка — чекбоксы, последняя — не редактируемая; полная таблица с шапкой. Описание и все изменения версии 2 — ниже таблицы (запись ведётся на странице) -->
+    <!-- 2 версия ячеек (замечание заказчика 13.10.2026): ховер — фоном, ошибка — красным текстом, первая колонка — чекбоксы, последняя — не редактируемая; полная таблица с шапкой. Описание и все изменения версии 2 — ниже таблицы (запись ведётся на странице). 16.10.2026: версия утверждена владельцем как ОСНОВНАЯ — механика распространена на все таблицы (fixes.css п. 42, журнал №195) -->
     <div class="snap-live snap-live--v2" style="margin-top: 32px;">
-      <p class="snap-cap">2 версия ячеек — полноценная таблица (шапка + строки): наведение — фоном ячейки (серый Neutral/100 #EBEBEB), ошибка — красным текстом (Text/Negative), без рамок; первая колонка — чекбоксы (выбор строк; в шапке — «выбрать все»); клик — фокус, двойной клик — редактирование (ввод работает, Enter — закончить); последняя колонка «Статус марки» — не редактируемая (ни наведения, ни фокуса, ни правки); в ячейках — не только текст: ниже — строки со всеми 11 видами Element cell (Slide toggle, Checkbox, Icon size, Icon group, Button, Button icon, Status, Text UI, Input number, Chips, Cell Input) — по ДС через слот <code>__element</code>.</p>
+      <p class="snap-cap">2 версия ячеек — основная (утверждено владельцем 16.10.2026; журнал №195): полноценная таблица (шапка + строки): наведение — фоном ячейки (серый Neutral/100 #EBEBEB), ошибка — красным текстом (Text/Negative), без рамок; первая колонка — чекбоксы (выбор строк; в шапке — «выбрать все»); клик — фокус, двойной клик — редактирование (ввод работает, Enter — закончить); последняя колонка «Статус марки» — не редактируемая (ни наведения, ни фокуса, ни правки); в ячейках — не только текст: ниже — строки со всеми 11 видами Element cell (Slide toggle, Checkbox, Icon size, Icon group, Button, Button icon, Status, Text UI, Input number, Chips, Cell Input) — по ДС через слот <code>__element</code>.</p>
       <div class="snap-table" style="margin-top: 12px;">
         <div class="ds-table-header-row">
           <div class="ds-table-header-cell"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
-          <div class="ds-table-header-cell snap-w250 snap-th-sort snap-th--active"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Товар</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
-          <div class="ds-table-header-cell snap-w250 snap-th-sort"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Остаток</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
-          <div class="ds-table-header-cell snap-w250 snap-th-sort"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Дата поступления</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
-          <div class="ds-table-header-cell snap-w250 snap-fmenu-cell"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Статус марки</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x snap-th-icon snap-th-filter-btn" role="button" tabindex="0" aria-label="Фильтр"><svg><use href="#ic-filter-list"/></svg><span class="ds-badge ds-badge--point ds-badge--accent snap-th-dot" hidden aria-hidden="true"></span></span></span></div></div>
+          <div class="ds-table-header-cell snap-w250 snap-th-sort snap-th--active"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Товар</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
+          <div class="ds-table-header-cell snap-w250 snap-th-sort"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Остаток</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
+          <div class="ds-table-header-cell snap-w250 snap-th-sort"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Дата поступления</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
+          <div class="ds-table-header-cell snap-w250 snap-fmenu-cell"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Статус марки</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon snap-th-filter-btn" role="button" tabindex="0" aria-label="Фильтр"><svg><use href="#ic-filter-list"/></svg><span class="ds-badge ds-badge--point ds-badge--accent snap-th-dot" hidden aria-hidden="true"></span></span></span></div></div>
             <div class="ds-menu-container snap-fmenu" hidden>
               <div class="ds-menu-item snap-fmenu__all"><span class="ds-menu-item__checkbox"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></span><span class="ds-menu-item__label">Выбрать все</span></div>
               <div class="ds-divider"></div>
@@ -746,7 +756,7 @@
         <span class="tha__title">Товары</span>
         <div class="tha__after">
           <span class="ds-divider tha__divider"></span>
-          <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Показывать удалённые</span></span></label>
+          <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Удалённые: 2</span></span></label>
         </div>
       </div>
       <div class="tha__right">
@@ -763,9 +773,9 @@
       <div class="snap-table">
         <div class="ds-table-header-row">
           <div class="ds-table-header-cell"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
-          <div class="ds-table-header-cell snap-w200 snap-th-sort snap-th--active" data-col="name"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Имя</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
-          <div class="ds-table-header-cell snap-w140 snap-th-sort" data-col="phone"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Телефон</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
-          <div class="ds-table-header-cell snap-w250 snap-fmenu-cell" data-col="segments"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Сегменты</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x snap-th-icon snap-th-filter-btn" role="button" tabindex="0" aria-label="Фильтр"><svg><use href="#ic-filter-list"/></svg><span class="ds-badge ds-badge--point ds-badge--accent snap-th-dot" hidden aria-hidden="true"></span></span></span></div></div>
+          <div class="ds-table-header-cell snap-w200 snap-th-sort snap-th--active" data-col="name"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Имя</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
+          <div class="ds-table-header-cell snap-w140 snap-th-sort" data-col="phone"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Телефон</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
+          <div class="ds-table-header-cell snap-w250 snap-fmenu-cell" data-col="segments"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Сегменты</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon snap-th-filter-btn" role="button" tabindex="0" aria-label="Фильтр"><svg><use href="#ic-filter-list"/></svg><span class="ds-badge ds-badge--point ds-badge--accent snap-th-dot" hidden aria-hidden="true"></span></span></span></div></div>
             <div class="ds-menu-container snap-fmenu" hidden>
               <div class="ds-menu-item snap-fmenu__all"><span class="ds-menu-item__checkbox"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></span><span class="ds-menu-item__label">Выбрать все</span></div>
               <div class="ds-divider"></div>
@@ -779,9 +789,9 @@
               <div class="ds-menu-container__button-group"><button type="button" class="ds-btn ds-btn--s ds-btn--neutral ds-btn--outlined snap-fmenu__reset"><span class="ds-btn__label">Сбросить</span></button><button type="button" class="ds-btn ds-btn--s ds-btn--accent ds-btn--filled snap-fmenu__apply"><span class="ds-btn__label">Применить</span></button></div>
             </div>
           </div>
-          <div class="ds-table-header-cell snap-w150 snap-th-sort" data-col="created"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Дата создания</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
+          <div class="ds-table-header-cell snap-w150 snap-th-sort" data-col="created"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Дата создания</span></div><span class="ds-text-ui__element-right"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon"><svg><use href="#ic-sort-down"/></svg></span></span></div></div></div>
           <div class="ds-table-header-cell snap-w100" data-col="status"><div class="ds-element-cell ds-element-cell--text-ui"><div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Статус</span></div></div></div></div>
-          <div class="ds-table-header-cell snap-fmenu-cell"><span class="ds-icon-size ds-icon-size--5x snap-th-icon snap-th-gear" role="button" tabindex="0" aria-label="Настройки колонок"><svg><use href="#ic-settings"/></svg></span>
+          <div class="ds-table-header-cell snap-fmenu-cell"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state snap-th-icon snap-th-gear" role="button" tabindex="0" aria-label="Настройки колонок"><svg><use href="#ic-settings"/></svg></span>
             <div class="ds-menu-container snap-fmenu snap-fmenu--right snap-fmenu--cols" hidden>
               <div class="ds-menu-item snap-fmenu__all"><span class="ds-menu-item__checkbox"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" checked><span class="ds-checkbox__box"></span></label></span><span class="ds-menu-item__label">Выбрать все</span></div>
               <div class="ds-divider"></div>
@@ -974,7 +984,7 @@
       </div>
     </div>
     <div class="snap-sect" style="margin-top: 28px;">
-      <div class="snap-cap snap-sect__title">Table content cell — 2 версия (ховер фоном, ошибка текстом)</div>
+      <div class="snap-cap snap-sect__title">Table content cell — 2 версия — основная с 16.10 (ховер фоном, ошибка текстом)</div>
       <div class="snap-cells" style="grid-template-columns: repeat(8, max-content);">
         <div class="snap-cell" style="gap: 16px;">
           <span class="snap-state">Default</span>
@@ -1787,8 +1797,9 @@
     });
 
     /* ── Активные разделители колонок — изменение ширины столбца (Figma 62819:73628) ────────────
-       Стыки с линией (кроме служебных) активны: наведение у стыка — линия вырастает на всю высоту
-       таблицы (серая, Divider Default), захват — синяя (Divider/Hover #448AFF), перетаскивание
+       Стыки с линией (кроме служебных) активны: наведение у стыка В ПОЛОСЕ ШАПКИ — линия вырастает
+       на всю высоту таблицы (серая, Divider Default; по контенту линия не вспыхивает — замечание
+       владельца 16.10, журнал №198), захват — синяя (Divider/Hover #448AFF), перетаскивание
        меняет ширину колонки СЛЕВА от линии (минимум 60). Цвета — токены ДС; линия — оверлеем. */
     (function () {
       var table = root.querySelector('.snap-table');
@@ -1838,6 +1849,8 @@
       }
       root.addEventListener('pointermove', function (e) {
         if (drag) return;
+        var hr = hrow.getBoundingClientRect();
+        if (e.clientY < hr.top || e.clientY > hr.bottom) { active = null; sep.classList.remove('is-on'); return; }   /* линия — только у стыка в полосе ШАПКИ (журнал №198) */
         var rr = root.getBoundingClientRect();
         var x = e.clientX - rr.left;
         var list = stops(), hit = null;

@@ -62,14 +62,14 @@
 ## Подключение
 
 ```html
-<link rel="stylesheet" href="../DS/organisms/app-page-footer/page-footer.css?v=2">
-<script src="../DS/organisms/app-page-footer/page-footer.js?v=2" defer></script>
+<link rel="stylesheet" href="../Design-System/organisms/app-page-footer/page-footer.css?v=2">
+<script src="../Design-System/organisms/app-page-footer/page-footer.js?v=2" defer></script>
 ```
 
 Ассеты считаются от расположения скрипта — разметка работает с любой страницы
 и при переносе папки (тот же приём, что у app-header, header-content и
 table-header-actions). Страницы-прототипы подключают организм вручную по этим
-путям (через `../DS/connect.js` он не приходит — блок нужен не каждой странице).
+путям (через `../Design-System/connect.js` он не приходит — блок нужен не каждой странице).
 
 ## Разметка (декларативно)
 
