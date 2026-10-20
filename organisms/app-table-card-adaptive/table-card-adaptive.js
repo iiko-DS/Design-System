@@ -1,5 +1,5 @@
 /* table-card-adaptive — универсальная карточка таблицы (адаптив) — организм ДС.
-   Страницы подключают его как ../DS/organisms/table-card-adaptive/table-card-adaptive.css + .js.
+   Страницы подключают его как ../Design-System/organisms/app-table-card-adaptive/table-card-adaptive.css + .js.
    Скрипт делает ровно две вещи:
      1) подставляет иконки <img data-tc-icon="..."> из папки организма: база считается
         по адресу самого скрипта, поэтому разметка работает с любой страницы и при

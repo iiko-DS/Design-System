@@ -88,6 +88,16 @@
   .snap-sel-scroll { flex: none; width: var(--ds-size-3x, 12px); align-self: stretch; }
   .snap-sel-scroll .ds-scroll__background { width: 100%; height: 100%; justify-content: center; }
   .snap-sel-scroll .ds-scroll__knob { width: var(--ds-size-2x, 8px); height: 96px; padding: 0; gap: 0; }
+  /* Basic example, мультивыбор: 15 значений с чекбоксами (размеры M и S; 16.10) */
+  .snap-sel-multi-row { display: flex; gap: 48px; align-items: flex-start; }
+  .snap-sel-multi { width: 240px; display: flex; flex-direction: column; align-items: flex-start; }
+  .snap-sel-multi-list { margin-top: var(--ds-size-0-5x, 2px); width: 100%; }
+  .snap-sel-multi-list .ds-select-item { cursor: pointer; }
+  .snap-sel-multi .ds-select-container__content { height: 272px; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }   /* высота зоны значений — как в кадре контейнера (272) */
+  .snap-sel-multi .ds-select-container__content::-webkit-scrollbar { width: 0; height: 0; }
+  .snap-sel-multi .ds-select-item { flex: none; }   /* в flex-колонке пункты не сжимаются — иначе утрамбовываются вместо прокрутки (как в Menu) */
+  .snap-sel-search-input { flex: 1 1 auto; min-width: 0; border: 0; outline: 0; background: transparent; padding: 0; font-family: inherit; color: var(--ds-color-search-focusvalue-text-color, #333333); }
+  .snap-sel-search-input::placeholder { color: var(--ds-color-search-focus-text-color, #d6d6d6); opacity: 1; }
 
   /* Select item: витрина — шаг 274 (258 + 16), подзаголовочный вариант — от того же левого края ниже */
   .snap-items-row { display: flex; align-items: flex-start; gap: var(--ds-size-4x, 16px); }
@@ -158,6 +168,99 @@
             <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__label">Select item text</span></div>
             <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__label">Select item text</span></div>
             <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__label">Select item text</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Мультивыбор: 15 значений с чекбоксами — размеры M и S (правила 16.10: поиск выводим, когда значений
+         больше 12; у инпута M «Title select» не выводим, у S — показываем) -->
+    <div class="snap-block">
+      <div class="snap-cap">Мультивыбор: 15 значений с чекбоксами и поиском (значений больше 12) — размеры M и S</div>
+      <div class="snap-sel-multi-row">
+        <div class="snap-sel-multi" id="sel-multi-m">
+          <div class="snap-cap">Размер M — «Title select» не выводим (правило 16.10)</div>
+          <div class="ds-select-form ds-select-form--m ds-select-form--empty snap-sel-field" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="true" aria-label="Выбор значений">
+            <div class="ds-input ds-input--m ds-input--empty">
+              <div class="ds-input__frame">
+                <div class="ds-input__content"><span class="ds-input__field">Label</span></div>
+                <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons snap-sel-multi-arrow">arrow_drop_up</span></span></span>
+              </div>
+            </div>
+          </div>
+          <div class="ds-select-container ds-select-container--container snap-sel-multi-list">
+            <div class="ds-select-container__search">
+              <div class="ds-search ds-search--s snap-sel-search">
+                <span class="ds-search__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">search</span></span></span>
+                <input class="ds-search__label snap-sel-search-input" type="text" placeholder="Search text">
+              </div>
+            </div>
+            <div class="ds-divider"></div>
+            <div class="snap-sel-ccontent">
+              <div class="ds-select-container__content">
+                <div class="snap-sel-items">
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 1</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 2</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 3</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 4</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 5</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 6</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 7</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 8</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 9</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 10</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 11</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 12</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 13</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 14</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 15</span></div>
+                </div>
+              </div>
+              <div class="ds-scroll ds-scroll--middle snap-sel-scroll"><div class="ds-scroll__background"><div class="ds-scroll__knob"></div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="snap-sel-multi" id="sel-multi-s">
+          <div class="snap-cap">Размер S — «Title select» показываем (правило 16.10)</div>
+          <div class="ds-select-form ds-select-form--s ds-select-form--empty snap-sel-field" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="true" aria-label="Выбор значений">
+            <div class="ds-input ds-input--s">
+              <div class="ds-input__frame">
+                <div class="ds-input__content"><span class="ds-input__field">Select item</span></div>
+                <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons snap-sel-multi-arrow">arrow_drop_up</span></span></span>
+              </div>
+            </div>
+          </div>
+          <div class="ds-select-container ds-select-container--container snap-sel-multi-list">
+            <div class="ds-select-container__search">
+              <div class="ds-search ds-search--s snap-sel-search">
+                <span class="ds-search__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">search</span></span></span>
+                <input class="ds-search__label snap-sel-search-input" type="text" placeholder="Search text">
+              </div>
+            </div>
+            <div class="ds-select-container__title"><span class="snap-sel-title">Title select</span></div>
+            <div class="ds-divider"></div>
+            <div class="snap-sel-ccontent">
+              <div class="ds-select-container__content">
+                <div class="snap-sel-items">
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 1</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 2</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 3</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 4</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 5</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 6</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 7</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 8</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 9</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 10</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 11</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 12</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 13</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 14</span></div>
+                  <div class="ds-select-item ds-select-item--false" role="option" tabindex="-1"><span class="ds-select-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" tabindex="-1"><span class="ds-checkbox__box"></span></label></span><span class="ds-select-item__label">Select item text 15</span></div>
+                </div>
+              </div>
+              <div class="ds-scroll ds-scroll--middle snap-sel-scroll"><div class="ds-scroll__background"><div class="ds-scroll__knob"></div></div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -649,6 +752,91 @@
         if (status) status.textContent = 'Выбрано: ' + text;
         close();
       });
+    });
+  })();
+
+  /* Basic example, мультивыбор: 15 значений с чекбоксами (размеры M и S; 16.10) —
+     поле открывает/закрывает список; рабочий поиск (фильтрует значения; по правилу выводится, когда
+     значений больше 12); чекбоксы и клик по пункту переключают значение; рабочий скролл с ползунком */
+  (function () {
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.snap-sel-multi'));
+    if (!groups.length) return;
+    groups.forEach(function (g) {
+      var field = g.querySelector('.snap-sel-field');
+      var list = g.querySelector('.snap-sel-multi-list');
+      var arrow = g.querySelector('.snap-sel-multi-arrow');
+      var content = g.querySelector('.ds-select-container__content');
+      var scroll = g.querySelector('.snap-sel-scroll');
+      var track = scroll.querySelector('.ds-scroll__background');
+      var knob = scroll.querySelector('.ds-scroll__knob');
+      var search = g.querySelector('.snap-sel-search-input');
+      var items = Array.prototype.slice.call(g.querySelectorAll('.ds-select-item'));
+      var open = true;   /* примеры показаны открытыми — контейнеры видны сразу */
+
+      function renderScroll() {
+        var viewH = content.clientHeight;
+        if (!viewH) return;   /* панель скрыта — посчитаем при показе */
+        var contentH = content.scrollHeight;
+        var trackH = track.clientHeight;
+        var h = contentH > viewH ? Math.round(trackH * viewH / contentH) : trackH;
+        if (h < 24) h = 24;
+        var max = contentH - viewH;
+        var top = max > 0 ? Math.round((trackH - h) * content.scrollTop / max) : 0;
+        knob.style.height = h + 'px';
+        knob.style.marginTop = top + 'px';
+      }
+      function setOpen(on) {
+        open = on;
+        list.hidden = !on;
+        arrow.textContent = on ? 'arrow_drop_up' : 'arrow_drop_down';
+        field.setAttribute('aria-expanded', on ? 'true' : 'false');
+        if (on) renderScroll();
+      }
+      field.addEventListener('click', function () { setOpen(!open); });
+      field.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!open); }
+      });
+      items.forEach(function (it) {
+        it.addEventListener('click', function (e) {
+          if (e.target.closest('.ds-checkbox')) return;   /* родной чекбокс (label) переключает сам */
+          var input = it.querySelector('.ds-checkbox__input');
+          input.checked = !input.checked;
+        });
+      });
+      if (search) search.addEventListener('input', function () {
+        var q = search.value.trim().toLowerCase();
+        items.forEach(function (it) {
+          var label = it.querySelector('.ds-select-item__label');
+          it.hidden = q !== '' && label.textContent.trim().toLowerCase().indexOf(q) < 0;
+        });
+        content.scrollTop = 0;
+        renderScroll();
+      });
+      content.addEventListener('scroll', renderScroll);
+      /* резерв: scroll-событие в этом окружении может запаздывать — дублируем интервалом */
+      var lastTop = -1;
+      function watch() {
+        if (content.scrollTop !== lastTop) { lastTop = content.scrollTop; renderScroll(); }
+      }
+      setInterval(watch, 250);
+      scroll.addEventListener('wheel', function (e) {
+        content.scrollTop += e.deltaY;
+        renderScroll();
+        e.preventDefault();
+      }, { passive: false });
+      knob.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        var startY = e.clientY, startTop = content.scrollTop;
+        var range = track.clientHeight - knob.offsetHeight;
+        var max = content.scrollHeight - content.clientHeight;
+        function move(ev) { content.scrollTop = startTop + (ev.clientY - startY) * max / Math.max(1, range); renderScroll(); }
+        function up() { document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up); }
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', up);
+      });
+      var tabBtn = document.querySelector('.ds-tab[data-vtab="basic"]');
+      if (tabBtn) tabBtn.addEventListener('click', renderScroll);   /* панель показывается — пересчитать */
+      setOpen(true);
     });
   })();
 </script>

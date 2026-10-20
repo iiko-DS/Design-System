@@ -8,7 +8,7 @@
 Модификаторы (8384:19757), Отчёты (5814:13959). Собрано на компонентах новой ДС:
 
 - **заголовок** — текст стилем «Body M (16) / Normal / Medium» (может быть счётчиком:
-  «2 сотрудника выбрано»);
+  «Выбрано: 2»);
 - **слот «После заголовка»** — «Divider» (вертикальный штрих 1×16, #E0E0E0; автоматический —
   показывается, только когда есть и заголовок, и тумблер) + «Slide toggle»
   (трек 34×20 + подпись; стиль подписи — из компонента: Body S 14/20);
@@ -45,11 +45,11 @@
 ## Подключение
 
 ```html
-<link rel="stylesheet" href="../DS/organisms/table-header-actions/table-header-actions.css?v=2">
-<script src="../DS/organisms/table-header-actions/table-header-actions.js?v=2" defer></script>
+<link rel="stylesheet" href="../Design-System/organisms/app-table-header-actions/table-header-actions.css?v=2">
+<script src="../Design-System/organisms/app-table-header-actions/table-header-actions.js?v=2" defer></script>
 ```
 
-Страницы-прототипы подключают организм по этим путям (через `../DS/connect.js` он не приходит —
+Страницы-прототипы подключают организм по этим путям (через `../Design-System/connect.js` он не приходит —
 блок нужен не каждой странице). Ассеты считаются от расположения скрипта, поэтому разметка
 работает с любой страницы и при переносе папки.
 
@@ -61,7 +61,7 @@
     <span class="tha__title">Товары</span>
     <div class="tha__after">
       <span class="ds-divider tha__divider"></span>
-      <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Показывать удалённые</span></span></label>
+      <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Удалённые: 2</span></span></label>
     </div>
   </div>
   <div class="tha__right">
@@ -73,7 +73,9 @@
 ```
 
 - Заголовок — любой текст (или счётчик); тумблер — «Slide toggle» ДС (подпись можно не размечать —
-  тогда останется только трек, как в «Персонале»); действия — «Button» / «Button icon» ДС
+  тогда останется только трек, как в «Персонале»); подпись тумблера удалённых — со счётчиком:
+  «Удалённые: N» (число подставляет страница по своим данным; на стенде — пример «Удалённые: 2»,
+  решение владельца 16.10: «показывай цифрой сколько удалённых»); действия — «Button» / «Button icon» ДС
   (основное действие — крайнее справа, как в ДС).
 - Ненужные части можно просто не размечать (или выключить атрибутом `data-tha-*="off"`).
 
@@ -83,9 +85,12 @@
 страница показывает **вместо** обычной полосы полосу активных действий с выбранным — по Figma
 «Централизованное управление киосками», «Title actions table» (2495:9199):
 
-- слева — счётчик «Выбрано блюд: 3» (тот же стиль заголовка), Divider 1×16 и «Очистить выбор» —
-  в Figma это слой **«Text default»** (иконка + текст, **не кнопка**): класс `.tha__text-action`
-  (иконка + текст Body S 14/20 Regular, без кнопочной плашки и паддингов);
+- слева — счётчик «Выбрано: 3» (16.10 — единый формат без сущности: «оставляем только слово Выбрано… это везде так будет»; тот же стиль заголовка) и **сразу за ним крестик очистки**:
+  иконка `close` в контейнере `ds-icon-size ds-icon-size--5x ds-icon-size--state` (подложка при
+  наведении) внутри `.tha__text-action` (слой «Text default» по Figma — **не кнопка**, без
+  кнопочной плашки и паддингов); зазор **8** — только между цифрой и крестиком (группа `.tha__sel`),
+  остальные зазоры полосы — родные 16. Текст «Очистить выбор» и Divider в паре — **убраны**
+  (решение владельца 16.10: «сделать как во 2 варианте баннеров»);
 - справа — «Удалить» (Button Neutral Text с иконкой `delete-negative` — красная **только иконка**,
   текст обычный; сверено пикселями макета), Divider 1×16 и «Добавить» (Button Neutral Text
   с иконкой `add`).
@@ -93,11 +98,12 @@
 ```html
 <div class="tha tha--selection">
   <div class="tha__left">
-    <span class="tha__title">Выбрано блюд: 3</span>
-    <div class="tha__after">
-      <span class="ds-divider tha__divider"></span>
-      <button type="button" class="tha__text-action"><img data-tha-icon="close" width="20" height="20" alt="">Очистить выбор</button>
-    </div>
+    <span class="tha__sel">
+      <span class="tha__title">Выбрано: 3</span>
+      <div class="tha__after">
+        <button type="button" class="tha__text-action" aria-label="Очистить выбор"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><img data-tha-icon="close" width="20" height="20" alt=""></span></button>
+      </div>
+    </span>
   </div>
   <div class="tha__right">
     <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text"><span class="ds-btn__icon"><img data-tha-icon="delete-negative" width="20" height="20" alt=""></span><span class="ds-btn__label">Удалить</span></button>
@@ -107,11 +113,12 @@
 </div>
 ```
 
-Класс `.tha--selection` — маркер варианта (в стилях отличий не требует: высота 36, зазоры 16/8 —
-как у варианта 1; сборка — те же классы и компоненты ДС). Замена полос — дело страницы: она решает,
-какую полосу показать при каком выделении, и вешает обработчики на «Очистить выбор» / «Удалить» /
-«Добавить». Иконки `close` и `delete-negative` лежат в папке организма; скрипт подставляет их так же,
-как остальные. На демо-стенде оба варианта выведены в кадре стопкой (вариант 1 — живой, вариант 2 — пример).
+Класс `.tha--selection` — маркер варианта (высота 36; зазор пары «счётчик ↔ крестик» — 8 через
+группу `.tha__sel`, остальные — как у варианта 1; сборка — те же классы и компоненты ДС).
+Замена полос — дело страницы: она решает, какую полосу показать при каком выделении, и вешает
+обработчики на крестик очистки / «Удалить» / «Добавить». Иконки `close` и `delete-negative` лежат
+в папке организма; скрипт подставляет их так же, как остальные. На демо-стенде оба варианта
+выведены в кадре стопкой (вариант 1 — живой, вариант 2 — пример).
 
 ## Правила
 

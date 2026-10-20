@@ -21,11 +21,13 @@
   Конфигурации из разделов старой ДС — в разметке ниже кадра, но скрыты (атрибут hidden;
   не показываем, не удалять — чтобы показать, убрать hidden). Иконки — SVG из Figma
   (img в папке), подставляет table-header-actions.js.
-  ВТОРОЙ ВАРИАНТ ОТОБРАЖЕНИЯ — «выделение строк» (.tha--selection, по просьбе владельца 15.10):
-  когда в таблице выбраны строки (чекбоксами или иначе), страница показывает ВМЕСТО обычной
-  полосы полосу активных действий — по Figma «Централизованное управление киосками»,
-  «Title actions table» (2495:9199): слева счётчик + «Очистить выбор», справа «Удалить»
-  (Negative Text) + Divider + «Добавить». Оба варианта выведены в кадре стопкой.
+  ВТОРОЙ ВАРИАНТ ОТОБРАЖЕНИЯ — «выделение строк» (.tha--selection, по просьбе владельца 15.10;
+  уточнён 16.10 — «как сейчас делаем во 2 варианте баннеров»): когда в таблице выбраны строки
+  (чекбоксами или иначе), страница показывает ВМЕСТО обычной полосы полосу активных действий —
+  по Figma «Централизованное управление киосками», «Title actions table» (2495:9199): слева счётчик,
+  сразу за ним — крестик очистки (зазор 8 МЕЖДУ цифрой и крестиком — группа .tha__sel; текст
+  «Очистить выбор» и Divider убраны), справа «Удалить» (Negative Text) + Divider + «Добавить».
+  Оба варианта выведены в кадре стопкой.
 -->
 <link rel="stylesheet" href="../../components-web/font.css">
 <link rel="stylesheet" href="../../components-web/tokens.css">
@@ -58,6 +60,9 @@
   .panel { position: relative; width: var(--panel-w, 1440px); height: 860px; overflow: hidden; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); background: #fff; }
   /* контентная зона кадра: полоса над таблицей — первой, с полями контейнера (24/32) */
   .tha-zone { padding: 24px 32px 0; }
+  /* группа «счётчик + крестик очистки» в варианте 2: зазор 8 ТОЛЬКО между цифрой и крестиком
+     (решение владельца 16.10: «как сейчас делаем во 2 варианте баннеров»); остальные зазоры — родные */
+  .tha__sel { display: flex; align-items: center; gap: var(--ds-size-2x, 8px); min-width: 0; }
   .frame { padding: 24px 32px; box-sizing: border-box; }
   .frame h1 { font-size: 24px; line-height: 24px; font-weight: 500; margin: 0 0 12px; }
   .frame p { font-size: 14px; line-height: 20px; max-width: 640px; color: var(--ds-color-text-primary, #333); }
@@ -96,7 +101,7 @@
           <span class="tha__title">Товары</span>
           <div class="tha__after">
             <span class="ds-divider tha__divider"></span>
-            <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Показывать удалённые</span></span></label>
+            <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Удалённые: 2</span></span></label>
           </div>
         </div>
         <div class="tha__right">
@@ -111,17 +116,20 @@
       </div>
       <!-- Вариант 2 — режим выделения: страница показывает его ВМЕСТО обычной полосы,
            когда в таблице выбраны строки (чекбоксами или иначе). Состав — по Figma
-           «Централизованное управление киосками», «Title actions table» (2495:9199):
-           слева счётчик + «Очистить выбор» — слой «Text default» (иконка + текст, НЕ кнопка);
-           справа «Удалить» (Button — красная ТОЛЬКО иконка, текст тёмный) + Divider + «Добавить» -->
+           «Централизованное управление киосками», «Title actions table» (2495:9199) и по решению
+           владельца 16.10 («как сейчас делаем во 2 варианте баннеров»): слева счётчик, сразу за ним
+           крестик очистки (зазор 8 МЕЖДУ цифрой и крестиком — группа .tha__sel); текст
+           «Очистить выбор» и Divider убраны; справа «Удалить» (красная ТОЛЬКО иконка, текст тёмный)
+           + Divider + «Добавить» -->
       <p class="cap" style="margin-top: 24px;">Вариант 2 — выделение строк: активные действия с таблицей (показывается вместо варианта 1, когда выбраны строки)</p>
       <div class="tha tha--selection">
         <div class="tha__left">
-          <span class="tha__title">Выбрано блюд: 3</span>
-          <div class="tha__after">
-            <span class="ds-divider tha__divider"></span>
-            <button type="button" class="tha__text-action"><img data-tha-icon="close" width="20" height="20" alt="">Очистить выбор</button>
-          </div>
+          <span class="tha__sel">
+            <span class="tha__title">Выбрано: 3</span>
+            <div class="tha__after">
+              <button type="button" class="tha__text-action" aria-label="Очистить выбор"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><img data-tha-icon="close" width="20" height="20" alt=""></span></button>
+            </div>
+          </span>
         </div>
         <div class="tha__right">
           <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text"><span class="ds-btn__icon"><img data-tha-icon="delete-negative" width="20" height="20" alt=""></span><span class="ds-btn__label">Удалить</span></button>
@@ -166,13 +174,13 @@
     </div>
 
     <div class="demo-block">
-      <p class="cap">Тумблер «Показывать удалённые» и иконочные действия (Номенклатура)</p>
+      <p class="cap">Тумблер «Удалённые: N» и иконочные действия (Номенклатура)</p>
       <div class="tha">
         <div class="tha__left">
           <span class="tha__title">Товары</span>
           <div class="tha__after">
             <span class="ds-divider tha__divider"></span>
-            <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Показывать удалённые</span></span></label>
+            <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Удалённые: 2</span></span></label>
           </div>
         </div>
         <div class="tha__right">
@@ -194,7 +202,7 @@
           <span class="tha__title">Товары</span>
           <div class="tha__after">
             <span class="ds-divider tha__divider"></span>
-            <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Показывать удалённые</span></span></label>
+            <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Удалённые: 2</span></span></label>
           </div>
         </div>
         <div class="tha__right">
@@ -213,7 +221,7 @@
       <p class="cap">Счётчик выбранного и тумблер без подписи (Персонал)</p>
       <div class="tha">
         <div class="tha__left">
-          <span class="tha__title">2 сотрудника выбрано</span>
+          <span class="tha__title">Выбрано: 2</span>
           <div class="tha__after">
             <span class="ds-divider tha__divider"></span>
             <label class="ds-slide-toggle tha__toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span></span></label>
