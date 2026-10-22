@@ -402,7 +402,7 @@
   function isMobileW(w) { return w === '375' || w === '1024'; }
   function chromeHFor(w) { return isMobileW(w) ? (STATUS_H + MBAR_H) : CHROME_H; }
   function navHFor(w) { return isMobileW(w) ? NAV_H : 0; }
-  function chromeOn() { return !!(S.chromeEl && S.sections.chrome !== false); }
+  function chromeOn() { return !!(S.chromeEl && S.sections.chrome !== false && !window.DSR_NO_CHROME); }
   function buildChrome() {
     var A = function (n) { return BASE + 'dsr-assets/' + n + '.svg'; };
     var ch = el('div', 'dsr-chrome');

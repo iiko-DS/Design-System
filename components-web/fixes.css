@@ -470,19 +470,21 @@ input.ds-search__label::placeholder { color: var(--ds-color-search-focus-text-co
 .ds-table-content-cell--focus { border: none; box-shadow: inset 0 0 0 var(--ds-table-cell-content-focus-border-size, 1px) var(--ds-color-table-cell-content-focus-border-color, #448aff); }
 .ds-table-content-cell--edit { border: none; box-shadow: inset 0 0 0 var(--ds-table-cell-content-edit-border-size, 1px) var(--ds-color-table-cell-content-edit-border-color, #448aff); }
 /* 42. Table — механика ячеек контента (2 версия; утв. владельцем 16.10 как ОСНОВНАЯ — «распространить на все,
-   где таблица используется»; журнал №175, №195). Наведение — подсветка по СТРОКЕ единым тоном Table/Hover
-   #F5F5F5: отдельная подсветка ячейки не используется, рамок при наведении нет (уточнение владельца 16.10,
-   вечер: «Смотри на ховер по строчке!!!» — в примерах-версиях станда визуалы остаются scoped-правилами
-   стенда). Ошибка — красным текстом Text/Negative без рамки (было — рамкой #FF5252); нередактируемая
+   где таблица используется»; журнал №175, №195). Два НЕЗАВИСИМЫХ наведения: СТРОКА — единым тоном
+   Table/Hover #F5F5F5 (подсветка строки целиком), ЯЧЕЙКА — своё состояние: фон Neutral/100 #EBEBEB без рамок
+   у ДЕЙСТВЕННЫХ ячеек (редактируемые, ссылки, живые контролы). 16.10 вечер «по строчке» снимало и подсветку
+   ячейки — 22.10 по команде владельца «Верни» ховер ячейки возвращён: это разные состояния (журнал №197,
+   продолжение). Ошибка — красным текстом Text/Negative без рамки (было — рамкой #FF5252); нередактируемая
    ячейка (--readonly) — без наведения; клик по ссылке/контролу в ячейке не даёт ячейке рамку;
    фокус/правка — синяя рамка (правила --focus/--edit выше, без изменений). */
 .ds-table-content-cell--error { border: none; box-shadow: none; }
 .ds-table-content-cell--error .ds-text-ui__list-item { color: var(--ds-color-text-negative, #ff5252); }
-/* наведение ячейки — прозрачно: подсветка идёт СТРОКОЙ (Table/Hover #F5F5F5 — токены строки и ячейки совпадают, №195).
+/* наведение ЯЧЕЙКИ — фон #EBEBEB у действенных ячеек (возвращено 22.10.2026, журнал №197-продолжение);
+   у недейственных (.ds-table-content-cell--readonly / стендовый алиас .snap-readonly-cell) реакции нет.
    Бордер выгрузки (.ds-table-content-cell:hover — рамка #9E9E9E) гасим и при фокусе внутри: после клика фокус
    остаётся в контроле/ячейке, и старая ховер-рамка возвращалась (журнал №197) */
 .ds-table-content-cell:hover { border: none; }
-.ds-table-content-cell:hover:not(:focus):not(:focus-within) { box-shadow: none; background: transparent; }
+.ds-table-content-cell:not(.ds-table-content-cell--readonly):not(.snap-readonly-cell):hover:not(:focus):not(:focus-within) { box-shadow: none; background: var(--ds-palette-neutral-100, #ebebeb); }
 .ds-table-content-cell--readonly:hover,
 .snap-readonly-cell:hover { border: none; box-shadow: none; background: transparent; } /* snap-* — стендовый алиас (заменяется на --readonly при следующем проходе стенда) */
 .ds-table-content-cell { outline: none; }
