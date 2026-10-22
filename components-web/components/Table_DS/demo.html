@@ -129,10 +129,11 @@
      fixes.css п. 42, журнал №195 */
   .panel[data-vpanel="content-cell"] .ds-table-content-cell--error { border: none; box-shadow: inset 0 0 0 var(--ds-table-cell-content-error-border-size, 1px) var(--ds-color-table-cell-content-error-border-color, #ff5252); }
   .panel[data-vpanel="content-cell"] .ds-table-content-cell--error .ds-text-ui__list-item { color: var(--ds-color-text-ui-text-color, #333333); }
-  /* 2 версия — живой пример в «Basic example»: наведение — ЕДИНЫЙ ТОН ПО СТРОКЕ Table/Hover #F5F5F5 (пятно
-     ячейки #EBEBEB снято — решение владельца 16.10 вечер: «смотри на ховер по строчке», как в прототипах;
-     журнал №197); ошибка — красный текст вместо рамки; фокус/редактирование рамку сохраняют */
-  .snap-live--v2 .ds-table-content-cell:not(.snap-readonly-cell):hover:not(:focus):not(:focus-within) { box-shadow: none; background: transparent; }
+  /* 2 версия — живой пример в «Basic example»: ДВА независимых наведения — СТРОКА единым тоном Table/Hover
+     #F5F5F5, ЯЧЕЙКА — своё пятно Neutral/100 #EBEBEB у действенных (возвращено 22.10.2026 по команде владельца
+     «Верни»: ховер строки и ховер ячейки — разные состояния, «по строчке» 16.10 не отменяет ховер ячейки;
+     журнал №197, продолжение); ошибка — красный текст вместо рамки; фокус/редактирование рамку сохраняют */
+  .snap-live--v2 .ds-table-content-cell:not(.snap-readonly-cell):hover:not(:focus):not(:focus-within) { box-shadow: none; background: var(--ds-palette-neutral-100, #ebebeb); }
   /* 2 версия: не редактируемая ячейка — реакции нет: гасим и ховер-рамку (fixes.css), и фон */
   .snap-live--v2 .ds-table-content-cell.snap-readonly-cell:hover { box-shadow: none; background: transparent; border: none; }
   /* 2 версия: у всех вариантов Element cell в css белая заливка (артефакт выгрузки): в живой строке
@@ -245,6 +246,9 @@
      круглая подложка состояния компонента Icon size (модификатор --state: подложка = иконка + 8, hover #EBEBEB,
      press #E0E0E0 — fixes.css; замечание владельца 16.10: «фоны компонента должны применяться») */
   .snap-live--v2 .ds-table-header-cell.snap-th-sort { cursor: pointer; }
+  /* ховер ячейки шапки — состояние из выгрузки (Table cell/Header/Hover #F8F9FC), только у сортируемых
+     (snap-th-sort). Эксперимент 22.10 с фоном Neutral/100 #EBEBEB (как у ячейки контента) отменён владельцем
+     («не смотрится пока») — правило убрано, в fixes/ДС не переносился */
   .snap-live--v2 .ds-table-header-cell.snap-th-sort:hover { background: var(--ds-color-table-cell-header-hover-background, #f8f9fc); }
   .snap-th-icon { color: var(--ds-color-icon-primary, #616161); }
   /* подложки состояний иконок шапки — модификатор --state компонента Icon size (fixes.css: hover #EBEBEB /
