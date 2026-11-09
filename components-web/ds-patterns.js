@@ -123,9 +123,52 @@
     initSearchClear(document);
   }
 
+  /* ── Input: Empty → Focus — подпись уезжает наверх (06.11.2026) ────────────
+     Один паттерн на все страницы: раньше каждая страница дублировала переключение
+     подписи «по значению» — и на фокусе пустого поля подпись НЕ поднималась,
+     хотя у Textarea по фокусу она уезжает вверх (журнал ДС №262) → на одном экране
+     два поля формы вели себя по-разному (замечание заказчика: «почему поведение
+     отличается… всё одинаковое везде»). Правило: подпись видна, если в поле есть
+     текст ИЛИ поле в фокусе, плейсхолдер в этот момент скрыт (он и есть подпись
+     состояния Empty); ушли из пустого поля — вернулся плейсхолдер. */
+  function initFloatLabel(root) {
+    var wraps = (root || document).querySelectorAll('.ds-input');
+    Array.prototype.forEach.call(wraps, function (wrap) {
+      if (wrap.__dsFloatInit) return;
+      var field = wrap.querySelector('input.ds-input__field');
+      var label = wrap.querySelector('.ds-input__label');
+      if (!field || !label) return;                 /* S/XS и поля-селекты — без подписи */
+      wrap.__dsFloatInit = true;
+      if (!field.hasAttribute('data-ph')) field.setAttribute('data-ph', field.placeholder || '');
+      var sync = function () {
+        var up = !!field.value || document.activeElement === field;
+        label.hidden = !up;
+        wrap.classList.toggle('ds-input--populated', up);
+        wrap.classList.toggle('ds-input--empty', !up);
+        field.placeholder = up ? '' : (field.getAttribute('data-ph') || '');
+      };
+      field.addEventListener('focus', sync);
+      field.addEventListener('blur', sync);
+      field.addEventListener('input', sync);
+      wrap.__dsFloatSync = sync;
+      sync();
+    });
+  }
+  /* пересчитать подпись после ПРОГРАММНОГО заполнения поля (страница ставит value сама) */
+  function syncFloatLabel(wrap) {
+    if (wrap && typeof wrap.__dsFloatSync === 'function') wrap.__dsFloatSync();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { initFloatLabel(document); });
+  } else {
+    initFloatLabel(document);
+  }
+
   window.DSPatterns = {
     scrollSync: scrollSync,
     initScroll: initScroll,
-    initSearchClear: initSearchClear
+    initSearchClear: initSearchClear,
+    initFloatLabel: initFloatLabel,
+    syncFloatLabel: syncFloatLabel
   };
 })();
