@@ -472,6 +472,8 @@
     var hints = reg['подсказки'] || reg.hints || [];
     var paths = reg['пути'] || reg.paths || [];
     var adaptive = reg['адаптив'] === true || reg.adaptive === true;
+    /* Фиксированный экран (адаптив выключен, например КДС) — подложка браузера и её переключатель не нужны */
+    S.adaptive = adaptive;
 
     var bar = el('div', 'dsr-bar');
     bar.setAttribute('role', 'region');
@@ -622,6 +624,7 @@
 
     /* Подложка Chrome: окно браузера вокруг «экрана» + статус-полосы адаптивов */
     S.chromeEl = buildChrome();
+    if (!adaptive) S.chromeEl.hidden = true;   /* фиксированный экран — без подложки Chrome */
     S.navEl = el('div', 'dsr-nav');
     S.navEl.innerHTML = '<span class="dsr-nav__home"></span>';
     var pnl = panelEl();
@@ -661,7 +664,7 @@
     if (S.secSizes) avail.push(['sizes', 'Размеры']);
     if (S.hintsEls) avail.push(['hints', 'Подсказки ДС']);   /* возвращает кнопку подсказок в бар */
     if (S.secPaths) avail.push(['paths', 'Схемы']);   /* возвращает кнопку «Схемы» в бар (по умолчанию скрыта) */
-    if (S.chromeEl) avail.push(['chrome', 'Подложка Chrome']);   /* подложка — последней в списке (по запросу) */
+    if (S.chromeEl && S.adaptive) avail.push(['chrome', 'Подложка Chrome']);   /* подложка — последней в списке (по запросу); у фиксированных экранов её нет */
     avail.forEach(function (kv) {
       var row = el('div', 'dsr-pop__row');
       var lbl = el('label', 'ds-slide-toggle');
