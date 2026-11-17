@@ -83,6 +83,8 @@
   .snap-mc-search-input { flex: 1 1 auto; min-width: 0; border: 0; outline: 0; background: transparent; padding: 0; font-family: inherit; color: var(--ds-color-search-focusvalue-text-color, #333333); }   /* текст ввода — #333 (Focus+Value/Completed в узле) */
   .snap-mc-search-input::placeholder { color: var(--ds-color-search-focus-text-color, #d6d6d6); opacity: 1; }
 </style>
+  <link rel="stylesheet" href="../../../icons/icons.css">
+  <script src="../../../icons/icons.js" defer></script>
 </head>
 <body>
 <div class="demo-bar">
@@ -104,7 +106,7 @@
       <div class="snap-cap snap-sect__title">Menu (Container) — состав: Search + Title menu + Divider + пункты меню + Scroll + Divider + Button group</div>
       <div class="snap-row" style="margin-top: 12px;">
         <div class="ds-menu-container">
-          <div class="ds-menu-container__search"><div class="ds-search ds-search--s snap-mc-search" id="mc-search"><span class="ds-search__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-search-20"/></svg></span></span><input class="ds-search__label snap-mc-search-input" id="mc-search-input" type="text" placeholder="Search text" aria-label="Search text"><span class="snap-mc-search-icons" id="mc-search-icons" hidden><span class="ds-icon-size ds-icon-size--5x snap-mc-clear" role="button" tabindex="0" aria-label="Очистить"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span><span class="ds-search__right-icon"><span class="ds-divider"></span><span class="ds-icon-size ds-icon-size--5x snap-mc-off" role="button" tabindex="0" aria-label="Сбросить поиск"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-search-off-20"/></svg></span></span></span><span class="ds-search__right-icon" id="mc-search-right" hidden><span class="ds-divider"></span><span class="ds-icon-size ds-icon-size--5x snap-mc-off" role="button" tabindex="0" aria-label="Сбросить поиск"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-search-off-20"/></svg></span></span></div></div>
+          <div class="ds-menu-container__search"><div class="ds-search ds-search--s snap-mc-search" id="mc-search"><span class="ds-search__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-search" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span><input class="ds-search__label snap-mc-search-input" id="mc-search-input" type="text" placeholder="Search text" aria-label="Search text"><span class="snap-mc-search-icons" id="mc-search-icons" hidden><span class="ds-icon-size ds-icon-size--5x snap-mc-clear" role="button" tabindex="0" aria-label="Очистить"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ds-search__right-icon"><span class="ds-divider"></span><span class="ds-icon-size ds-icon-size--5x snap-mc-off" role="button" tabindex="0" aria-label="Сбросить поиск"><svg class="i-search_off" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></span><span class="ds-search__right-icon" id="mc-search-right" hidden><span class="ds-divider"></span><span class="ds-icon-size ds-icon-size--5x snap-mc-off" role="button" tabindex="0" aria-label="Сбросить поиск"><svg class="i-search_off" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></div></div>
           <div class="ds-menu-container__title"><span class="ds-menu-container__label">Title menu</span></div>
           <div class="ds-divider"></div>
           <div class="snap-mc-row">
@@ -112,58 +114,58 @@
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <!-- для рабочего скролла слот наполнен пунктами (в кадре 55613:135 — 4; видно 272/68) -->
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
               <div class="ds-menu-item">
                 <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
                 <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+                <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
               </div>
             </div>
             <div class="ds-scroll snap-mc-scroll" id="mc-scroll"><div class="ds-scroll__background"><div class="ds-scroll__knob"></div></div></div>
@@ -191,49 +193,49 @@
           <div class="ds-menu-item">
             <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
             <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
           </div>
         </div>
         <div class="snap-col snap-mw240"><span class="snap-cap">Hover</span>
           <div class="ds-menu-item st-hover">
             <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
             <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
           </div>
         </div>
         <div class="snap-col snap-mw240"><span class="snap-cap">Press</span>
           <div class="ds-menu-item st-press">
             <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
             <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
           </div>
         </div>
         <div class="snap-col snap-mw240"><span class="snap-cap">Selected</span>
           <div class="ds-menu-item st-selected">
             <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" checked><span class="ds-checkbox__box"></span></label></div>
             <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
           </div>
         </div>
         <div class="snap-col snap-mw240"><span class="snap-cap">Back selected</span>
           <div class="ds-menu-item st-backsel">
             <div class="ds-menu-item__element-left"><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox" checked><span class="ds-checkbox__box"></span></label></div>
             <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
           </div>
         </div>
         <div class="snap-col snap-mw240"><span class="snap-cap">Negative</span>
           <div class="ds-menu-item st-negative">
             <div class="ds-menu-item__element-left"><label class="ds-checkbox ds-checkbox--error"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
             <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
           </div>
         </div>
         <div class="snap-col snap-mw240"><span class="snap-cap">Disable</span>
           <div class="ds-menu-item ds-menu-item--disabled">
             <div class="ds-menu-item__element-left"><label class="ds-checkbox ds-checkbox--disabled"><input class="ds-checkbox__input" type="checkbox" disabled><span class="ds-checkbox__box"></span></label></div>
             <div class="ds-menu-item__content"><span class="ds-menu-item__label-up">Label up</span><span class="ds-menu-item__text">Menu item text</span><span class="ds-menu-item__label-down">Label down</span></div>
-            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+            <div class="ds-menu-item__element-right"><span class="ds-menu-item__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
           </div>
         </div>
       </div>
@@ -247,11 +249,11 @@
       <div class="snap-cap snap-sect__title">Element menu — 8 вариантов контента (в строке меню)</div>
       <div class="snap-row" style="margin-top: 8px; align-items: center;">
         <div class="snap-col"><span class="snap-cap">Image size</span><span class="ds-element-menu__image-size" style="width:24px;background:var(--ds-palette-neutral-100,#ebebeb);"></span></div>
-        <div class="snap-col"><span class="snap-cap">Icon size</span><span class="ds-element-menu__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></div>
+        <div class="snap-col"><span class="snap-cap">Icon size</span><span class="ds-element-menu__icon"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
         <div class="snap-col"><span class="snap-cap">Text default</span><span class="ds-element-menu__label">Цвет и палитра</span></div>
         <div class="snap-col"><span class="snap-cap">Checkbox</span><label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span></label></div>
         <div class="snap-col"><span class="snap-cap">Radio button</span><label class="ds-radio"><input class="ds-radio__input" type="radio"><span class="ds-radio__box"></span></label></div>
-        <div class="snap-col"><span class="snap-cap">Indicator</span><span class="ds-element-menu--indicator"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="19.5" y="3" width="2" height="18" rx="1"/></svg></span></div>
+        <div class="snap-col"><span class="snap-cap">Indicator</span><span class="ds-element-menu--indicator"><svg class="i-stop_mini" data-ds-icon="1" aria-hidden="true" focusable="false" width="24" height="24"></svg></span></div>
         <div class="snap-col"><span class="snap-cap">Slide toggle</span><label class="ds-slide-toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox"><span class="ds-slide-toggle__track"></span></span></label></div>
         <div class="snap-col"><span class="snap-cap">Counter</span><span class="ds-element-menu--counter"><span class="ds-badge ds-badge--counter ds-badge--negative">17</span></span></div>
       </div>
@@ -264,23 +266,23 @@
     <div class="snap-sect">
       <div class="snap-cap snap-sect__title">Arrow menu — 13 стрелок (как в наборе)</div>
       <div class="snap-row" style="margin-top: 8px; align-items:center; gap: 24px;">
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arrow-left"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arrow-drop-up"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arrow-right"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arrow-drop-down"/></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-arrow_left" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-arrow_drop_up" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-arrow_right" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-arrow_drop_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
       </div>
       <div class="snap-row" style="margin-top: 24px; align-items:center; gap: 24px;">
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-left"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-up"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-right"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-down"/></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-keyboard_arrow_left" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-keyboard_arrow_up" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-keyboard_arrow_right" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
       </div>
       <div class="snap-row" style="margin-top: 24px; align-items:center; gap: 24px;">
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arrow-back"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arrow-forward"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arrow-downward-alt"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arrow-upward-alt"/></svg></span>
-        <span class="ds-arrow-menu__icon snap-arrow"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-unfold-less"/></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-arrow_back" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-arrow_forward" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-arrow_downward_alt" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-arrow_upward_alt" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        <span class="ds-arrow-menu__icon snap-arrow"><svg class="i-unfold_less" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
       </div>
     </div>
     <p class="snap-note">Пометки для ревью: (а) 13 стрелок — по набору 56090:1628 (Google Material; глифы дословно из Figma), порядок рядов как в наборе; (б) в пункте меню стрелка ставится в слот (Back selected — arrow_back, раскрытие подменю — keyboard_arrow_right и т.п.); (в) витрины пунктов и элементов — вкладки «Menu item» и «Element menu». Журнал №131, №188.</p>
@@ -305,25 +307,7 @@
 </div>
 
 <!-- иконки -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="ic-info" viewBox="0 0 24 24"><path d="M11 17H13V11H11V17ZM12 9C12.2833 9 12.5208 8.90417 12.7125 8.7125C12.9042 8.52083 13 8.28333 13 8C13 7.71667 12.9042 7.47917 12.7125 7.2875C12.5208 7.09583 12.2833 7 12 7C11.7167 7 11.4792 7.09583 11.2875 7.2875C11.0958 7.47917 11 7.71667 11 8C11 8.28333 11.0958 8.52083 11.2875 8.7125C11.4792 8.90417 11.7167 9 12 9ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"/></symbol>
-  <symbol id="ic-search-20" viewBox="0 0 20 20"><path d="M16.3333 17.5L11.0833 12.25C10.6667 12.5833 10.1875 12.8472 9.64583 13.0417C9.10417 13.2361 8.52778 13.3333 7.91667 13.3333C6.40278 13.3333 5.12153 12.809 4.07292 11.7604C3.02431 10.7118 2.5 9.43056 2.5 7.91667C2.5 6.40278 3.02431 5.12153 4.07292 4.07292C5.12153 3.02431 6.40278 2.5 7.91667 2.5C9.43056 2.5 10.7118 3.02431 11.7604 4.07292C12.809 5.12153 13.3333 6.40278 13.3333 7.91667C13.3333 8.52778 13.2361 9.10417 13.0417 9.64583C12.8472 10.1875 12.5833 10.6667 12.25 11.0833L17.5 16.3333L16.3333 17.5ZM7.91667 11.6667C8.95833 11.6667 9.84375 11.3021 10.5729 10.5729C11.3021 9.84375 11.6667 8.95833 11.6667 7.91667C11.6667 6.875 11.3021 5.98958 10.5729 5.26042C9.84375 4.53125 8.95833 4.16667 7.91667 4.16667C6.875 4.16667 5.98958 4.53125 5.26042 5.26042C4.53125 5.98958 4.16667 6.875 4.16667 7.91667C4.16667 8.95833 4.53125 9.84375 5.26042 10.5729C5.98958 11.3021 6.875 11.6667 7.91667 11.6667Z"/></symbol>
-  <symbol id="ic-close-20" viewBox="0 0 20 20"><path d="M5.33329 15.8333L4.16663 14.6667L8.83329 9.99999L4.16663 5.33332L5.33329 4.16666L9.99996 8.83332L14.6666 4.16666L15.8333 5.33332L11.1666 9.99999L15.8333 14.6667L14.6666 15.8333L9.99996 11.1667L5.33329 15.8333Z"/></symbol>
-  <symbol id="ic-search-off-20" viewBox="0 0 20 20"><path d="M5.83333 18.4167C4.68056 18.4167 3.69792 18.0104 2.88542 17.1979C2.07292 16.3854 1.66667 15.4028 1.66667 14.25C1.66667 13.0972 2.07292 12.1146 2.88542 11.3021C3.69792 10.4896 4.68056 10.0833 5.83333 10.0833C6.98611 10.0833 7.96875 10.4896 8.78125 11.3021C9.59375 12.1146 10 13.0972 10 14.25C10 15.4028 9.59375 16.3854 8.78125 17.1979C7.96875 18.0104 6.98611 18.4167 5.83333 18.4167ZM17.1667 17.5833L11.8333 12.25C11.6667 12.0694 11.4896 11.8854 11.3021 11.6979C11.1146 11.5104 10.9306 11.3333 10.75 11.1667C11.2778 10.8333 11.7014 10.3889 12.0208 9.83333C12.3403 9.27778 12.5 8.66667 12.5 8C12.5 6.95833 12.1354 6.07292 11.4062 5.34375C10.6771 4.61458 9.79167 4.25 8.75 4.25C7.70833 4.25 6.82292 4.61458 6.09375 5.34375C5.36458 6.07292 5 6.95833 5 8C5 8.08333 5.00347 8.16319 5.01042 8.23958C5.01736 8.31597 5.02778 8.39583 5.04167 8.47917C4.79167 8.50694 4.51736 8.5625 4.21875 8.64583C3.92014 8.72917 3.65278 8.82639 3.41667 8.9375C3.38889 8.78472 3.36806 8.63194 3.35417 8.47917C3.34028 8.32639 3.33333 8.16667 3.33333 8C3.33333 6.48611 3.85764 5.20486 4.90625 4.15625C5.95486 3.10764 7.23611 2.58333 8.75 2.58333C10.2639 2.58333 11.5451 3.10764 12.5937 4.15625C13.6424 5.20486 14.1667 6.48611 14.1667 8C14.1667 8.59722 14.0729 9.16319 13.8854 9.69792C13.6979 10.2326 13.4375 10.7222 13.1042 11.1667L18.3333 16.4167L17.1667 17.5833ZM4.35417 16.3125L5.83333 14.8333L7.29167 16.3125L7.89583 15.7292L6.41667 14.25L7.89583 12.7708L7.3125 12.1875L5.83333 13.6667L4.35417 12.1875L3.77083 12.7708L5.25 14.25L3.77083 15.7292L4.35417 16.3125Z"/></symbol>
-  <symbol id="ic-arrow-left" viewBox="0 0 24 24"><path d="M14 17L9 12L14 7V17Z"/></symbol>
-  <symbol id="ic-arrow-drop-up" viewBox="0 0 24 24"><path d="M7 14L12 9L17 14H7Z"/></symbol>
-  <symbol id="ic-arrow-right" viewBox="0 0 24 24"><path d="M10 17V7L15 12L10 17Z"/></symbol>
-  <symbol id="ic-arrow-drop-down" viewBox="0 0 24 24"><path d="M12 15L7 10H17L12 15Z"/></symbol>
-  <symbol id="ic-kb-left" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12L15.41 7.41L14 6L8 12L14 18L15.41 16.59Z"/></symbol>
-  <symbol id="ic-kb-up" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z"/></symbol>
-  <symbol id="ic-kb-right" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.59Z"/></symbol>
-  <symbol id="ic-kb-down" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"/></symbol>
-  <symbol id="ic-arrow-back" viewBox="0 0 24 24"><path d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"/></symbol>
-  <symbol id="ic-arrow-forward" viewBox="0 0 24 24"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z"/></symbol>
-  <symbol id="ic-arrow-downward-alt" viewBox="0 0 24 24"><path d="M12 18L6 12L7.4 10.6L11 14.2V5H13V14.2L16.6 10.6L18 12L12 18Z"/></symbol>
-  <symbol id="ic-arrow-upward-alt" viewBox="0 0 24 24"><path d="M11 18V8.8L7.4 12.4L6 11L12 5L18 11L16.6 12.4L13 8.8V18H11Z"/></symbol>
-  <symbol id="ic-unfold-less" viewBox="0 0 24 24"><path d="M8.9 20L7.5 18.6L12 14.1L16.5 18.6L15.1 20L12 16.9L8.9 20ZM12 9.9L7.5 5.4L8.9 4L12 7.1L15.1 4L16.5 5.4L12 9.9Z"/></symbol>
-</svg>
+
 
 <script>
   /* табы стенда */

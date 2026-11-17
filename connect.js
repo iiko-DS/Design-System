@@ -10,10 +10,9 @@
 
    ЧТО ПОДТЯГИВАЕТСЯ САМО:
      1) стили ДС: components-web/font.css, tokens.css, styles.css, components/index.css, fixes.css,
-        icons/icons.css;
-     2) иконки — СНАЧАЛА из ДС (icons/sprite-*.js + icons/icons.js: лигатура .material-icons
-        подменяется на inline-SVG), а шрифт Google Material Icons (обычные + Outlined)
-        подключается резервом — им рисуются только имена, которых в ДС нет;
+        icons/icons.css (библиотека иконок ДС: icons/svg);
+     2) иконки — СНАЧАЛА из ДС (icons/icons.js + icons/svg/*.svg), шрифт Google Material Icons
+        (обычные + Outlined) подключён резервом: им рисуются только имена, которых в Figma-файле нет;
      3) демо-страницу прототипа — одним комплектом: плашка (ds-review: общий заголовок раздела,
         «Экраны», «Размер»), шапка app-header (с правой панелью app-right-panel — её шторка)
         и боковое меню app-sidenav (css + js);
@@ -70,16 +69,8 @@
   if (FLAGS.header) CSS.push('organisms/app-right-panel/app-right-panel.css?v=2', 'organisms/app-header/app-header.css?v=21');
   if (FLAGS.sidenav) CSS.push('organisms/app-sidenav/app-sidenav.css?v=16');
 
-  /* Иконки ДС — первыми: сначала спрайты (window.DS_ICONS), затем подстановка svg вместо лигатур.
-     Имена в спрайтах = лигатуры Material Icons, разметка страниц не меняется. */
-  var JS = [
-    'icons/sprite-custom.js',
-    'icons/sprite-logos.js',
-    'icons/sprite-material-1.js',
-    'icons/sprite-material-2.js',
-    'icons/sprite-material-3.js',
-    'icons/icons.js'
-  ];
+  /* Иконки ДС — первыми: icons.js подменяет лигатуры на маски из icons/svg (см. icons/icons.css) */
+  var JS = ['icons/icons.js'];
   if (FLAGS.header) JS.push('organisms/app-right-panel/app-right-panel.js?v=1', 'organisms/app-header/app-header.js?v=20');
   if (FLAGS.sidenav) JS.push('organisms/app-sidenav/app-sidenav.js?v=15');
   /* плашка демо-страницы (общий заголовок, «Экраны», «Размер»); css подтягивает сам ds-review.js,
@@ -137,7 +128,6 @@
     var marker = CSS[c].split('?')[0];
     if (!hasLink(marker)) frag.appendChild(addCss(CSS[c]));
   }
-  /* Резерв: шрифт Google нужен только для имён, которых нет в ДС (см. icons/icons.js). */
   if (!hasIcons(false)) frag.appendChild(addCss('https://fonts.googleapis.com/icon?family=Material+Icons'));
   if (!hasIcons(true)) frag.appendChild(addCss('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined'));
 

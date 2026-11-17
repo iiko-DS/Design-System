@@ -93,6 +93,8 @@
   .snap-tp-cell { cursor: pointer; }
   .snap-tp-cell:hover { background: #f5f5f5; }
 </style>
+  <link rel="stylesheet" href="../../../icons/icons.css">
+  <script src="../../../icons/icons.js" defer></script>
 </head>
 <body>
 <div class="demo-bar">
@@ -114,12 +116,12 @@
       <div class="snap-tp-input-col">
         <div class="ds-input-timepicker ds-input-timepicker--empty snap-tp-in">
           <div class="ds-input-timepicker__frame"><div class="snap-tp-content"><span class="ds-input-timepicker__label" style="color:#616161;">ЧЧ.ММ</span></div>
-            <span class="ds-input-timepicker__icon" style="color:#616161;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-schedule-time"/></svg></span>
+            <span class="ds-input-timepicker__icon" style="color:#616161;"><svg class="i-schedule" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
           </div>
         </div>
         <div class="ds-input-timepicker ds-input-timepicker--populated snap-tp-in">
           <div class="ds-input-timepicker__frame"><div class="snap-tp-content"><span class="snap-tp-caption">Время</span><span class="ds-input-timepicker__label snap-tp-placeholder">ЧЧ.ММ</span></div>
-            <span class="ds-input-timepicker__icon" style="color:#616161;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-schedule-time"/></svg></span>
+            <span class="ds-input-timepicker__icon" style="color:#616161;"><svg class="i-schedule" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
           </div>
         </div>
       </div>
@@ -192,10 +194,10 @@
     <div class="snap-sect">
       <div class="snap-cp2">
         <div class="snap-cp-control">
-          <span class="snap-cp-date">09.06.2026 <svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-drop-down"/></svg></span>
+          <span class="snap-cp-date">09.06.2026 <svg class="i-arrow_drop_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
           <span class="ds-control-panel__button-icon-group">
-            <span class="ds-control-panel__button-icon"><span class="ds-icon-size ds-icon-size--6x"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arr-left"/></svg></span></span>
-            <span class="ds-control-panel__button-icon"><span class="ds-icon-size ds-icon-size--6x"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-arr-right"/></svg></span></span>
+            <span class="ds-control-panel__button-icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-keyboard_arrow_left" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+            <span class="ds-control-panel__button-icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-keyboard_arrow_right" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
           </span>
         </div>
         <div class="snap-cp-time">
@@ -215,7 +217,7 @@
         <div class="ds-input-timepicker ds-input-timepicker--populated snap-tp-in" id="tp-live">
           <div class="ds-input-timepicker__frame">
             <div class="snap-tp-content"><span class="snap-tp-caption">Время</span><span class="ds-input-timepicker__label snap-tp-placeholder" id="tp-live-value">ЧЧ.ММ</span></div>
-            <button type="button" class="ds-input-timepicker__icon snap-tp-live-btn" id="tp-live-btn" aria-label="Открыть список времени"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-schedule-time"/></svg></button>
+            <button type="button" class="ds-input-timepicker__icon snap-tp-live-btn" id="tp-live-btn" aria-label="Открыть список времени"><svg class="i-schedule" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></button>
           </div>
           <div class="snap-tp-drop" id="tp-live-drop" hidden>
             <div class="ds-timepicker ds-timepicker--time-grid snap-tp-grid">
@@ -248,12 +250,7 @@
 </div>
 
 <!-- иконки -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="ic-schedule-time" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z"/></symbol>
-  <symbol id="ic-drop-down" viewBox="0 0 24 24"><path d="M7 10L12 15L17 10H7Z"/></symbol>
-  <symbol id="ic-arr-left" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z"/></symbol>
-  <symbol id="ic-arr-right" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.59Z"/></symbol>
-</svg>
+
 
 <script>
   /* табы стенда */

@@ -62,8 +62,8 @@
       '</span>' +
       (arrows
         ? '<span class="ds-control-panel__button-icon-group">' +
-            '<span class="ds-control-panel__button-icon" role="button" tabindex="0" data-cal-step="-1" aria-label="Предыдущий месяц"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><span class="material-icons">chevron_left</span></span></span>' +
-            '<span class="ds-control-panel__button-icon" role="button" tabindex="0" data-cal-step="1" aria-label="Следующий месяц"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><span class="material-icons">chevron_right</span></span></span>' +
+            '<span class="ds-control-panel__button-icon" role="button" tabindex="0" data-cal-step="-1" aria-label="Предыдущий месяц"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><span class="material-icons">keyboard_arrow_left</span></span></span>' +
+            '<span class="ds-control-panel__button-icon" role="button" tabindex="0" data-cal-step="1" aria-label="Следующий месяц"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><span class="material-icons">keyboard_arrow_right</span></span></span>' +
           '</span>'
         : '') +
     '</div>';
@@ -124,11 +124,11 @@
     };
     return '<div class="ds-datepicker__month">' +
       '<div class="ds-datepicker__control-panel">' +
-        (arrow === 'left' ? btn(-1, 'chevron_left', 'Предыдущий месяц') : '') +
+        (arrow === 'left' ? btn(-1, 'keyboard_arrow_left', 'Предыдущий месяц') : '') +
         '<span class="ds-elements ds-elements--month ds-elements--default ds-datepicker__month-title">' +
           '<span class="ds-control-panel__label">' + MONTHS[m] + ' ' + y + '</span>' +
         '</span>' +
-        (arrow === 'right' ? btn(1, 'chevron_right', 'Следующий месяц') : '') +
+        (arrow === 'right' ? btn(1, 'keyboard_arrow_right', 'Следующий месяц') : '') +
       '</div>' +
       '<div class="ds-datepicker__elements">' + wd + '</div>' +
       '<div class="ds-datepicker__divider"></div>' +

@@ -48,6 +48,8 @@
   .snap-li__icon { width: 20px; height: 20px; display: inline-flex; color: #616161; flex-shrink: 0; }
   .snap-li__icon svg { width: 100%; height: 100%; display: block; }
 </style>
+  <link rel="stylesheet" href="../../../icons/icons.css">
+  <script src="../../../icons/icons.js" defer></script>
 </head>
 <body>
 <div class="demo-bar">
@@ -109,20 +111,20 @@
       <div class="snap-cap snap-sect__title">Примеры канвы: списки с раскрытием</div>
       <div class="snap-row" style="margin-top: 12px;">
         <div class="snap-col"><p class="snap-ex-caption">Вариант 1: для таблицы (стрелки раскрытия)</p>
-          <div class="snap-li"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-right"/></svg></span>List item text</div>
-          <div class="snap-li"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-down"/></svg></span>List item text</div>
-          <div class="snap-li" style="padding-left: 28px;"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-right"/></svg></span>List item text</div>
+          <div class="snap-li"><span class="snap-li__icon"><svg class="i-keyboard_arrow_right" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
+          <div class="snap-li"><span class="snap-li__icon"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
+          <div class="snap-li" style="padding-left: 28px;"><span class="snap-li__icon"><svg class="i-keyboard_arrow_right" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
           <div class="snap-li" style="padding-left: 28px;">List item text</div>
-          <div class="snap-li" style="padding-left: 28px;"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-right"/></svg></span>List item text</div>
-          <div class="snap-li"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-kb-right"/></svg></span>List item text</div>
+          <div class="snap-li" style="padding-left: 28px;"><span class="snap-li__icon"><svg class="i-keyboard_arrow_right" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
+          <div class="snap-li"><span class="snap-li__icon"><svg class="i-keyboard_arrow_right" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
         </div>
         <div class="snap-col"><p class="snap-ex-caption">Вариант 2: для списков (иконки папок)</p>
-          <div class="snap-li"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-folder-open"/></svg></span>List item text</div>
-          <div class="snap-li"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-folder-open"/></svg></span>List item text</div>
-          <div class="snap-li" style="padding-left: 28px;"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-folder"/></svg></span>List item text</div>
+          <div class="snap-li"><span class="snap-li__icon"><svg class="i-folder_open" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
+          <div class="snap-li"><span class="snap-li__icon"><svg class="i-folder_open" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
+          <div class="snap-li" style="padding-left: 28px;"><span class="snap-li__icon"><svg class="i-folder" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
           <div class="snap-li" style="padding-left: 28px;">List item text</div>
-          <div class="snap-li" style="padding-left: 28px;"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-folder"/></svg></span>List item text</div>
-          <div class="snap-li"><span class="snap-li__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-folder"/></svg></span>List item text</div>
+          <div class="snap-li" style="padding-left: 28px;"><span class="snap-li__icon"><svg class="i-folder" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
+          <div class="snap-li"><span class="snap-li__icon"><svg class="i-folder" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>List item text</div>
         </div>
         <div class="snap-col" style="max-width: 340px;">
           <span class="snap-cap">Строки в кадрах — из компонента List item (List_DS): иконка 20 + текст 14/20; отступы вложенности на стенде — обвязка (в канве строки одинаковой ширины 388, отступы строятся связками Tree item). На канве используется Menu (Container) 400×406 — пример компоновки дерева в меню.</span>
@@ -134,12 +136,7 @@
 </div>
 
 <!-- иконки -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="ic-kb-right" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.59Z"/></symbol>
-  <symbol id="ic-kb-down" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"/></symbol>
-  <symbol id="ic-folder" viewBox="0 0 24 24"><path d="M4 20C3.45 20 2.97917 19.8042 2.5875 19.4125C2.19583 19.0208 2 18.55 2 18V6C2 5.45 2.19583 4.97917 2.5875 4.5875C2.97917 4.19583 3.45 4 4 4H9.175C9.44167 4 9.69583 4.05 9.9375 4.15C10.1792 4.25 10.3917 4.39167 10.575 4.575L12 6H20C20.55 6 21.0208 6.19583 21.4125 6.5875C21.8042 6.97917 22 7.45 22 8V18C22 18.55 21.8042 19.0208 21.4125 19.4125C21.0208 19.8042 20.55 20 20 20H4ZM4 18H20V8H11.175L9.175 6H4V18Z"/></symbol>
-  <symbol id="ic-folder-open" viewBox="0 0 24 24"><path d="M4 20C3.45 20 2.97917 19.8042 2.5875 19.4125C2.19583 19.0208 2 18.55 2 18V6C2 5.45 2.19583 4.97917 2.5875 4.5875C2.97917 4.19583 3.45 4 4 4H10L12 6H20C20.55 6 21.0208 6.19583 21.4125 6.5875C21.8042 6.97917 22 7.45 22 8H12L10 6H4V18L6.4 10H22.5L19.7 18.5C19.55 18.9667 19.2875 19.3333 18.9125 19.6C18.5375 19.8667 18.125 20 17.675 20H4ZM6.5 18H17.5L19.5 12H8.5L6.5 18Z"/></symbol>
-</svg>
+
 
 <script>
   /* табы стенда */

@@ -1,91 +1,70 @@
-# icons — иконки дизайн-системы
+# icons — библиотека иконок дизайн-системы
 
-Иконки ДС из Figma «Icons (New)» в виде inline-SVG. Подключаются автоматически через `connect.js`,
-раньше шрифта Google Material Icons. Шрифт Google остаётся **резервом**: им рисуется только то имя,
-которого в ДС нет.
+Иконки из Figma-файла **Icons (New)**, выгруженные отдельными файлами `.svg` — по папкам тех же фреймов,
+в которых они лежат в Figma. Никаких спрайтов и скриптов: только файлы.
 
 ## Источник
 
-Figma-файл **Icons (New)** — `https://www.figma.com/design/skjpVJUl8ir0JazrrPAMOW/Icons--New-`
+Figma: `https://www.figma.com/design/skjpVJUl8ir0JazrrPAMOW/Icons--New-`
 
-| Страница | Что взято | Файл |
-|---|---|---|
-| `Icons` | 167 иконок (разделы Device, General, Arrows, Communication & File, E-commerce, Business, Multimedia, Transport, Map, People, Food, Places & things) | `sprite-material-1.js`, `sprite-material-2.js`, `sprite-material-3.js` |
-| `Icons custom` | 14 иконок ДС (`*_custom`, `dark_mode`, `light_mode`, `stop*` и др.) | `sprite-custom.js` |
-| `Logo` | 10 логотипов (facebook, xero, apple, app_gallery, google_play, rustore, telegram, vk, sberbank_black, max) | `sprite-logos.js` |
-
-Итого 191 иконка. Все — 24×24 (`viewBox="0 0 24 24"`), как в Figma.
-
-## Файлы
-
-| Файл | Что внутри |
+| Страница Figma | Папка |
 |---|---|
-| `sprite-*.js` | `window.DS_ICONS['имя'] = '<path …/>'` — внутренность `<svg>`. Собирает карту иконок |
-| `icons.js` | находит `.material-icons` / `.material-icons-outlined`, подменяет текст лигатуры на `<svg>`; следит за разметкой, которую добавляют скрипты (`MutationObserver`) |
-| `icons.css` | размер и цвет svg: `1em` от `font-size` контейнера, `fill: currentColor` |
+| `Icons` (12 фреймов-разделов) | `svg/device`, `svg/general`, `svg/arrows`, `svg/communication-file`, `svg/e-commerce`, `svg/business`, `svg/multimedia`, `svg/transport`, `svg/map`, `svg/people`, `svg/food`, `svg/places-things` |
+| `Icons custom` | `svg/icons-custom` |
+| `Logo` | `svg/logo` |
 
-## Как пользуются страницы
+Итого **1186 файлов .svg** в 15 папках (плюс `_unassigned` — компонент `Stars`, который в Figma лежит
+на канве вне фреймов). 1178 уникальных имён: одно имя может лежать в двух разделах (см. «Про дубли»).
 
-Разметка не меняется — имена совпадают с лигатурами Material Icons:
+Из набора, собранного в `main` другим автором, сюда перенесены иконки, которых не было в выгрузке:
+`crop-2…crop-5`, `looks-2`, `looks-3` (раздел `multimedia`) и `logo_iiko` (раздел `logo`);
+иконки `crop`, `help`, `looks`, `work` обновлены до текущей геометрии Figma (в Figma они изменились после
+первой выгрузки). Остальные файлы того набора — те же иконки с заданным цветом `#616161`; их содержимое
+совпадает с этой библиотекой, поэтому плоские копии удалены.
+
+## Как устроены файлы
+
+- размер: `24 × 24`, `viewBox="0 0 24 24"` — как в Figma;
+- цвет: `fill="currentColor"` — иконка красится цветом текста, её можно перекрашивать токенами ДС;
+- логотипы в `svg/logo` сохраняют фирменные цвета;
+- имя файла = имя компонента в Figma (например `search.svg`, `wifi_off.svg`).
+
+## Как компоненты берут иконку из библиотеки
+
+Как в Figma: компонент не рисует иконку сам, а ставит инстанс иконки из библиотеки.
+В коде это одна строчка — элемент без содержимого, рисунок приходит маской из `svg/<раздел>/<имя>.svg`:
 
 ```html
+<!-- слот компонента: размер задаёт css слота (Icon size), цвет — currentColor -->
+<svg class="i-search" data-ds-icon="1" aria-hidden="true" focusable="false"></svg>
+```
+
+```html
+<!-- вставка по имени: класс i-<имя> подставит icons.js, размер 1em от font-size -->
 <span class="material-icons">search</span>
 ```
 
-Скрипт подставляет svg ДС. Если имени в ДС нет (например `chevron_right`, `image`, `event`),
-текст лигатуры остаётся — его отрисует шрифт Google. Ничего дополнительно подключать не нужно:
-всё делает `connect.js` (спрайты → `icons.js` идут первыми в списке `JS`).
+Правила:
 
-## Цвет и размер
+- одно правило на иконку в `icons.css` (`.i-<имя>{mask-image:url(...)}`) — меняется только файл `.svg`,
+  все места сразу получают новый рисунок;
+- `data-ds-icon` включает базу: заливка `currentColor`, маска `contain / no-repeat / center`;
+- вставка по имени: если имени нет в библиотеке, `icons.js` оставляет лигатуру — её рисует Google-шрифт
+  (резерв, подключается после библиотеки).
 
-- цвет — `currentColor`, то есть цвет текста контейнера (как у шрифта Google);
-- размер — `1em` от `font-size` контейнера, поэтому правила ДС
-  (`.ds-input__icon .material-icons{font-size:20px}` и т. п.) работают без правок;
-- логотипы (`sprite-logos.js`) несут собственные цвета в атрибутах `path` — они не перекрашиваются.
+## Про «дубли»
 
-## Как добавить иконку
+Одинаковые имена в разных папках (`zoom_in`, `zoom_out`, `grid_view`, `trolley`, `timelapse`,
+`looks`, `exposure_plus_1`) — это не дубли выгрузки, а реальные повторы в самой Figma: один и тот же
+компонент лежит в двух разделах. Файлы разложены так же, как в Figma.
 
-1. В Figma «Icons (New)» выбрать компонент, скопировать SVG-разметку (`exportAsync({format:'SVG_STRING'})`).
-2. Добавить строку в нужный спрайт: `window.DS_ICONS['имя_лигатуры'] = \`<path … fill='currentColor'/>\`;`
-   Имя — ровно то, что пишется в HTML (лигатура Material Icons).
-3. Больше ничего: подстановка и резерв работают сами.
+## Как обновить библиотеку
 
-Выгружать пачками: у `use_figma` лимит возврата 48 000 байт, поэтому иконки разложены на 3 части
-(и длинную разметку скрипт выгрузки режет на куски по ≤1200 символов — при сборке файла куски
-склеиваются в одну строку через `+`).
+Выгрузка идёт напрямую через Figma REST API (одним прогоном, без лимитов MCP):
 
-## Что не вошло
+1. токен лежит в `C:\Users\asukharev\figma-token.txt` (Personal access token, право *File content: Read-only*);
+2. скрипт выгрузки: `_verify-tmp/icons-rest.js` — читает дерево файла (страница → фрейм → компонент),
+   запрашивает SVG пачками по 100 id и раскладывает по папкам;
+3. уборка/фиксы: `_verify-tmp/icons-tidy.js`.
 
-- `Sberbank_logo` — в Figma это 53 КБ с встроенной растровой картинкой; взят векторный
-  `sberbank_logo_black`.
-- Иконки, которых нет в Figma (в т. ч. `event`, `restore`, `chevron_left/right`, `expand_more/less`,
-  `image`, `delivery_dining`, `place`) — их по-прежнему рисует шрифт Google.
-
-
----
-
-## Плоский набор SVG (`icons/*.svg`)
-
-Рядом со спрайтами лежит полный набор иконок отдельными файлами — перенесён из ветки автора.
-Спрайты выше остаются основным способом подключения.
-
-Плоская папка со **всеми** иконками из Figma, без разбивки на фреймы и категории.
-
-- Источник: Figma `skjpVJUl8ir0JazrrPAMOW` («Icons (New)»), канвас `2:198`.
-- Экспорт: 1151 SVG иконка, каждая 24×24, `fill="#616161"` (SVG чистый, без Figma-обёрток).
-- Имена файлов = имена компонентов в Figma (`home.svg`, `arrow_back.svg`, …), пробелы → `_`.
-- Одноимённые иконки из разных категорий получают суффикс: `crop.svg`, `crop-2.svg`, … `looks-5.svg`.
-- `logo_iiko.svg` — логотип iiko (красный круг) для фавикона панели ревью: в наборе иконок его нет,
-  поэтому лежит отдельным файлом. Остальные картинки «хрома» (`ds-review.js`) берутся из общих иконок.
-
-## Правило
-
-В компонентах, стендах и прототипах берём иконки **только отсюда**:
-`<img src="…/icons/<имя>.svg" alt="">` или инлайном содержимое SVG.
-Material Icons-шрифт для продуктовых иконок не используем.
-
-Быстрый поиск нужной иконки:
-
-```powershell
-Get-ChildItem icons -Filter "*arrow*" | Select-Object -ExpandProperty BaseName
-```
+Токен — секрет: не коммитить в репозиторий и не вставлять в страницы.

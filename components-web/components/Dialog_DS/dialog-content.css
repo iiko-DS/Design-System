@@ -1,5 +1,4 @@
 .ds-dialog-content {
-  min-height: 204px;
   width: 500px;
   display: flex;
   flex-direction: row;

@@ -404,8 +404,26 @@
   function navHFor(w) { return isMobileW(w) ? NAV_H : 0; }
   function chromeOn() { return !!(S.chromeEl && S.sections.chrome !== false && !window.DSR_NO_CHROME); }
   function buildChrome() {
-    /* все иконки «хрома» — из общей папки icons (подпапка browser удалена) */
-    var A = function (n) { return BASE + 'icons/' + n + '.svg'; };
+    /* иконки «хрома» — из библиотеки ДС: icons/svg/<раздел>/<имя>.svg */
+    var A_PATH = {
+      account_circle: 'icons/svg/people/account_circle.svg',
+      add: 'icons/svg/general/add.svg',
+      arrow_back: 'icons/svg/arrows/arrow_back.svg',
+      arrow_forward: 'icons/svg/arrows/arrow_forward.svg',
+      battery_full: 'icons/svg/device/battery_full.svg',
+      close: 'icons/svg/general/close.svg',
+      extension: 'icons/svg/device/extension.svg',
+      home: 'icons/svg/places-things/home.svg',
+      keyboard_arrow_down: 'icons/svg/arrows/keyboard_arrow_down.svg',
+      lock: 'icons/svg/general/lock.svg',
+      logo_iiko: 'icons/svg/logo/logo_iiko.svg',
+      more_vert: 'icons/svg/general/more_vert.svg',
+      refresh: 'icons/svg/arrows/refresh.svg',
+      signal_cellular_alt: 'icons/svg/device/signal_cellular_alt.svg',
+      star: 'icons/svg/general/star.svg',
+      wifi: 'icons/svg/device/wifi.svg'
+    };
+    var A = function (n) { return BASE + (A_PATH[n] || ('dsr-assets/' + n.replace(/_/g, '-') + '.svg')); };
     var ch = el('div', 'dsr-chrome');
     ch.innerHTML =
       '<div class="dsr-chrome__desktop">' +
@@ -507,10 +525,10 @@
       countEl.setAttribute('aria-label', 'Счётчик экранов');
       var prev = el('button', 'ds-btn-icon ds-btn-icon--s ds-btn-icon--neutral ds-btn-icon--text');
       prev.type = 'button'; prev.title = 'Предыдущий экран (←)'; prev.setAttribute('aria-label', 'Предыдущий экран');
-      prev.innerHTML = '<span class="ds-btn-icon__icon"><span class="material-icons" aria-hidden="true">chevron_left</span></span>';
+      prev.innerHTML = '<span class="ds-btn-icon__icon"><span class="material-icons" aria-hidden="true">keyboard_arrow_left</span></span>';
       var next = el('button', 'ds-btn-icon ds-btn-icon--s ds-btn-icon--neutral ds-btn-icon--text');
       next.type = 'button'; next.title = 'Следующий экран (→)'; next.setAttribute('aria-label', 'Следующий экран');
-      next.innerHTML = '<span class="ds-btn-icon__icon"><span class="material-icons" aria-hidden="true">chevron_right</span></span>';
+      next.innerHTML = '<span class="ds-btn-icon__icon"><span class="material-icons" aria-hidden="true">keyboard_arrow_right</span></span>';
       prev.addEventListener('click', function () { var i = currentStep(steps); if (i > 0) goStep(i - 1); });
       next.addEventListener('click', function () { var i = currentStep(steps); if (i >= 0 && i < steps.length - 1) goStep(i + 1); });
       stepsNav.appendChild(prev);

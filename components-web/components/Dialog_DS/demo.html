@@ -40,10 +40,10 @@
   .snap-col { display: flex; flex-direction: column; gap: 10px; }
   .snap-live-hint { margin: 0 0 16px; }
   /* обвязка диалогов: паддинги/гэпы — токенами ДС (классов в css нет; значения из Figma) */
-  .snap-dlg-head { display: flex; flex-direction: column; gap: var(--ds-dialog-header-gap, 8px); padding: var(--ds-dialog-header-pad-top, 24px) var(--ds-dialog-header-pad-right, 24px) var(--ds-dialog-header-pad-bottom, 8px) var(--ds-dialog-header-pad-left, 24px); }
+  .snap-dlg-head { display: flex; flex-direction: column; gap: var(--ds-dialog-header-gap, 8px); padding: var(--ds-dialog-header-pad-top, 16px) var(--ds-dialog-header-pad-right, 16px) var(--ds-dialog-header-pad-bottom, 8px) var(--ds-dialog-header-pad-left, 16px); }
   .snap-dlg-head .ds-dialog-header__label { flex: 1 0 0; min-width: 1px; }
   .snap-dlg-head .ds-dialog-header__icon { color: var(--ds-color-icon-primary, #616161); }
-  .snap-dlg-slot { flex: 1 0 0; min-width: 1px; display: flex; flex-direction: column; gap: var(--ds-dialog-content-gap, 16px); padding: var(--ds-dialog-content-pad-top, 8px) var(--ds-dialog-content-pad-right, 24px) var(--ds-dialog-content-pad-bottom, 8px) var(--ds-dialog-content-pad-left, 24px); }
+  .snap-dlg-slot { flex: 1 0 0; min-width: 1px; display: flex; flex-direction: column; gap: var(--ds-dialog-content-gap, 16px); padding: var(--ds-dialog-content-pad-top, 8px) var(--ds-dialog-content-pad-right, 16px) var(--ds-dialog-content-pad-bottom, 8px) var(--ds-dialog-content-pad-left, 16px); }
   .snap-dlg-block { display: flex; flex-direction: column; gap: var(--ds-dialog-content-gap-text, 8px); width: 100%; }
   .snap-dlg-text { color: var(--ds-color-dialog-content-text-color, #616161); }
   .snap-dlg-actions { align-items: flex-end; }
@@ -65,7 +65,73 @@
   .snap-dlg-stage__dim { position: absolute; inset: 0; opacity: .15; }
   .snap-dlg-stage__dlg { position: absolute; }
   .snap-dlg-closeic { cursor: pointer; }
+  /* ── вкладка «Примеры» (кадр 58947:11768) ─────────────────────────────── */
+  .ex-grid { display: grid; grid-template-columns: repeat(auto-fill, 500px); gap: 40px; align-items: start; }
+  /* примеров больше ширины окна — скроллим внутри панели, страница не разъезжается */
+  .panel[data-vpanel="examples"] { max-width: 100%; overflow-x: auto; }
+  .ds-tabs { max-width: 100%; overflow-x: auto; }
+  .ex-item { display: flex; flex-direction: column; gap: 8px; }
+  .ex-btns { display: flex; gap: var(--ds-button-group-gap, 8px); align-items: center; justify-content: flex-end; }
+  .ex-toggle { display: flex; align-items: center; justify-content: space-between; gap: var(--ds-slide-toggle-gap, 8px); width: 100%; height: 20px; }
+  .ex-toggle__label { font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px); letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, .5px); color: var(--ds-color-slide-toggle-text-color, #333333); }
+  .ex-switch { flex: none; width: 36px; height: 20px; border-radius: 10px; position: relative; background: var(--ds-color-slide-toggle-selected-default-background, #448aff); }
+  .ex-switch::after { content: ''; position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; border-radius: 50%; background: #ffffff; }
+  .ex-switch--off { background: var(--ds-color-slide-toggle-deselected-default-background, #bdbdbd); }
+  .ex-switch--off::after { right: auto; left: 2px; }
+  .ex-table { width: 100%; }
+  .ex-tr { display: flex; align-items: center; justify-content: space-between; height: 36px; box-sizing: border-box; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); }
+  .ex-td { font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px); letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, .5px); color: var(--ds-color-text-primary, #333333); }
+  .ex-input { height: 48px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 12px; border: 1px solid var(--ds-color-form-field-filled-default-border-color, #e0e0e0); border-radius: var(--ds-form-field-border-radius, 12px); background: var(--ds-color-form-field-input-filled-background, #f8f9fc); }
+  .ex-input__label { font-size: var(--ds-font-caption-l-12-normal-regular-size, 12px); line-height: var(--ds-font-caption-l-12-normal-regular-line, 16px); letter-spacing: var(--ds-font-caption-l-12-normal-regular-spacing, .5px); color: var(--ds-color-form-field-filled-default-label-text-color, #616161); }
+  .ex-input__value { font-size: var(--ds-font-body-m-16-normal-regular-size, 16px); line-height: var(--ds-font-body-m-16-normal-regular-line, 24px); letter-spacing: var(--ds-font-body-m-16-normal-regular-spacing, .5px); color: var(--ds-color-text-primary, #333333); }
+  .ex-link { font-size: var(--ds-font-body-s-14-normal-medium-size, 14px); line-height: var(--ds-font-body-s-14-normal-medium-line, 20px); letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing, .5px); font-weight: var(--ds-font-body-s-14-normal-medium-weight, 500); color: var(--ds-color-text-accent, #448aff); }
+  .ex-text { font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px); letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, .5px); color: var(--ds-color-dialog-content-text-color, #616161); }
+  /* Chips Input 468×64: подпись 12/16 сверху, чип 134×32 и текст-подсказка */
+  .ex-chips { height: 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; padding: 4px 12px 4px 12px; border: 1px solid var(--ds-color-form-field-filled-default-border-color, #e0e0e0); border-radius: var(--ds-form-field-border-radius, 12px); background: var(--ds-color-form-field-input-filled-background, #f8f9fc); }
+  .ex-chips__label { font-size: var(--ds-font-caption-l-12-normal-regular-size, 12px); line-height: var(--ds-font-caption-l-12-normal-regular-line, 16px); letter-spacing: var(--ds-font-caption-l-12-normal-regular-spacing, .5px); color: var(--ds-color-form-field-filled-default-label-text-color, #616161); }
+  .ex-chips__row { display: flex; align-items: center; gap: 8px; height: 32px; }
+  .ex-chip { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: 20px; letter-spacing: .5px; color: var(--ds-color-text-primary, #333333); }
+  .ex-chips__hint { font-size: var(--ds-font-body-m-16-normal-regular-size, 16px); line-height: var(--ds-font-body-m-16-normal-regular-line, 24px); letter-spacing: var(--ds-font-body-m-16-normal-regular-spacing, .5px); color: var(--ds-color-text-placeholder, #d6d6d6); }
+  /* drag and drop 468×64 */
+  .ex-drop { height: 64px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px; border-radius: 8px; border: 1px dashed var(--ds-color-stroke-default, #e0e0e0); }
+  .ex-drop__title { font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px); letter-spacing: .5px; color: var(--ds-color-text-primary, #333333); }
+  .ex-drop__hint { font-size: var(--ds-font-caption-l-12-normal-regular-size, 12px); line-height: var(--ds-font-caption-l-12-normal-regular-line, 16px); letter-spacing: var(--ds-font-caption-l-12-normal-regular-spacing, .5px); color: var(--ds-color-text-secondary, #616161); }
+  .ex-spinner { width: 48px; height: 48px; border-radius: 50%; border: 4px solid var(--ds-color-stroke-default, #e0e0e0); border-top-color: var(--ds-color-stroke-accent, #448aff); display: block; }
+  /* Banners Warning, Horizontal */
+  .ex-banner { min-height: 64px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; background: var(--ds-color-banner-warning-background, #fff4e5); font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px); letter-spacing: .5px; color: var(--ds-color-text-primary, #333333); }
+  /* Banners Style=Accent, Horizontal: 468×44, r12, pad 12/16, фон #F0F5FF */
+  .ex-banner--accent { min-height: 44px; padding: 12px 16px; border-radius: var(--ds-banners-border-radius, 12px); background: var(--ds-color-banners-accent-background, #f0f5ff); }
+  /* Checkbox group: три пункта по 20 + 8 */
+  .ex-checks { display: flex; flex-direction: column; gap: var(--ds-checkbox-group-gap, 8px); }
+  .ex-check { display: flex; align-items: center; gap: var(--ds-checkbox-label-gap, 8px); height: 20px; font-size: 14px; line-height: 20px; letter-spacing: .25px; color: var(--ds-color-checkbox-label-text-color, #333333); }
+  .ex-check__box { flex: none; width: 20px; height: 20px; box-sizing: border-box; border-radius: 4px; border: 1.5px solid var(--ds-color-checkbox-default-border-color, #9e9e9e); }
+  /* Radio button group 48 (два ряда по 20 + 8) */
+  .ex-radio { display: flex; flex-direction: column; gap: 8px; }
+  .ex-radio__item { display: flex; align-items: center; gap: 8px; height: 20px; font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: 20px; letter-spacing: .5px; color: var(--ds-color-text-primary, #333333); }
+  .ex-radio__dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--ds-color-stroke-default, #9e9e9e); box-sizing: border-box; }
+  .ex-radio__dot--on { border: 5px solid var(--ds-color-stroke-accent, #448aff); }
+  /* Search — поле с плейсхолдером */
+  .ex-input--search .ex-input__value { color: var(--ds-color-text-placeholder, #d6d6d6); }
+  /* таблица с рядами 44 */
+  .ex-table--44 .ex-tr { height: 44px; }
+  /* Picture в контенте — 468×189, заливка Shapes/Lightest */
+  .ex-picture { width: 100%; height: 189px; border-radius: 8px; background: var(--ds-color-brand-neutral-lightest, #ebebeb); }
+  /* Type=Picture — слот картинки в шапке диалога (500×200) */
+  .ex-picture-head { width: 100%; height: 200px; background: var(--ds-color-brand-neutral-lightest, #ebebeb); }
+  /* Скролл и разделители (60006:6733) */
+  .ex-cap { font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px); letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, .5px); color: var(--ds-color-text-secondary, #616161); }
+  .ex-divider { height: 1px; flex: none; width: 100%; background: var(--ds-color-stroke-default, #e0e0e0); }
+  .ex-scrollbox { max-height: 204px; overflow: hidden; }
+  /* Scroll Size=M: трек 8, ползунок 8×96, позиция First / Middle / Last */
+  .ex-scrollcol { width: 12px; flex: none; align-self: stretch; display: flex; align-items: center; justify-content: center; }
+  .ex-track { position: relative; width: var(--ds-size-2x, 8px); height: 100%; border-radius: var(--ds-scroll-border-radius, 8px); background: var(--ds-color-scroll-default-background, #fafafa); }
+  .ex-knob { position: absolute; left: 0; width: 100%; height: 96px; border-radius: var(--ds-scroll-knob-radius, 8px); background: var(--ds-color-scroll-default-knob-color, #d6d6d6); }
+  .ex-knob--first { top: 0; }
+  .ex-knob--middle { top: 50%; transform: translateY(-50%); }
+  .ex-knob--last { bottom: 0; }
 </style>
+  <link rel="stylesheet" href="../../../icons/icons.css">
+  <script src="../../../icons/icons.js" defer></script>
 </head>
 <body>
 <div class="demo-bar">
@@ -80,6 +146,8 @@
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="dialog-content">Dialog content</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="dialog-footer">Dialog footer</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="picture">Picture</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="scroll-dividers">Скролл и разделители</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="examples">Примеры</button>
   </div>
 
   <!-- 2. Dialog view (набор 52952:1285; State=Default 53531:2453 — шапка + контент + подвал; 500×364 r12) -->
@@ -92,7 +160,7 @@
             <div class="snap-dlg-head">
               <div class="ds-dialog-header__title-container">
                 <span class="ds-dialog-header__label">Dialog title</span>
-                <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span>
+                <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
               </div>
               <span class="ds-dialog-header__description">Подзаголовок</span>
             </div>
@@ -125,7 +193,7 @@
             <div class="snap-dlg-head">
               <div class="ds-dialog-header__title-container">
                 <span class="ds-dialog-header__label">Dialog title</span>
-                <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span>
+                <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
               </div>
               <span class="ds-dialog-header__description">Подзаголовок</span>
             </div>
@@ -201,7 +269,7 @@
             <div class="snap-dlg-head">
               <div class="ds-dialog-header__title-container">
                 <span class="ds-dialog-header__label">Dialog title</span>
-                <span class="ds-dialog-header__icon snap-dlg-closeic" id="dlg-close" role="button" tabindex="0" aria-label="Закрыть"><span class="ds-icon-size ds-icon-size--6x ds-icon-size--state"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span>
+                <span class="ds-dialog-header__icon snap-dlg-closeic" id="dlg-close" role="button" tabindex="0" aria-label="Закрыть"><span class="ds-icon-size ds-icon-size--6x ds-icon-size--state"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
               </div>
               <span class="ds-dialog-header__description">Подзаголовок</span>
             </div>
@@ -225,14 +293,561 @@
         </div>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) Basic — живой диалог в составе набора Dialog view (State=Default: шапка + контент + подвал), поверх затемнения — компонент Backdrop (ds-backdrop); прозрачность слоя 15% (как в Figma) в css не выгружается — задана обвязкой (журнал №194); (б) закрывают — крестик (слот ds-dialog-header__icon → инстанс Icon size ds-icon-size--6x; у живого крестика — `--state`: при наведении подложка 32×32 #EBEBEB, при нажатии #E0E0E0, как State=Hover в Figma), Esc, кнопка «Подробнее» или клик по затемнению; «Открыть диалог» возвращает окно (кнопка — обвязка стенда); (в) паддинги/гэпы шапки и контента — обвязка на токенах; скругление корня (12) обрезает содержимое и выравнивание кнопки вправо — в компоненте (fixes.css п. 43); фон описания шапки — артефакт css, снят в fixes.css (п. 31); (г) примеры канвы (16 инстансов: «Удалить карту?», «Ошибка сохранения цен», «Импорт» и др.) на стенде не воспроизводятся — Basic показывает компонент живьём; (д) в Basic всё работает: диалог открывается/закрывается (крестик, Esc, «Подробнее», клик по затемнению), контент прокручивается колесом, ползунок Scroll перетаскивается и синхронизирован. Журнал №129, №202.</p>
+    <p class="snap-note">Пометки для ревью (Basic): (а) живой диалог собран классами ДС (ds-dialog-view → ds-dialog-header → ds-dialog-content → ds-dialog-view__footer); поверх затемнения — ds-backdrop, прозрачность 15 % задана обвязкой (в css не выгружается, журнал №194); (б) закрывают крестик, Esc, кнопка «Подробнее» и клик по затемнению; (в) паддинги шапки 16/16/16/8 и слота контента 8/16 — по данным узлов Figma (токены Dialog/Header/Pad*, Dialog/Content/Pad*); высота диалога 356 = 84 + 204 + 68 (без разделителей, как в State=Default); (г) примеры канвы перенесены в отдельную вкладку «Примеры» (кадр 58947:11768). Журнал №129, №202, №283.</p>
+  </div>
+
+  <!-- 7. Примеры (кадр 58947:11768) — диалоги канвы: тексты и размеры из узлов Figma -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden>
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Примеры канвы «Dialog (Примеры)» — 500 px, состав из узлов Figma</div>
+      <div class="ex-grid" style="margin-top: 12px;">
+
+        <!-- 58947:2713 (500×120): только шапка + подвал, контента нет -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Удалить карту?</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--filled"><span class="ds-btn__label">Удалить</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:12055 (500×264): контент 144 — четыре Slide toggle -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-toggle"><span class="ex-toggle__label">Ошибка сохранения цен</span><span class="ex-switch ex-switch--on"></span></div>
+                <div class="ex-toggle"><span class="ex-toggle__label">В продуктовой категории выбрана удалённая</span><span class="ex-switch ex-switch--off"></span></div>
+                <div class="ex-toggle"><span class="ex-toggle__label">Удалённые ингредиенты в тех. карте</span><span class="ex-switch ex-switch--on"></span></div>
+                <div class="ex-toggle"><span class="ex-toggle__label">Технологическая карта не заполнена</span><span class="ex-switch ex-switch--on"></span></div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Сохранить</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:12730 (500×312): контент 192 — три поля Input -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Создание элемента номенклатуры</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-input"><span class="ex-input__label">Название*</span><span class="ex-input__value">Кокосовое молоко</span></div>
+                <div class="ex-input"><span class="ex-input__label">Тип элемента</span><span class="ex-input__value">Товар</span></div>
+                <div class="ex-input"><span class="ex-input__label">Родительская группа</span><span class="ex-input__value">Корневая</span></div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Создать</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:14075 (500×244): контент 124 — таблица 3 строки по 36 -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-table">
+                  <div class="ex-tr"><span class="ex-td">Водка “Флагман” 40%</span><span class="ex-td">+0.2 л.</span></div>
+                  <div class="ex-tr"><span class="ex-td">Виски ”Jameson”</span><span class="ex-td">+0.7 л.</span></div>
+                  <div class="ex-tr"><span class="ex-td">Текила “Olmeca Blanco”</span><span class="ex-td">+0.9 л.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Создать</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:15357 (500×412): логин iikoWeb + текст про Ozon -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-input"><span class="ex-input__label">Логин iikoWeb</span><span class="ex-input__value">iikoozon</span></div>
+                <div class="ex-input"><span class="ex-input__label">Пароль iikoWeb</span><span class="ex-input__value">husd78hjsf5</span></div>
+                <span class="ex-link">Забыли пароль?</span>
+                <span class="ex-text">Приложению Ozon будет предоставлен доступ к вашим данным в личном кабинете iiko web - спискам товарных накладных.</span>
+                <span class="ex-text">Прежде чем начать работу с приложением Ozon, вы можете ознакомиться с <span class="ex-link">политикой конфиденциальности</span> и условиями использования.</span>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Подтвердить</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:12234 (500×264): Input «Франчайзи (откуда)» + Chips Input -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-input"><span class="ex-input__label">Франчайзи (откуда)</span><span class="ex-input__value">Франчайзи 2</span></div>
+                <div class="ex-chips">
+                  <span class="ex-chips__label">Label</span>
+                  <div class="ex-chips__row">
+                    <span class="ex-chip">Франчайзи 3</span>
+                    <span class="ex-chips__hint">Выберите ресторан</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Копировать настройки</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:12896 (500×200): «Импорт» — drag and drop 64 -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Импорт</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-drop">
+                  <span class="ex-drop__title"><span class="ex-link">Выберите файл</span> или перетащите сюда</span>
+                  <span class="ex-drop__hint">Форматы xlsx, xls, csv до 5 МБ</span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined"><span class="ds-btn__label">Скачать шаблон</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--disable ds-btn--filled" disabled><span class="ds-btn__label">Импортировать</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:13022 (500×200): drag and drop со спиннером -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-drop ex-drop--center"><span class="ex-spinner"></span></div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined"><span class="ds-btn__label">Скачать шаблон</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--disable ds-btn--filled" disabled><span class="ds-btn__label">Импортировать</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:13932 (500×200): Banners (Warning, Horizontal) 64 -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-banner">Часть гостей не добавлена. Скачайте файл, исправьте ошибки и загрузите его снова</div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined"><span class="ds-btn__label">Загрузить снова</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Скачать файл</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:13236 (500×484): Radio group + Search + Table 5×44 -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Добавить модификаторы</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-radio">
+                  <span class="ex-radio__item"><span class="ex-radio__dot ex-radio__dot--on"></span>Модификатор</span>
+                  <span class="ex-radio__item"><span class="ex-radio__dot"></span>Группа модификаторов</span>
+                </div>
+                <div class="ex-input ex-input--search"><span class="ex-input__value">Поиск</span></div>
+                <div class="ex-table ex-table--44">
+                  <div class="ex-tr"><span class="ex-td">Название</span></div>
+                  <div class="ex-tr"><span class="ex-td">Группа модификаторов 1</span></div>
+                  <div class="ex-tr"><span class="ex-td">Модификатор 1</span></div>
+                  <div class="ex-tr"><span class="ex-td">Модификатор 2</span></div>
+                  <div class="ex-tr"><span class="ex-td">Группа модификаторов 2</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Добавить</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:15011 (500×272): баннер Accent + Checkbox group -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-banner ex-banner--accent">Последее обновление 21.08.2022, 11:05:49</div>
+                <div class="ex-checks">
+                  <span class="ex-check"><span class="ex-check__box"></span>Обновлять названия и описания блюд</span>
+                  <span class="ex-check"><span class="ex-check__box"></span>Обновлять цены</span>
+                  <span class="ex-check"><span class="ex-check__box"></span>Обновлять количество модификаторов</span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Обновить</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:14562 (500×325): Picture 468×189 в контенте -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="ex-picture"></div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Применить</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58947:11923 (500×690): длинный текст, скролл Position=Middle -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Работа на всех платформах</span><span class="ex-text">Управляйте заведением из любой точки мира. iikoWeb объединяет работу кассы, системы доставки, складского учета и мобильных приложений в единой облачной среде. Одно решение для веба, планшетов и нативных приложений.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Скорость и производительность</span><span class="ex-text">Максимальная производительность даже в часы пик благодаря современной серверной архитектуре и облачным технологиям. Мгновенная обработка заказов, без задержек и простоев, гарантирует комфортную работу персонала и гостей.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Мощный инструментарий</span><span class="ex-text">Интуитивный интерфейс для быстрого создания меню, гибких скидок и контроля персонала. Широкий набор интеграций с сервисами доставки и внешними системами позволяет автоматизировать рутину и сосредоточиться на развитии бизнеса.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Выбор профессионалов</span><span class="ex-text">От запуска одного ресторана до масштабной сети — iikoWeb обеспечивает стабильность и масштабирование без потери качества. Надежная инфраструктура и прозрачная аналитика поддерживают бизнес лучших заведений по всему миру.</span></div>
+                <span class="ex-link">Подробнее об изменениях</span>
+              </div>
+              <div class="snap-dlg-scrollcol"><div class="ds-scroll ds-scroll--middle"><div class="ds-scroll__background"><div class="ds-scroll__knob"></div></div></div></div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Понятно</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 59029:7962 (500×472): шапка-картинка 200 + три блока + Отмена / Подтвердить -->
+        <div class="ex-item">
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header"><div class="ex-picture-head"></div></div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ex-text">В блоке контента может быть всё что угодно</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ex-text">В блоке контента может быть всё что угодно</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Content title</span><span class="ex-text">В блоке контента может быть всё что угодно</span></div>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Подтвердить</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="snap-note">Перенесено по узлам Figma: 14 диалогов канвы 58947:11768 (размеры 120 / 264 / 312 / 244 / 416 / 264 / 200 / 200 / 200 / 484 / 272 / 325 / 688 / 472 — сверены с узлами). Тексты дословно из узлов, включая опечатки Figma («Последее обновление», «Виски ”Jameson”»). Не перенесены два инстанса: 58947:18271 и пустой дубль 58947:11801.</p>
+  </div>
+
+  <!-- Скролл и разделители — отдельная вкладка (кадр 60006:6733) -->
+  <div class="panel" data-vpanel="scroll-dividers" role="tabpanel" hidden>
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Скролл и разделители (кадр 60006:6733)</div>
+      <div class="ex-grid" style="margin-top:12px;">
+        <div class="ex-item">
+          <span class="ex-cap">Нет скролла — нет разделителей</span>
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot">
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Работа на всех платформах</span><span class="ex-text">Управляйте заведением из любой точки мира. iikoWeb объединяет работу кассы, системы доставки, складского учета и мобильных приложений в единой облачной среде. Одно решение для веба, планшетов и нативных приложений.</span></div>
+                <span class="ex-link">Подробнее об изменениях</span>
+              </div>
+            </div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Понятно</span></button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ex-item">
+          <span class="ex-cap">Есть скролл — есть разделители</span>
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ex-divider"></div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot ex-scrollbox">
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Работа на всех платформах</span><span class="ex-text">Управляйте заведением из любой точки мира. iikoWeb объединяет работу кассы, системы доставки, складского учета и мобильных приложений в единой облачной среде. Одно решение для веба, планшетов и нативных приложений.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Скорость и производительность</span><span class="ex-text">Максимальная производительность даже в часы пик благодаря современной серверной архитектуре и облачным технологиям. Мгновенная обработка заказов, без задержек и простоев, гарантирует комфортную работу персонала и гостей.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Мощный инструментарий</span><span class="ex-text">Интуитивный интерфейс для быстрого создания меню, гибких скидок и контроля персонала. Широкий набор интеграций с сервисами доставки и внешними системами позволяет автоматизировать рутину и сосредоточиться на развитии бизнеса.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Выбор профессионалов</span><span class="ex-text">От запуска одного ресторана до масштабной сети — iikoWeb обеспечивает стабильность и масштабирование без потери качества. Надежная инфраструктура и прозрачная аналитика поддерживают бизнес лучших заведений по всему миру.</span></div>
+                <span class="ex-link">Подробнее об изменениях</span>
+              </div>
+              <div class="ex-scrollcol"><div class="ex-track"><div class="ex-knob ex-knob--first"></div></div></div>
+            </div>
+            <div class="ex-divider"></div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Понятно</span></button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ex-item">
+          <span class="ex-cap">Есть скролл — есть разделители (Position=Middle)</span>
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ex-divider"></div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot ex-scrollbox">
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Работа на всех платформах</span><span class="ex-text">Управляйте заведением из любой точки мира. iikoWeb объединяет работу кассы, системы доставки, складского учета и мобильных приложений в единой облачной среде. Одно решение для веба, планшетов и нативных приложений.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Скорость и производительность</span><span class="ex-text">Максимальная производительность даже в часы пик благодаря современной серверной архитектуре и облачным технологиям. Мгновенная обработка заказов, без задержек и простоев, гарантирует комфортную работу персонала и гостей.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Мощный инструментарий</span><span class="ex-text">Интуитивный интерфейс для быстрого создания меню, гибких скидок и контроля персонала. Широкий набор интеграций с сервисами доставки и внешними системами позволяет автоматизировать рутину и сосредоточиться на развитии бизнеса.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Выбор профессионалов</span><span class="ex-text">От запуска одного ресторана до масштабной сети — iikoWeb обеспечивает стабильность и масштабирование без потери качества. Надежная инфраструктура и прозрачная аналитика поддерживают бизнес лучших заведений по всему миру.</span></div>
+                <span class="ex-link">Подробнее об изменениях</span>
+              </div>
+              <div class="ex-scrollcol"><div class="ex-track"><div class="ex-knob ex-knob--middle"></div></div></div>
+            </div>
+            <div class="ex-divider"></div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Понятно</span></button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ex-item">
+          <span class="ex-cap">Есть скролл — есть разделители (Position=Last)</span>
+          <div class="ds-dialog-view">
+            <div class="ds-dialog-header">
+              <div class="snap-dlg-head">
+                <div class="ds-dialog-header__title-container">
+                  <span class="ds-dialog-header__label">Dialog title</span>
+                  <span class="ds-dialog-header__icon"><span class="ds-icon-size ds-icon-size--6x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ex-divider"></div>
+            <div class="ds-dialog-content">
+              <div class="snap-dlg-slot ex-scrollbox">
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Работа на всех платформах</span><span class="ex-text">Управляйте заведением из любой точки мира. iikoWeb объединяет работу кассы, системы доставки, складского учета и мобильных приложений в единой облачной среде. Одно решение для веба, планшетов и нативных приложений.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Скорость и производительность</span><span class="ex-text">Максимальная производительность даже в часы пик благодаря современной серверной архитектуре и облачным технологиям. Мгновенная обработка заказов, без задержек и простоев, гарантирует комфортную работу персонала и гостей.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Мощный инструментарий</span><span class="ex-text">Интуитивный интерфейс для быстрого создания меню, гибких скидок и контроля персонала. Широкий набор интеграций с сервисами доставки и внешними системами позволяет автоматизировать рутину и сосредоточиться на развитии бизнеса.</span></div>
+                <div class="snap-dlg-block"><span class="ds-dialog-content__label">Выбор профессионалов</span><span class="ex-text">От запуска одного ресторана до масштабной сети — iikoWeb обеспечивает стабильность и масштабирование без потери качества. Надежная инфраструктура и прозрачная аналитика поддерживают бизнес лучших заведений по всему миру.</span></div>
+                <span class="ex-link">Подробнее об изменениях</span>
+              </div>
+              <div class="ex-scrollcol"><div class="ex-track"><div class="ex-knob ex-knob--last"></div></div></div>
+            </div>
+            <div class="ex-divider"></div>
+            <div class="ds-dialog-view__footer">
+              <div class="ds-dialog-view__action snap-dlg-actions">
+                <div class="ex-btns"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Понятно</span></button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="snap-note">Кадр 60006:6733: пока контент помещается — разделителей нет; как только появляется скролл, шапка и подвал отделяются линией 1 px #E0E0E0. Полоса прокрутки — Scroll Size=M (трек 8, ползунок 8×96, Position=First / Middle / Last).</p>
   </div>
 </div>
 
+
 <!-- иконка close 24 -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="ic-close-24" viewBox="0 0 24 24"><path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"/></symbol>
-</svg>
+
 
 <script>
   /* табы стенда */
