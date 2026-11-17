@@ -9,9 +9,9 @@ Figma: `https://www.figma.com/design/skjpVJUl8ir0JazrrPAMOW/Icons--New-`
 
 | Страница Figma | Папка |
 |---|---|
-| `Icons` (12 фреймов-разделов) | `svg/device`, `svg/general`, `svg/arrows`, `svg/communication-file`, `svg/e-commerce`, `svg/business`, `svg/multimedia`, `svg/transport`, `svg/map`, `svg/people`, `svg/food`, `svg/places-things` |
-| `Icons custom` | `svg/icons-custom` |
-| `Logo` | `svg/logo` |
+| `Icons` (12 фреймов-разделов) | `device`, `general`, `arrows`, `communication-file`, `e-commerce`, `business`, `multimedia`, `transport`, `map`, `people`, `food`, `places-things` |
+| `Icons custom` | `icons-custom` |
+| `Logo` | `logo` |
 
 Итого **1186 файлов .svg** в 15 папках (плюс `_unassigned` — компонент `Stars`, который в Figma лежит
 на канве вне фреймов). 1178 уникальных имён: одно имя может лежать в двух разделах (см. «Про дубли»).
@@ -26,13 +26,13 @@ Figma: `https://www.figma.com/design/skjpVJUl8ir0JazrrPAMOW/Icons--New-`
 
 - размер: `24 × 24`, `viewBox="0 0 24 24"` — как в Figma;
 - цвет: `fill="currentColor"` — иконка красится цветом текста, её можно перекрашивать токенами ДС;
-- логотипы в `svg/logo` сохраняют фирменные цвета;
+- логотипы в `logo` сохраняют фирменные цвета;
 - имя файла = имя компонента в Figma (например `search.svg`, `wifi_off.svg`).
 
 ## Как компоненты берут иконку из библиотеки
 
 Как в Figma: компонент не рисует иконку сам, а ставит инстанс иконки из библиотеки.
-В коде это одна строчка — элемент без содержимого, рисунок приходит маской из `svg/<раздел>/<имя>.svg`:
+В коде это одна строчка — элемент без содержимого, рисунок приходит маской из `<раздел>/<имя>.svg`:
 
 ```html
 <!-- слот компонента: размер задаёт css слота (Icon size), цвет — currentColor -->

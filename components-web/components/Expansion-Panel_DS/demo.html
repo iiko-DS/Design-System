@@ -49,6 +49,113 @@
   .snap-exp-row { display: flex; align-items: center; gap: 8px; font-size: 14px; line-height: 20px; }
   .snap-exp-counter { display: inline-flex; align-items: center; justify-content: center; min-width: 19px; height: 18px; padding: 1px 6px; box-sizing: border-box; border-radius: 9999px; background: var(--ds-color-badge-accent-background, #448aff); color: #fff; font-size: 12px; line-height: 16px; }
   .snap-exp-date { color: #616161; font-size: 12px; line-height: 16px; }
+
+  /* ================= вкладка «Примеры»: фрейм Expansion (Examples) 58226:10770 =================
+     Все размеры/цвета — из узлов REST (absoluteBoundingBox + fills/strokes), тексты дословно. */
+  .panel[data-vpanel="examples"] { max-width: 100%; overflow-x: auto; }
+  .ep-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; }
+  .ep-block { display: flex; flex-direction: column; gap: 8px; }
+  .ep-block__cap { margin: 0; font-size: 12px; line-height: 16px; color: var(--ds-color-text-secondary, #616161); }
+  .ep-w1124 { width: 1124px; } .ep-w920 { width: 920px; } .ep-w717 { width: 717px; }
+  .ep-w688 { width: 688px; } .ep-w600 { width: 600px; } .ep-w597 { width: 597px; }
+  /* панель: рамка на обёртке (в Figma 1px рамки рисуется поверх детей → паддинг контента 15/16) */
+  .ep-card { box-sizing: border-box; background: #fff; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: 12px; }
+  .ep-card--info { border: 1px dashed var(--ds-color-accent-default, #448aff); }
+  /* шапка 44 внутри обёртки (без своей рамки) */
+  .ep-head { box-sizing: border-box; display: flex; align-items: center; gap: 8px; height: 44px; padding: 12px 16px; border-radius: 12px 12px 0 0; }
+  .ep-head--default { background: var(--ds-expansion-panel-collaps-default-background, #f8f9fc); }
+  .ep-head--white { background: #fff; }
+  .ep-head--info { background: var(--ds-expansion-panel-collaps-info-background, #f5f9ff); }
+  /* самостоятельная шапка 44 с рамкой (Collapsed) */
+  .ep-head--boxed { height: 44px; padding: 11px 16px; border-radius: 12px; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); }
+  .ep-head--boxed.ep-head--info { border: 1px dashed var(--ds-color-accent-default, #448aff); }
+  .ep-head--boxed.ep-head--r8 { border-radius: 8px; }
+  .ep-title { flex: 1 0 0; min-width: 0; font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: .5px; color: #333333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ep-ico { display: inline-flex; flex: 0 0 20px; width: 20px; height: 20px; }
+  .ep-ico--24 { flex-basis: 24px; width: 24px; height: 24px; }
+  .ep-ico svg { width: 100%; height: 100%; display: block; }
+  .ep-ico--accent { color: var(--ds-color-accent-default, #448aff); }
+  .ep-ico--gray { color: var(--ds-color-icon-primary, #616161); }
+  .ep-right { display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+  .ep-details { font-size: 12px; line-height: 16px; color: #333333; white-space: nowrap; }
+  .ep-body { box-sizing: border-box; padding: 15px 16px; }
+  .ep-slot { display: block; font-size: 14px; line-height: 20px; letter-spacing: .5px; color: #333333; }
+  /* блок-панель (Expansion block panel): шапка 56/52 + контент с паддингом 16 */
+  .ep-blockpanel { box-sizing: border-box; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--ds-color-stroke-default, #e0e0e0); }
+  .ep-bp-head { box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 11px 16px; background: #f8f9fc; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); }
+  .ep-bp-head--56 { height: 56px; }
+  .ep-bp-head--52 { height: 52px; }
+  .ep-bp-title { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: .5px; color: #333333; white-space: nowrap; }
+  .ep-bp-right { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; }
+  .ep-bp-body { padding: 16px; }
+  /* переключатель «Активные / Все» (Button toggle 119×32) */
+  .ep-toggle { display: inline-flex; align-items: center; gap: 4px; box-sizing: border-box; width: 119px; height: 32px; padding: 4px; background: #fff; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: 8px; }
+  .ep-toggle__btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; width: 34px; height: 24px; padding: 4px 6px; border-radius: 8px; font-size: 12px; line-height: 16px; font-weight: 500; color: #333333; white-space: nowrap; }
+  .ep-toggle__btn--on { width: 73px; background: var(--ds-color-accent-default, #448aff); color: #fff; }
+  .ep-btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 28px; padding: 4px 8px; border-radius: 8px; background: #fff; font-size: 14px; line-height: 20px; font-weight: 500; color: #333333; white-space: nowrap; }
+  .ep-btn--36 { height: 36px; padding: 9px 8px; }
+  .ep-btn--w159 { width: 159px; } .ep-btn--w157 { width: 157px; } .ep-btn--w50 { width: 50px; }
+  .ep-btn--w99 { width: 99px; } .ep-btn--w139 { width: 139px; } .ep-btn--w171 { width: 171px; }
+  /* строки-«promo»/таблиц: паддинг 12, нижний разделитель 1px #E0E0E0 */
+  .ep-row { display: flex; align-items: flex-start; box-sizing: border-box; background: #fff; }
+  .ep-row--gray { background: #f5f5f5; }
+  .ep-cell { box-sizing: border-box; padding: 12px; display: flex; align-items: center; gap: 8px; min-width: 0; flex: 0 0 auto; }
+  .ep-cell--end { justify-content: flex-end; }
+  .ep-cell__txt { font-size: 14px; line-height: 20px; letter-spacing: .5px; color: #333333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ep-cell__txt--link { color: var(--ds-color-accent-default, #448aff); }
+  .ep-cell__txt--mute { color: #9e9e9e; }
+  .ep-cell__txt--medium { font-weight: 500; letter-spacing: .25px; color: #212121; }
+  .ep-cell--actions { gap: 16px; justify-content: flex-end; }
+  .ep-row > .ep-cell[style*="flex: 1 0 auto"] { justify-content: flex-start; }
+  .ep-divider { height: 1px; background: var(--ds-color-stroke-default, #e0e0e0); }
+  .ep-divider--light { background: #fff; }
+  /* мини-слайд-тоггл 34×20 */
+  .ep-slide { position: relative; flex: 0 0 34px; width: 34px; height: 20px; border-radius: 12px; background: var(--ds-color-accent-default, #448aff); box-sizing: border-box; padding: 2px 2px 2px 16px; }
+  .ep-slide::after { content: ""; display: block; width: 16px; height: 16px; border-radius: 9999px; background: #fff; }
+  /* «Расписание 1» — Frame 834 */
+  .ep-frame834 { box-sizing: border-box; width: 717px; border-radius: 4px; box-shadow: inset 0 0 0 .5px var(--ds-color-stroke-default, #e0e0e0), 0 1px 3px rgba(0,0,0,.06); background: #fff; }
+  .ep-834-list { display: flex; align-items: center; gap: 16px; box-sizing: border-box; height: 48px; padding: 12px 16px; background: #f5f5f5; border-radius: 4px 4px 0 0; }
+  .ep-834-list__actions { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; }
+  .ep-834-list__txt { font-size: 14px; line-height: 20px; letter-spacing: .25px; color: #212121; }
+  .ep-834-body { box-sizing: border-box; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+  .ep-days { display: flex; gap: 0; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: 4px; overflow: hidden; }
+  .ep-day { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; width: 50px; height: 48px; padding: 6px 12px; border-radius: 2px; background: #fff; font-size: 14px; line-height: 20px; letter-spacing: .25px; color: #212121; }
+  .ep-day--on { background: #f0f6ff; }
+  .ep-days__div { flex: 0 0 1px; width: 1px; height: 48px; background: #eeeeee; }
+  .ep-field { position: relative; box-sizing: border-box; height: 56px; padding-top: 8px; }
+  .ep-field__box { display: flex; align-items: center; justify-content: space-between; gap: 8px; box-sizing: border-box; height: 48px; padding: 12px 12px 12px 16px; background: #fff; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: 8px; font-size: 16px; line-height: 24px; letter-spacing: .5px; color: #212121; }
+  /* подпись в Figma — плавающая: 16 px над полем, перекрывает верхнюю рамку (белый фон) */
+  .ep-field__label { position: absolute; top: 0; left: 8px; z-index: 1; height: 16px; box-sizing: border-box; padding: 0 4px; background: #fff; font-size: 12px; line-height: 16px; letter-spacing: .4px; color: #616161; white-space: nowrap; }
+  .ep-numfield { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; width: 44px; height: 32px; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: 4px; font-size: 14px; line-height: 20px; letter-spacing: .5px; color: #333333; }
+  .ep-cell__txt--group { font-size: 14px; line-height: 24px; font-weight: 500; letter-spacing: .1px; color: #212121; }
+  .ep-cell__txt--strong { font-weight: 500; letter-spacing: .5px; color: #333333; }
+  .ep-cell__txt--wrap { white-space: normal; }
+  .ep-card--h292 { border: 0; box-shadow: inset 0 0 0 1px var(--ds-color-stroke-default, #e0e0e0); }
+  .ep-834-row { display: flex; gap: 16px; }
+  .ep-title-actions { display: flex; align-items: center; gap: 8px; height: 36px; white-space: nowrap; overflow: hidden; }
+  .ep-title-actions__title { font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: .5px; color: #212121; white-space: nowrap; flex: 0 0 auto; }
+  .ep-title-actions__hint { font-size: 14px; line-height: 20px; letter-spacing: .25px; color: #616161; white-space: nowrap; flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .ep-834-cond { display: flex; align-items: flex-end; gap: 16px; }
+  .ep-834-cond > .ep-ico { margin-bottom: 12px; }
+  /* таблица «Table group_2» / «Frame 852» */
+  .ep-tbl { box-sizing: border-box; border-radius: 4px; overflow: hidden; }
+  .ep-tbl--bordered { box-shadow: inset 0 0 0 1px var(--ds-color-stroke-default, #e0e0e0); }
+  .ep-thead { display: flex; background: #f0f6ff; }
+  .ep-thead .ep-cell { padding: 8px 16px; }
+  .ep-thead .ep-cell:first-child { padding-left: 48px; }
+  .ep-thead .ep-cell__txt { color: #212121; letter-spacing: .25px; }
+  .ep-trow .ep-cell:first-child { padding-left: 48px; }
+  .ep-group-row { background: #e8f1ff; }
+  .ep-group-row .ep-cell { padding: 12px 16px; }
+  .ep-group-row .ep-cell__txt { font-size: 14px; line-height: 24px; font-weight: 500; letter-spacing: .1px; color: #212121; }
+  /* «Общие параметры» — List two */
+  .ep-list2 { box-sizing: border-box; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: inset 0 -1px 0 var(--ds-color-stroke-default, #e0e0e0); }
+  .ep-list2:last-child { box-shadow: none; }
+  .ep-list2--tight { gap: 0; }
+  .ep-list2__label { font-size: 12px; line-height: 16px; letter-spacing: .4px; color: #616161; }
+  .ep-list2__value { font-size: 14px; line-height: 20px; letter-spacing: .25px; color: #212121; }
+  .ep-list2__line { display: flex; align-items: center; gap: 24px; }
+  .ep-list2__item { display: inline-flex; align-items: center; gap: 8px; }
 </style>
   <link rel="stylesheet" href="../../../icons/icons.css">
   <script src="../../../icons/icons.js" defer></script>
@@ -64,6 +171,7 @@
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="expansion-panel">Expansion panel</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="expansion-content">Expansion content</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="expansion-group">Expansion group panel</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="examples">Примеры</button>
   </div>
 
   <!-- 2. Expansion panel (набор 52937:1328 / канва 52937:1329; 12 вариантов: Default/Info × Off/On × Default/Hover/Press/Disable).
@@ -279,6 +387,381 @@
     </div>
     <p class="snap-note">Пометки для ревью: (а) тексты — с канвы (заголовки и строки; часть строк в канве обрезана); (б) «Инфо»/«Даты»/«Стоп»/«Наиболее выгодная» — бейджи/метки внутри дерева акций (на стенде показаны цветными счётчиками — по смыслу, сверить со кадром); (в) полный кадр «Дерево акций» включает вложенные панели и таблицу — на стенде репрезентативно; (г) все панели живые (клик раскрывает/сворачивает). Журнал №133.</p>
   </div>
+
+  <!-- 5. Примеры — фрейм «Expansion (Examples)» 58226:10770 (2059×2652).
+       Блоки канвы: Expansion panel Info Expand (688×96) / Info Collapsed (688×44) / Default Collapsed (600×44) /
+       Default Expand (600×96) / block panel «Нераспределенные» (920×358) / block panel «Дерево акций» (920×550) /
+       Frame 834 «Расписание 1» (717×468) / Table group_2 (1124×49) / Frame 852 (1124×301) / «Общие параметры» (597×292). -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden>
+    <div class="snap-cap snap-sect__title">Expansion (Examples) — 58226:10770 · 2059×2652</div>
+
+    <div class="ep-stack" style="margin-top: 12px;">
+
+      <!-- Expansion panel · Variant=Info, Collapsed=False · 688×96 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Expansion panel · Variant=Info, Collapsed=False — 688×96 (58327:20574)</p>
+        <div class="ep-card ep-card--info ep-w688">
+          <div class="ep-head ep-head--info">
+            <span class="ep-ico ep-ico--accent"><svg class="i-wb_incandescent" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+            <span class="ep-title">На что влияет выбор складов</span>
+            <span class="ep-ico ep-ico--gray"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+            <span class="ep-right"><span class="ep-details">Подробнее</span><span class="ep-ico ep-ico--gray"><svg class="i-keyboard_arrow_up" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+          </div>
+          <div class="ep-body"><span class="ep-slot">Это Slot. В блоке контента может быть всё что угодно</span></div>
+        </div>
+      </div>
+
+      <!-- Expansion panel · Variant=Info, Collapsed=True · 688×44 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Expansion panel · Variant=Info, Collapsed=True — 688×44 (58327:20599)</p>
+        <div class="ep-head ep-head--boxed ep-head--info ep-head--r8 ep-w688">
+          <span class="ep-ico ep-ico--accent"><svg class="i-wb_incandescent" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+          <span class="ep-title">На что влияет выбор складов</span>
+          <span class="ep-ico ep-ico--gray"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+          <span class="ep-right"><span class="ep-details">Подробнее</span><span class="ep-ico ep-ico--gray"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+        </div>
+      </div>
+
+      <!-- Expansion panel · Variant=Default, Collapsed=True · 600×44 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Expansion panel · Variant=Default, Collapsed=True — 600×44 (58468:5311)</p>
+        <div class="ep-head ep-head--boxed ep-head--default ep-w600">
+          <span class="ep-ico ep-ico--gray"><svg class="i-wb_incandescent" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+          <span class="ep-title">На что влияет выбор складов</span>
+          <span class="ep-ico ep-ico--gray"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+          <span class="ep-ico ep-ico--gray"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+        </div>
+      </div>
+
+      <!-- Expansion panel · Variant=Default, Collapsed=False · 600×96 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Expansion panel · Variant=Default, Collapsed=False — 600×96 (58474:4011)</p>
+        <div class="ep-card ep-w600">
+          <div class="ep-head ep-head--white">
+            <span class="ep-ico ep-ico--gray"><svg class="i-wb_incandescent" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+            <span class="ep-title">На что влияет выбор складов</span>
+            <span class="ep-ico ep-ico--gray"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+            <span class="ep-ico ep-ico--gray"><svg class="i-keyboard_arrow_up" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+          </div>
+          <div class="ep-body"><span class="ep-slot">Это Slot. В блоке контента может быть всё что угодно</span></div>
+        </div>
+      </div>
+
+      <!-- Expansion block panel «Нераспределенные» · 920×358 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Expansion block panel «Нераспределенные» — 920×358 (58483:5966)</p>
+        <div class="ep-blockpanel ep-w920">
+          <div class="ep-bp-head ep-bp-head--56">
+            <span class="ep-ico ep-ico--gray"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+            <span class="ep-bp-title">Нераспределенные</span>
+            <span class="ep-bp-right">
+              <span class="ep-ico ep-ico--gray"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+              <span class="ep-toggle"><span class="ep-toggle__btn ep-toggle__btn--on">Активные</span><span class="ep-toggle__btn">Все</span></span>
+            </span>
+          </div>
+          <div class="ep-bp-body">
+            <div class="ep-row" style="height: 44px;">
+              <div class="ep-cell" style="width: 44px;"><span class="ep-cell__txt">10</span></div>
+              <div class="ep-cell" style="width: 580px;"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell" style="width: 156px;"><span class="ep-cell__txt">До 22.12.2024</span></div>
+              <div class="ep-cell" style="width: 58px;"><span class="ep-slide"></span></div>
+              <div class="ep-cell ep-cell--end" style="flex: 1 0 auto;"><span class="ep-ico ep-ico--gray"><svg class="i-more_vert" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row ep-row--gray" style="height: 44px;">
+              <div class="ep-cell" style="width: 580px;"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell" style="width: 200px;"><span class="ep-cell__txt">До 22.12.2024</span></div>
+              <div class="ep-cell" style="width: 58px;"><span class="ep-slide"></span></div>
+              <div class="ep-cell ep-cell--end" style="flex: 1 0 auto;"><span class="ep-ico ep-ico--gray"><svg class="i-more_vert" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="height: 44px;">
+              <div class="ep-cell" style="width: 44px;"><span class="ep-cell__txt">10</span></div>
+              <div class="ep-cell" style="width: 580px;"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell" style="width: 156px;"><span class="ep-cell__txt">До 22.12.2024</span></div>
+              <div class="ep-cell" style="width: 58px;"><span class="ep-slide"></span></div>
+              <div class="ep-cell ep-cell--end" style="flex: 1 0 auto;"><span class="ep-ico ep-ico--gray"><svg class="i-more_vert" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="height: 44px;">
+              <div class="ep-cell" style="width: 44px;"><span class="ep-cell__txt">10</span></div>
+              <div class="ep-cell" style="width: 580px;"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell" style="width: 156px;"><span class="ep-cell__txt">До 22.12.2024</span></div>
+              <div class="ep-cell" style="width: 58px;"><span class="ep-slide"></span></div>
+              <div class="ep-cell ep-cell--end" style="flex: 1 0 auto;"><span class="ep-ico ep-ico--gray"><svg class="i-more_vert" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="height: 44px;">
+              <div class="ep-cell" style="width: 44px;"><span class="ep-cell__txt">10</span></div>
+              <div class="ep-cell" style="width: 580px;"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell" style="width: 156px;"><span class="ep-cell__txt">До 22.12.2024</span></div>
+              <div class="ep-cell" style="width: 58px;"><span class="ep-slide"></span></div>
+              <div class="ep-cell ep-cell--end" style="flex: 1 0 auto;"><span class="ep-ico ep-ico--gray"><svg class="i-more_vert" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="height: 44px;">
+              <div class="ep-cell" style="width: 44px;"><span class="ep-cell__txt">10</span></div>
+              <div class="ep-cell" style="width: 580px;"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell" style="width: 156px;"><span class="ep-cell__txt">До 22.12.2024</span></div>
+              <div class="ep-cell" style="width: 58px;"><span class="ep-slide"></span></div>
+              <div class="ep-cell ep-cell--end" style="flex: 1 0 auto;"><span class="ep-ico ep-ico--gray"><svg class="i-more_vert" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
+            </div>
+            <div class="ep-divider"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expansion block panel «Дерево акций» · 920×550 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Expansion block panel «Дерево акций» — 920×550 (58483:6812)</p>
+        <div class="ep-blockpanel ep-w920">
+          <div class="ep-bp-head ep-bp-head--52">
+            <span class="ep-bp-title">Дерево акций</span>
+            <span class="ep-bp-right"><span class="ep-btn ep-btn--w159">Добавить группу</span></span>
+          </div>
+          <div class="ep-bp-body">
+            <!-- строки-таблица: колонки как в узле (294 / гибкая / 120 «Даты» / 130 тоггл / 44 иконка);
+                 в Figma средняя ячейка шире ряда и наезжает на «Даты» — здесь она гибкая, без наездов -->
+            <div class="ep-row" style="display: grid; grid-template-columns: 294px minmax(0, 1fr) 120px 130px; height: 44px;">
+              <div class="ep-cell"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Инфо</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Даты</span></div>
+              <div class="ep-cell ep-cell--actions"><span class="ep-ico ep-ico--gray"><svg class="i-mood" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-ico ep-ico--gray"><svg class="i-block" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-slide"></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row ep-row--gray" style="display: grid; grid-template-columns: 294px minmax(0, 1fr) 120px 130px; height: 44px;">
+              <div class="ep-cell"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Инфо</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Даты</span></div>
+              <div class="ep-cell ep-cell--actions"><span class="ep-ico ep-ico--gray"><svg class="i-mood" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-ico ep-ico--gray"><svg class="i-block" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-slide"></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="display: grid; grid-template-columns: 294px minmax(0, 1fr) 120px 130px; height: 44px;">
+              <div class="ep-cell"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Закажите на сумму от 2000 рублей и получите бесплатную доставку</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Даты</span></div>
+              <div class="ep-cell ep-cell--actions"><span class="ep-ico ep-ico--gray"><svg class="i-mood" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-ico ep-ico--gray"><svg class="i-block" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-slide"></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="display: grid; grid-template-columns: 294px minmax(0, 1fr) 120px 130px; height: 44px;">
+              <div class="ep-cell"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">К каждому основному блюду - десерт в подарок</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Даты</span></div>
+              <div class="ep-cell ep-cell--actions"><span class="ep-ico ep-ico--gray"><svg class="i-mood" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-ico ep-ico--gray"><svg class="i-block" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-slide"></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="display: grid; grid-template-columns: 294px minmax(0, 1fr) 120px 130px; height: 44px;">
+              <div class="ep-cell"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">К каждому основному блюду - десерт в подарок</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Даты</span></div>
+              <div class="ep-cell ep-cell--actions"><span class="ep-ico ep-ico--gray"><svg class="i-mood" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-ico ep-ico--gray"><svg class="i-block" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-slide"></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row ep-row--gray" style="height: 52px;">
+              <div class="ep-cell" style="width: 88px; padding: 12px 0 12px 44px;"><span class="ep-numfield">6</span></div>
+              <div class="ep-cell" style="width: 517px;"><span class="ep-cell__txt">Акция на десерты</span></div>
+              <div class="ep-cell" style="width: 239px; gap: 8px;">
+                <span class="ep-btn ep-btn--w157">Наиболее выгодная</span><span class="ep-btn ep-btn--w50">Стоп</span>
+              </div>
+              <div class="ep-cell" style="width: 44px;"></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="height: 52px;">
+              <div class="ep-cell" style="width: 44px;"><span class="ep-cell__txt">1</span></div>
+              <div class="ep-cell" style="width: 208px;"><span class="ep-cell__txt ep-cell__txt--strong">Акция на десерты</span></div>
+              <div class="ep-cell" style="flex: 1 0 auto;"><span class="ep-cell__txt ep-cell__txt--strong">Лучшая для гостя</span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="display: grid; grid-template-columns: 44px minmax(0, 1fr) 130px; height: 44px;">
+              <div class="ep-cell"><span class="ep-cell__txt">1</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt ep-cell__txt--strong">Акция на десерты</span></div>
+              <div class="ep-cell ep-cell--actions"><span class="ep-slide"></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="display: grid; grid-template-columns: 294px minmax(0, 1fr) 120px 130px; height: 44px;">
+              <div class="ep-cell"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">К каждому основному блюду - десерт в подарок</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Даты</span></div>
+              <div class="ep-cell ep-cell--actions"><span class="ep-ico ep-ico--gray"><svg class="i-mood" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-ico ep-ico--gray"><svg class="i-block" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-slide"></span></div>
+            </div>
+            <div class="ep-divider"></div>
+            <div class="ep-row" style="display: grid; grid-template-columns: 294px minmax(0, 1fr) 120px 130px; height: 44px;">
+              <div class="ep-cell"><span class="ep-cell__txt ep-cell__txt--link">Название акции</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">К каждому основному блюду - десерт в подарок</span></div>
+              <div class="ep-cell"><span class="ep-cell__txt">Даты</span></div>
+              <div class="ep-cell ep-cell--actions"><span class="ep-ico ep-ico--gray"><svg class="i-mood" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-ico ep-ico--gray"><svg class="i-block" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-slide"></span></div>
+            </div>
+            <div class="ep-divider"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frame 834 «Расписание 1» · 717×468 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Frame 834 «Расписание 1» — 717×468 (58493:5117)</p>
+        <div class="ep-frame834">
+          <div class="ep-834-list">
+            <span class="ep-834-list__txt">Расписание 1</span>
+            <span class="ep-834-list__actions">
+              <span class="ep-ico ep-ico--24" style="color: #ff5252;"><svg class="i-delete" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+              <span class="ep-ico ep-ico--24 ep-ico--gray"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+            </span>
+          </div>
+          <div class="ep-834-body">
+            <div class="ep-834-row" style="align-items: flex-start; justify-content: space-between;">
+              <div class="ep-days">
+                <span class="ep-day ep-day--on">Пн</span><span class="ep-days__div"></span>
+                <span class="ep-day ep-day--on">Вт</span><span class="ep-days__div"></span>
+                <span class="ep-day ep-day--on">Ср</span><span class="ep-days__div"></span>
+                <span class="ep-day ep-day--on">Чт</span><span class="ep-days__div"></span>
+                <span class="ep-day ep-day--on">Пт</span><span class="ep-days__div"></span>
+                <span class="ep-day">Сб</span><span class="ep-days__div"></span>
+                <span class="ep-day">Вс</span>
+              </div>
+              <div class="ep-834-row" style="width: 297px; gap: 16px;">
+                <div class="ep-field" style="width: 141px;"><span class="ep-field__label">С</span><div class="ep-field__box">00:00<span class="ep-ico ep-ico--gray"><svg class="i-access_time" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div></div>
+                <div class="ep-field" style="width: 141px;"><span class="ep-field__label">До</span><div class="ep-field__box">00:00<span class="ep-ico ep-ico--gray"><svg class="i-access_time" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div></div>
+              </div>
+            </div>
+            <div class="ep-field" style="width: 685px;"><span class="ep-field__label">Продолжительность доставки</span><div class="ep-field__box">01:00<span class="ep-ico ep-ico--gray"><svg class="i-access_time" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div></div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div class="ep-title-actions">
+                <span class="ep-title-actions__title">Условия доставки</span>
+                <span class="ep-title-actions__hint">Скрыть не выбранные товары</span>
+                <span class="ep-bp-right"><span class="ep-btn ep-btn--36 ep-btn--w171" style="gap: 4px;"><span class="ep-ico ep-ico--gray"><svg class="i-add" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>Добавить условие</span></span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div class="ep-834-cond">
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Сумма от</span><div class="ep-field__box">0</div></div>
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Сумма до</span><div class="ep-field__box">1 000</div></div>
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Стоимость доставки</span><div class="ep-field__box">200</div></div>
+                  <span class="ep-ico ep-ico--24" style="color: #ff5252;"><svg class="i-delete" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+                </div>
+                <div class="ep-834-cond">
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Сумма от</span><div class="ep-field__box" style="color: #9e9e9e;">1 000</div></div>
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Сумма до</span><div class="ep-field__box">2 000</div></div>
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Стоимость доставки</span><div class="ep-field__box">100</div></div>
+                  <span class="ep-ico ep-ico--24" style="color: #ff5252;"><svg class="i-delete" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+                </div>
+                <div class="ep-834-cond">
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Сумма от</span><div class="ep-field__box" style="color: #9e9e9e;">2 000</div></div>
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Сумма до</span><div class="ep-field__box" style="color: #bdbdbd;">-</div></div>
+                  <div class="ep-field" style="width: 204px;"><span class="ep-field__label">Стоимость доставки</span><div class="ep-field__box">0</div></div>
+                  <span class="ep-ico ep-ico--24" style="color: #ff5252;"><svg class="i-delete" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table group_2 · 1124×49 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Table group_2 — 1124×49 (58495:5685)</p>
+        <div class="ep-tbl ep-w1124">
+          <div class="ep-row ep-row--gray" style="height: 48px;">
+            <div class="ep-cell" style="width: 465px;">
+              <span class="ep-ico ep-ico--24 ep-ico--gray"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+              <span class="ep-cell__txt ep-cell__txt--group">Тестовая группа (47)</span>
+            </div>
+          </div>
+          <div class="ep-divider"></div>
+        </div>
+      </div>
+
+      <!-- Frame 852 · 1124×301 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Frame 852 — 1124×301 (58495:5686)</p>
+        <div class="ep-tbl ep-tbl--bordered ep-w1124">
+          <div class="ep-row ep-group-row" style="height: 48px;">
+            <div class="ep-cell" style="width: 465px;">
+              <span class="ep-ico ep-ico--24 ep-ico--gray"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+              <span class="ep-cell__txt ep-cell__txt--group">Гамбургер (4)</span>
+            </div>
+            <div class="ep-cell" style="width: 215px;"><span class="ep-cell__txt ep-cell__txt--medium">Ресторан 1</span></div>
+            <div class="ep-cell" style="width: 215px;"><span class="ep-cell__txt">шт</span></div>
+            <div class="ep-cell" style="width: 109px;"><span class="ep-cell__txt">Text default</span></div>
+            <div class="ep-cell ep-cell--end" style="flex: 1 0 auto;"></div>
+          </div>
+          <div class="ep-divider ep-divider--light"></div>
+          <div class="ep-thead" style="height: 41px;">
+            <div class="ep-cell" style="width: 408px;"><span class="ep-cell__txt">Наименование</span></div>
+            <div class="ep-cell" style="width: 350px;"><span class="ep-cell__txt">Наименование в iiko</span></div>
+            <div class="ep-cell" style="width: 180px;"><span class="ep-cell__txt">Артикул</span></div>
+            <div class="ep-cell" style="width: 130px;"><span class="ep-cell__txt">Цена</span></div>
+          </div>
+          <div class="ep-divider"></div>
+          <div class="ep-trow ep-row" style="height: 48px;">
+            <div class="ep-cell" style="width: 408px;"><span class="ep-cell__txt ep-cell__txt--link">Diet Pepsi 1.5l (Товар)</span></div>
+            <div class="ep-cell" style="width: 350px;"><span class="ep-cell__txt ep-cell__txt--mute">Диетическая Pepsi без сахара</span></div>
+            <div class="ep-cell" style="width: 180px;"><span class="ep-cell__txt ep-cell__txt--mute">1234567890</span></div>
+            <div class="ep-cell" style="width: 130px;"><span class="ep-cell__txt ep-cell__txt--mute">10 000.00 ₽</span></div>
+          </div>
+          <div class="ep-divider ep-divider--light"></div>
+          <div class="ep-trow ep-row ep-row--gray" style="height: 48px;">
+            <div class="ep-cell" style="width: 408px;"><span class="ep-cell__txt ep-cell__txt--link">Diet Pepsi 1.5l (Модификатор)</span></div>
+            <div class="ep-cell" style="width: 350px;"><span class="ep-cell__txt">Диетическая Pepsi без сахара</span></div>
+            <div class="ep-cell" style="width: 180px;"><span class="ep-cell__txt">1234567890</span></div>
+            <div class="ep-cell" style="width: 130px;"><span class="ep-cell__txt">10 000.00 ₽</span></div>
+          </div>
+          <div class="ep-divider ep-divider--light"></div>
+          <div class="ep-trow ep-row" style="height: 48px;">
+            <div class="ep-cell" style="width: 408px;"><span class="ep-cell__txt ep-cell__txt--link">Hamburger + Drink 0.5l ( Комбо-блюдо)</span></div>
+            <div class="ep-cell" style="width: 350px;"><span class="ep-cell__txt">Hamburger + Drink 0.5l</span></div>
+            <div class="ep-cell" style="width: 180px;"><span class="ep-cell__txt">1234567890</span></div>
+            <div class="ep-cell" style="width: 130px;"><span class="ep-cell__txt">10 000.00 ₽</span></div>
+          </div>
+          <div class="ep-divider ep-divider--light"></div>
+          <div class="ep-trow ep-row" style="height: 63px; align-items: flex-start;">
+            <div class="ep-cell" style="width: 408px; align-items: flex-start;"><span class="ep-cell__txt ep-cell__txt--link ep-cell__txt--wrap">Diet Pepsi 1.5l (Услуга) может быть длинным и размещаться в две строчки</span></div>
+            <div class="ep-cell" style="width: 350px;"><span class="ep-cell__txt ep-cell__txt--mute">Диетическая Pepsi без сахара</span></div>
+            <div class="ep-cell" style="width: 180px;"><span class="ep-cell__txt ep-cell__txt--mute">1234567890</span></div>
+            <div class="ep-cell" style="width: 130px;"><span class="ep-cell__txt ep-cell__txt--mute">10 000.00 ₽</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expansion panel «Общие параметры» · 597×292 -->
+      <div class="ep-block">
+        <p class="ep-block__cap">Expansion panel «Общие параметры» — 597×292 (58992:4263)</p>
+        <div class="ep-card ep-card--h292 ep-w597">
+          <div class="ep-head ep-head--white" style="justify-content: flex-start;">
+            <span class="ep-icons" style="display: inline-flex; align-items: center; gap: 8px;">
+              <span class="ep-ico ep-ico--gray"><svg class="i-keyboard_arrow_down" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+              <span class="ep-ico ep-ico--gray"><svg class="i-settings" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+            </span>
+            <span class="ep-title">Общие параметры</span>
+            <span class="ep-ico ep-ico--gray"><svg class="i-edit" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
+          </div>
+          <div>
+            <div class="ep-list2">
+              <span class="ep-list2__label">Период действия</span>
+              <div class="ep-list2__line">
+                <span class="ep-list2__item"><span class="ep-ico ep-ico--gray" style="color: #757575;"><svg class="i-calendar_today" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-list2__value">с 01.05.2025 по 01.06.2025</span></span>
+                <span class="ep-list2__item"><span class="ep-ico ep-ico--gray" style="color: #757575;"><svg class="i-access_time" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-list2__value">с 00:00 по 23:59</span></span>
+                <span class="ep-list2__item"><span class="ep-ico ep-ico--gray" style="color: #757575;"><svg class="i-date_range" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span><span class="ep-list2__value">Пн, Вт, Ср, Чт, Сб, Вс</span></span>
+              </div>
+            </div>
+            <div class="ep-list2 ep-list2--tight">
+              <span class="ep-list2__label">Название акции</span>
+              <span class="ep-list2__value">Блюдо в подарок</span>
+            </div>
+            <div class="ep-list2 ep-list2--tight">
+              <span class="ep-list2__label">Название акции для клиента</span>
+              <span class="ep-list2__value">Блюдо в подарок</span>
+            </div>
+            <div class="ep-list2 ep-list2--tight">
+              <span class="ep-list2__label">Описание</span>
+              <span class="ep-list2__value">Получи блюдо в подарок за заказ из ресторана в день рождения</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="snap-note">Пометки для ревью: (а) все тексты и размеры — из узлов фрейма <b>Expansion (Examples) 58226:10770</b> через Figma REST API (absoluteBoundingBox + fills/strokes/characters), без скриншотов; (б) панели: Info — пунктир <code>#448AFF</code> (dash 2,2) и фон <code>#F5F9FF</code> (Collapsed — радиус 8, Expand — 12), Default — <code>#F8F9FC</code> в Collapsed и белая шапка в Expand, рамка <code>#E0E0E0</code>, радиус 12; (в) шапка 44 = паддинг 12/16 + иконки 20 + заголовок Body S 14/20 Medium (ls 0.5); в Figma 1px рамки рисуется поверх детей, поэтому у карточек с рамкой паддинг контента 15/16; (г) «Нераспределенные»: шапка 56 (<code>info</code> + переключатель 119×32, кнопки 73/34), строки 44 с колонками 44/580/156/58/44; (д) «Дерево акций»: шапка 52 (кнопка «Добавить группу» 159×28), строки 44/52; в узле средняя ячейка 550 стоит с x=294 и наезжает на «Даты» (x=626), поэтому здесь сетка <code>294 / гибкая / 120 / 130</code>, а длинные описания обрезаются многоточием (полный текст — в подсказке при наведении); (е) «Расписание 1»: List one 48 на <code>#F5F5F5</code>, дни 50×48 r2 (Пн–Пт <code>#F0F6FF</code>, разделители <code>#EEEEEE</code> 1×48), поля 141/204/685×48 (r8, рамка #E0E0E0, значение 16/24), подписи «С»/«До»/«Сумма от» — 12/16 #616161 под полем (в Figma подпись перекрывает зазор 8, поэтому позиционируется абсолютно), кнопки 99/139/171×36, подсказка сжимается с многоточием; (ж) Table group_2: строка 1124×48 + разделитель, первая ячейка 465 с иконкой 24 («expand_more» в наборе DS отсутствует — использован глиф <code>keyboard_arrow_down</code>) и текстом 14/24 Medium ls 0.1; (з) Frame 852: группа <code>#E8F1FF</code>, шапка таблицы <code>#F0F6FF</code> (41, первая колонка pad-left 48), строки 48/48/48/63 + разделители, ссылки <code>#448AFF</code>, отключённые значения <code>#9E9E9E</code>; (и) «Общие параметры»: 4 строки List two (68/60/60/60) с подписями 12/16 #616161 и значениями 14/20 #212121. Журнал №287.</p>
+  </div>
 </div>
 
 <!-- иконки -->
@@ -302,6 +785,10 @@
   document.querySelectorAll('[data-exp]').forEach(function (root) {
     var h = root.querySelector('.ds-expansion__header');
     if (h) h.addEventListener('click', function () { root.classList.toggle('ds-expansion--open'); });
+  });
+  /* в таблицах канвы длинные значения обрезаются многоточием — полный текст в подсказке */
+  document.querySelectorAll('[data-vpanel="examples"] .ep-cell__txt').forEach(function (t) {
+    t.title = t.textContent.trim();
   });
 </script>
 </body>

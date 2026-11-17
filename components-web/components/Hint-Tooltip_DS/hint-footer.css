@@ -1,56 +1,42 @@
+/* ============================================================
+   iiko DS — Hint footer
+   Figma: COMPONENT_SET «Hint footer» 54600:517 — Content=Default
+   250×56 · pad 16 / 12 / 12 / 12 · gap 12 · background #424242
+   Состав: [«1 из 4» — Body S 14/20 Medium, белый] + [Button group: Button icon S 28 + Button S 60×28]
+   ============================================================ */
+
 .ds-hint-footer {
-  min-height: 56px;
-  width: 250px;
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: var(--ds-hint-footer-gap, 12px);
+  width: 250px;
+  min-height: 56px;
+  box-sizing: border-box;
   padding: var(--ds-hint-footer-pad-top, 16px) var(--ds-hint-footer-pad-right, 12px) var(--ds-hint-footer-pad-bottom, 12px) var(--ds-hint-footer-pad-left, 12px);
   background: var(--ds-color-hint-background-color, #424242);
-  box-sizing: border-box;
   font-family: var(--ds-font-family, Roboto, sans-serif);
-}
-.ds-hint-footer__label {
-  font-size: var(--ds-font-body-s-14-normal-medium-size);
-  line-height: var(--ds-font-body-s-14-normal-medium-line);
-  letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing);
-  font-weight: var(--ds-font-body-s-14-normal-medium-weight);
-  color: var(--ds-color-button-accent-filled-default-text-color, #ffffff);
-  white-space: nowrap;
-}
-.ds-hint-footer__icon {
-  flex-shrink: 0;
-  width: var(--ds-size-7x);
-  height: var(--ds-size-7x);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.ds-hint-footer__icon svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.ds-hint-footer__icon svg path {
-  fill: currentColor;
-}
-.ds-hint-footer__цвет-и-палитра {
-  display: flex;
-  flex-direction: row;
-  background: var(--ds-color-hint-footer-text-color, #ffffff);
-  font-size: var(--ds-font-body-s-14-normal-medium-size);
-  line-height: var(--ds-font-body-s-14-normal-medium-line);
-  letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing);
-  font-weight: var(--ds-font-body-s-14-normal-medium-weight);
-  color: var(--ds-color-hint-footer-text-color, #ffffff);
-}
-.ds-hint-footer__button-group {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--ds-button-group-gap, 8px);
-}
-.ds-hint-footer--default {
   color: var(--ds-color-hint-footer-text-color, #ffffff);
 }
 
+/* TEXT «1 из 4» (слот с текстом компонента) */
+.ds-hint-footer__title,
+.ds-hint-footer__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font: var(--ds-font-body-s-14-normal-medium, 500 14px/20px "Roboto");
+  letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing, 0.5px);
+  color: var(--ds-color-hint-footer-text-color, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Button group (Slot) — 96×28, gap 8 */
+.ds-hint-footer__group,
+.ds-hint-footer__button-group {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: var(--ds-button-group-gap, 8px);
+}

@@ -10,8 +10,8 @@
 
    ЧТО ПОДТЯГИВАЕТСЯ САМО:
      1) стили ДС: components-web/font.css, tokens.css, styles.css, components/index.css, fixes.css,
-        icons/icons.css (библиотека иконок ДС: icons/svg);
-     2) иконки — СНАЧАЛА из ДС (icons/icons.js + icons/svg/*.svg), шрифт Google Material Icons
+        icons/icons.css (библиотека иконок ДС: icons/<раздел>/);
+     2) иконки — СНАЧАЛА из ДС (icons/icons.js + icons/<раздел>/*.svg), шрифт Google Material Icons
         (обычные + Outlined) подключён резервом: им рисуются только имена, которых в Figma-файле нет;
      3) демо-страницу прототипа — одним комплектом: плашка (ds-review: общий заголовок раздела,
         «Экраны», «Размер»), шапка app-header (с правой панелью app-right-panel — её шторка)
@@ -69,7 +69,7 @@
   if (FLAGS.header) CSS.push('organisms/app-right-panel/app-right-panel.css?v=2', 'organisms/app-header/app-header.css?v=21');
   if (FLAGS.sidenav) CSS.push('organisms/app-sidenav/app-sidenav.css?v=16');
 
-  /* Иконки ДС — первыми: icons.js подменяет лигатуры на маски из icons/svg (см. icons/icons.css) */
+  /* Иконки ДС — первыми: icons.js подменяет лигатуры на маски из icons/<раздел>/ (см. icons/icons.css) */
   var JS = ['icons/icons.js'];
   if (FLAGS.header) JS.push('organisms/app-right-panel/app-right-panel.js?v=1', 'organisms/app-header/app-header.js?v=20');
   if (FLAGS.sidenav) JS.push('organisms/app-sidenav/app-sidenav.js?v=15');

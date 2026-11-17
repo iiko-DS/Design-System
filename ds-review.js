@@ -404,24 +404,24 @@
   function navHFor(w) { return isMobileW(w) ? NAV_H : 0; }
   function chromeOn() { return !!(S.chromeEl && S.sections.chrome !== false && !window.DSR_NO_CHROME); }
   function buildChrome() {
-    /* иконки «хрома» — из библиотеки ДС: icons/svg/<раздел>/<имя>.svg */
+    /* иконки «хрома» — из библиотеки ДС: icons/<раздел>/<имя>.svg */
     var A_PATH = {
-      account_circle: 'icons/svg/people/account_circle.svg',
-      add: 'icons/svg/general/add.svg',
-      arrow_back: 'icons/svg/arrows/arrow_back.svg',
-      arrow_forward: 'icons/svg/arrows/arrow_forward.svg',
-      battery_full: 'icons/svg/device/battery_full.svg',
-      close: 'icons/svg/general/close.svg',
-      extension: 'icons/svg/device/extension.svg',
-      home: 'icons/svg/places-things/home.svg',
-      keyboard_arrow_down: 'icons/svg/arrows/keyboard_arrow_down.svg',
-      lock: 'icons/svg/general/lock.svg',
-      logo_iiko: 'icons/svg/logo/logo_iiko.svg',
-      more_vert: 'icons/svg/general/more_vert.svg',
-      refresh: 'icons/svg/arrows/refresh.svg',
-      signal_cellular_alt: 'icons/svg/device/signal_cellular_alt.svg',
-      star: 'icons/svg/general/star.svg',
-      wifi: 'icons/svg/device/wifi.svg'
+      account_circle: 'icons/people/account_circle.svg',
+      add: 'icons/general/add.svg',
+      arrow_back: 'icons/arrows/arrow_back.svg',
+      arrow_forward: 'icons/arrows/arrow_forward.svg',
+      battery_full: 'icons/device/battery_full.svg',
+      close: 'icons/general/close.svg',
+      extension: 'icons/device/extension.svg',
+      home: 'icons/places-things/home.svg',
+      keyboard_arrow_down: 'icons/arrows/keyboard_arrow_down.svg',
+      lock: 'icons/general/lock.svg',
+      logo_iiko: 'icons/logo/logo_iiko.svg',
+      more_vert: 'icons/general/more_vert.svg',
+      refresh: 'icons/arrows/refresh.svg',
+      signal_cellular_alt: 'icons/device/signal_cellular_alt.svg',
+      star: 'icons/general/star.svg',
+      wifi: 'icons/device/wifi.svg'
     };
     var A = function (n) { return BASE + (A_PATH[n] || ('dsr-assets/' + n.replace(/_/g, '-') + '.svg')); };
     var ch = el('div', 'dsr-chrome');

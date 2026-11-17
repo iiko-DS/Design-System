@@ -906,7 +906,7 @@ Table content row
     function e(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ESC[c]; }); }
     function num(v) { var x = Number(v); return isNaN(x) ? e(v) : x.toLocaleString('ru-RU'); }
     function money(v) { return num(v) + ' ₽'; }
-    /* иконки — из библиотеки ДС icons/svg (без спрайтов) */
+    /* иконки — из библиотеки ДС icons/<раздел>/ (без спрайтов) */
   var ICO = { 'ic-info': 'i-info', 'ic-filter': 'i-filter_list', 'ic-sort-asc': 'i-arrow_upward', 'ic-sort-desc': 'i-arrow_downward', 'ic-settings': 'i-settings', 'ic-more-vert': 'i-more_vert', 'ic-drag': 'i-drag_indicator', 'ic-chevron-r': 'i-keyboard_arrow_right', 'ic-check': 'i-check', 'ic-unfold-less': 'i-unfold_less', 'ic-unfold-more': 'i-unfold_more', 'ic-visibility-off': 'i-visibility_off', 'ic-plus': 'i-add', 'ic-minus': 'i-remove', 'ic-close': 'i-close', 'ic-copy': 'i-content_copy', 'ic-delete': 'i-delete', 'ic-edit': 'i-edit', 'ic-folder': 'i-folder', 'ic-folder-open': 'i-folder_open', 'ic-apple': 'i-apple' };
   function I(id, cls) { return '<svg class="ico ' + (ICO[id] || '') + (cls ? ' ' + cls : '') + '" data-ds-icon="1" aria-hidden="true" focusable="false"></svg>'; }
     function clone(o) { return JSON.parse(JSON.stringify(o)); }
