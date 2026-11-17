@@ -57,6 +57,8 @@
   .snap-scene__dim { position: absolute; inset: 0; background: #333333; opacity: .35; }
   .snap-scene .snap-sb { position: absolute; left: 24px; bottom: 24px; }
 </style>
+  <link rel="stylesheet" href="../../../icons/icons.css">
+  <script src="../../../icons/icons.js" defer></script>
 </head>
 <body>
 <div class="demo-bar">
@@ -78,10 +80,10 @@
         <div class="snap-col">
           <div class="ds-snackbar ds-snackbar--single ds-snackbar--dark snap-sb">
             <div class="ds-snackbar__body">
-              <span class="ds-snackbar__icon" style="color:#ffffff;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+              <span class="ds-snackbar__icon" style="color:#ffffff;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               <div class="ds-snackbar__content"><span class="ds-snackbar__label">Snackbar title with link</span></div>
               <button class="snap-sb__btn">Button</button>
-              <span class="snap-sb__close"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-20"/></svg></span>
+              <span class="snap-sb__close"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
             </div>
             <div class="ds-snackbar__progress"></div>
           </div>
@@ -89,10 +91,10 @@
         <div class="snap-col">
           <div class="ds-snackbar ds-snackbar--single ds-snackbar--light snap-sb snap-sb--light">
             <div class="ds-snackbar__body">
-              <span class="ds-snackbar__icon" style="color:#616161;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+              <span class="ds-snackbar__icon" style="color:#616161;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               <div class="ds-snackbar__content"><span class="ds-snackbar__label">Snackbar title with link</span></div>
               <button class="snap-sb__btn">Button</button>
-              <span class="snap-sb__close"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-20"/></svg></span>
+              <span class="snap-sb__close"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
             </div>
             <div class="ds-snackbar__progress"></div>
           </div>
@@ -100,9 +102,9 @@
         <div class="snap-col">
           <div class="ds-snackbar ds-snackbar--complex ds-snackbar--dark snap-sb">
             <div class="ds-snackbar__body" style="align-items:flex-start;">
-              <span class="ds-snackbar__icon" style="color:#ffffff;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+              <span class="ds-snackbar__icon" style="color:#ffffff;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               <div class="snap-sb__col">
-                <div class="snap-sb__title-row"><span class="snap-sb__title">Snackbar title with link</span><span class="snap-sb__close"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-20"/></svg></span></div>
+                <div class="snap-sb__title-row"><span class="snap-sb__title">Snackbar title with link</span><span class="snap-sb__close"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
                 <span class="snap-sb__desc">Snackbar description with link</span>
                 <div class="snap-sb__actions"><button class="snap-sb__btn">Button</button><button class="snap-sb__btn" style="background:none;color:#ffffff;opacity:.8;">Button</button></div>
               </div>
@@ -113,9 +115,9 @@
         <div class="snap-col">
           <div class="ds-snackbar ds-snackbar--complex ds-snackbar--light snap-sb snap-sb--light">
             <div class="ds-snackbar__body" style="align-items:flex-start;">
-              <span class="ds-snackbar__icon" style="color:#616161;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+              <span class="ds-snackbar__icon" style="color:#616161;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               <div class="snap-sb__col">
-                <div class="snap-sb__title-row"><span class="snap-sb__title" style="color:#333;">Snackbar title with link</span><span class="snap-sb__close"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-20"/></svg></span></div>
+                <div class="snap-sb__title-row"><span class="snap-sb__title" style="color:#333;">Snackbar title with link</span><span class="snap-sb__close"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
                 <span class="snap-sb__desc" style="color:#616161;">Snackbar description with link</span>
                 <div class="snap-sb__actions"><button class="snap-sb__btn">Button</button><button class="snap-sb__btn" style="color:#616161;background:none;">Button</button></div>
               </div>
@@ -133,11 +135,11 @@
     <div class="snap-sect">
       <div class="snap-cap snap-sect__title">Element left — 5 стилей (глиф info 20; цвета — токенами стилей)</div>
       <div class="snap-row" style="margin-top: 8px; align-items:center;">
-        <span class="snap-col"><span class="snap-cap">Neutral</span><span class="ds-element-left ds-element-left__info" style="background:none;"><span class="snap-sb__el-left" style="color:#ffffff;background:#424242;border-radius:4px;padding:0;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></span></span>
-        <span class="snap-col"><span class="snap-cap">Accent</span><span class="ds-element-left" style="background:none;"><span class="snap-sb__el-left" style="color:var(--ds-color-icon-accent, #448aff);"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></span></span>
-        <span class="snap-col"><span class="snap-cap">Positive</span><span class="ds-element-left" style="background:none;"><span class="snap-sb__el-left" style="color:var(--ds-color-icon-positive, #14b456);"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></span></span>
-        <span class="snap-col"><span class="snap-cap">Warning</span><span class="ds-element-left" style="background:none;"><span class="snap-sb__el-left" style="color:var(--ds-color-icon-warning, #ffab40);"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></span></span>
-        <span class="snap-col"><span class="snap-cap">Negative</span><span class="ds-element-left" style="background:none;"><span class="snap-sb__el-left" style="color:var(--ds-color-icon-negative, #ff5252);"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span></span></span>
+        <span class="snap-col"><span class="snap-cap">Neutral</span><span class="ds-element-left ds-element-left__info" style="background:none;"><span class="snap-sb__el-left" style="color:#ffffff;background:#424242;border-radius:4px;padding:0;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></span>
+        <span class="snap-col"><span class="snap-cap">Accent</span><span class="ds-element-left" style="background:none;"><span class="snap-sb__el-left" style="color:var(--ds-color-icon-accent, #448aff);"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></span>
+        <span class="snap-col"><span class="snap-cap">Positive</span><span class="ds-element-left" style="background:none;"><span class="snap-sb__el-left" style="color:var(--ds-color-icon-positive, #14b456);"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></span>
+        <span class="snap-col"><span class="snap-cap">Warning</span><span class="ds-element-left" style="background:none;"><span class="snap-sb__el-left" style="color:var(--ds-color-icon-warning, #ffab40);"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></span>
+        <span class="snap-col"><span class="snap-cap">Negative</span><span class="ds-element-left" style="background:none;"><span class="snap-sb__el-left" style="color:var(--ds-color-icon-negative, #ff5252);"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></span>
       </div>
     </div>
     <p class="snap-note">Пометки для ревью: (а) Single 370×56 (r8) + Progress 4px #448AFF снизу; Complex 370×108: title 20 + description 16 + Bottom actions (Button group 28); тексты-заглушки «Snackbar title with link» / «Snackbar description with link»; (б) в css Complex-dark ширина 232px, у Light 370 — на канве оба 370 (на стенде 370, обвязка) — сверить/решить в ДС; (в) `.ds-snackbar__label` в css жёстко белый — Light-варианты обойдены фиксом п. 4 (color inherit); (г) Element left: стили различаются цветом глифа (цвета взяты токенами icon/*; точные значения сверить по канве); (д) кнопка внутри Single — по канве Button с белым фоном/акцентным лейблом (на стенде — заливка accent с белым текстом — уточнить по канве). Журнал №130.</p>
@@ -154,10 +156,10 @@
             <div class="snap-scene__dim"></div>
             <div class="ds-snackbar ds-snackbar--single ds-snackbar--dark snap-sb">
               <div class="ds-snackbar__body">
-                <span class="ds-snackbar__icon" style="color:#ffffff;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+                <span class="ds-snackbar__icon" style="color:#ffffff;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
                 <div class="ds-snackbar__content"><span class="ds-snackbar__label">Товары добавлены</span></div>
                 <button class="snap-sb__btn">Отменить</button>
-                <span class="snap-sb__close"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-20"/></svg></span>
+                <span class="snap-sb__close"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               </div>
               <div class="ds-snackbar__progress"></div>
             </div>
@@ -167,9 +169,9 @@
           <p class="snap-ex-caption">Complex с описанием (Dark)</p>
           <div class="ds-snackbar ds-snackbar--complex ds-snackbar--dark snap-sb">
             <div class="ds-snackbar__body" style="align-items:flex-start;">
-              <span class="ds-snackbar__icon" style="color:#ffffff;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+              <span class="ds-snackbar__icon" style="color:#ffffff;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               <div class="snap-sb__col">
-                <div class="snap-sb__title-row"><span class="snap-sb__title">Не удалось сохранить изменения</span><span class="snap-sb__close"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-20"/></svg></span></div>
+                <div class="snap-sb__title-row"><span class="snap-sb__title">Не удалось сохранить изменения</span><span class="snap-sb__close"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
                 <span class="snap-sb__desc">Проверьте соединение и попробуйте ещё раз</span>
                 <div class="snap-sb__actions"><button class="snap-sb__btn">Повторить</button></div>
               </div>
@@ -179,7 +181,7 @@
           <p class="snap-ex-caption" style="margin-top: 6px;">Длинный код ошибки</p>
           <div class="ds-snackbar ds-snackbar--complex ds-snackbar--dark snap-sb">
             <div class="ds-snackbar__body" style="align-items:flex-start;">
-              <span class="ds-snackbar__icon" style="color:#ffffff;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+              <span class="ds-snackbar__icon" style="color:#ffffff;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               <div class="snap-sb__col">
                 <div class="snap-sb__title-row"><span class="snap-sb__title">Ошибка интеграции. Код: 34553-243234-2345-23-3435-4566-456-989894-238742-234234-345435-3</span></div>
               </div>
@@ -191,19 +193,19 @@
           <p class="snap-ex-caption">Single (Light) — «Товар «Салат Цезарь» удален»</p>
           <div class="ds-snackbar ds-snackbar--single ds-snackbar--light snap-sb snap-sb--light">
             <div class="ds-snackbar__body">
-              <span class="ds-snackbar__icon" style="color:#616161;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+              <span class="ds-snackbar__icon" style="color:#616161;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               <div class="ds-snackbar__content"><span class="ds-snackbar__label">Товар «Салат Цезарь» удален</span></div>
               <button class="snap-sb__btn">Вернуть</button>
-              <span class="snap-sb__close"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-20"/></svg></span>
+              <span class="snap-sb__close"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
             </div>
             <div class="ds-snackbar__progress"></div>
           </div>
           <p class="snap-ex-caption" style="margin-top: 6px;">Single (Light) — «Документ база гостей.xsl загружен ошибками. Ошибок: 5»</p>
           <div class="ds-snackbar ds-snackbar--single ds-snackbar--light snap-sb snap-sb--light">
             <div class="ds-snackbar__body">
-              <span class="ds-snackbar__icon" style="color:#616161;"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-info"/></svg></span>
+              <span class="ds-snackbar__icon" style="color:#616161;"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
               <div class="ds-snackbar__content"><span class="ds-snackbar__label">Документ база гостей.xsl загружен ошибками. Ошибок: 5</span></div>
-              <span class="snap-sb__close"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-20"/></svg></span>
+              <span class="snap-sb__close"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span>
             </div>
             <div class="ds-snackbar__progress"></div>
           </div>
@@ -216,10 +218,7 @@
 </div>
 
 <!-- иконки -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="ic-info" viewBox="0 0 24 24"><path d="M11 17H13V11H11V17ZM12 9C12.2833 9 12.5208 8.90417 12.7125 8.7125C12.9042 8.52083 13 8.28333 13 8C13 7.71667 12.9042 7.47917 12.7125 7.2875C12.5208 7.09583 12.2833 7 12 7C11.7167 7 11.4792 7.09583 11.2875 7.2875C11.0958 7.47917 11 7.71667 11 8C11 8.28333 11.0958 8.52083 11.2875 8.7125C11.4792 8.90417 11.7167 9 12 9ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"/></symbol>
-  <symbol id="ic-close-20" viewBox="0 0 20 20"><path d="M5.33333 15.8333L4.16667 14.6667L8.83333 10L4.16667 5.33333L5.33333 4.16667L10 8.83333L14.6667 4.16667L15.8333 5.33333L11.1667 10L15.8333 14.6667L14.6667 15.8333L10 11.1667L5.33333 15.8333Z"/></symbol>
-</svg>
+
 
 <script>
   /* табы стенда */

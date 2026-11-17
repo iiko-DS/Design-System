@@ -145,7 +145,7 @@
     h += '<span class="ds-sidenav-item__label app-snav__label">' + it.label + '</span>';
     if (it.badge) h += '<span class="ds-badge ds-badge--counter ds-badge--' + (it.badgeStyle || 'accent') + ' app-snav__badge">' + it.badge + '</span>';
     h += '</span>';
-    if (it.l2) h += '<span class="material-icons app-snav__arrow" aria-hidden="true">chevron_right</span>';
+    if (it.l2) h += '<span class="material-icons app-snav__arrow" aria-hidden="true">keyboard_arrow_right</span>';
     if (it.badge) h += '<span class="ds-badge ds-badge--point ds-badge--' + (it.badgeStyle || 'accent') + ' app-snav__dot" aria-hidden="true"></span>';
     h += '<span class="app-snav__indicator" aria-hidden="true"></span>';
     h += '</div>';
@@ -163,7 +163,7 @@
            ' aria-label="Свернуть или развернуть меню">' +
            '<span class="ds-sidenav-control__content">' +
              /* шеврон сворачивания — без ховер-подложки: иконка внутри строки-кнопки, подложка — только самостоятельным иконкам-триггерам (№99) */
-             '<span class="app-snav__collapse"><span class="ds-icon-size ds-icon-size--4x"><span class="material-icons" aria-hidden="true">chevron_left</span></span></span>' +
+             '<span class="app-snav__collapse"><span class="ds-icon-size ds-icon-size--4x"><span class="material-icons" aria-hidden="true">keyboard_arrow_left</span></span></span>' +
              '<span class="ds-sidenav-control__label">Свернуть меню</span>' +
            '</span>' +
            '<span class="app-snav__divider"></span>' +
@@ -255,7 +255,7 @@
     swap(root.querySelector('.app-snav__control'), 'ds-sidenav-control--', variant);
 
     var ctlIcon = root.querySelector('.app-snav__collapse .material-icons');
-    if (ctlIcon) ctlIcon.textContent = collapsed ? 'chevron_right' : 'chevron_left';
+    if (ctlIcon) ctlIcon.textContent = collapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_left';
 
     var items = root.querySelectorAll('.app-snav__item');
     for (var i = 0; i < items.length; i++) {
@@ -264,7 +264,7 @@
       var isOpen = it.getAttribute('data-section') === open;
       it.classList.toggle('app-snav__item--open', isOpen);
       var ar = it.querySelector('.app-snav__arrow');
-      if (ar) ar.textContent = isOpen ? 'chevron_left' : 'chevron_right';
+      if (ar) ar.textContent = isOpen ? 'keyboard_arrow_left' : 'keyboard_arrow_right';
     }
 
     var w = (state.collapsed ? 52 : 200) + (open ? 260 : 0);

@@ -892,7 +892,7 @@
   --ds-color-dialog-background: var(--ds-color-surface-default);   /* Dialog/Background */
   --ds-dialog-border-radius: var(--ds-radius-3x);   /* Dialog/Border radius */
   --ds-dialog-header-gap: var(--ds-space-2x);   /* Dialog/Header/Gap */
-  --ds-dialog-header-pad-top: var(--ds-space-6x);   /* Dialog/Header/Pad top */
+  --ds-dialog-header-pad-top: var(--ds-space-4x);   /* Dialog/Header/Pad top */
   --ds-dialog-header-title-size: var(--ds-typography-font-size-5x);   /* Dialog/Header/Title size */
   --ds-dialog-header-title-weight: var(--ds-typography-font-weight-medium);   /* Dialog/Header/Title weight */
   --ds-color-dialog-header-title-color: var(--ds-color-text-primary);   /* Dialog/Header/Title color */
@@ -932,6 +932,7 @@
   --ds-color-table-row-content-zebra-background: var(--ds-color-table-surfase-zebra);   /* Table row/Content/Zebra/Background */
   --ds-dialog-content-title-size: var(--ds-typography-font-size-4x);   /* Dialog/Content/Title size */
   --ds-dialog-content-gap: var(--ds-space-4x);   /* Dialog/Content/Gap */
+  --ds-dialog-content-gap-text: var(--ds-space-2x);   /* Dialog/Content/Gap text */
   --ds-color-dialog-content-title-color: var(--ds-color-text-primary);   /* Dialog/Content/Title color */
   --ds-dialog-footer-pad-bottom: var(--ds-space-4x);   /* Dialog/Footer/Pad bottom */
   --ds-dialog-footer-pad-top: var(--ds-space-4x);   /* Dialog/Footer/Pad top */
@@ -1472,10 +1473,10 @@
   --ds-snackbar-max-width: 370px;   /* Snackbar/Max width */
   --ds-color-snackbar-complex-light-text-color: var(--ds-color-text-primary);   /* Snackbar/Complex/Light/Text color */
   --ds-color-snackbar-progress-color: var(--ds-color-icon-accent);   /* Snackbar/Progress color */
-  --ds-dialog-header-pad-right: var(--ds-space-6x);   /* Dialog/Header/Pad right */
-  --ds-dialog-header-pad-left: var(--ds-space-6x);   /* Dialog/Header/Pad left */
-  --ds-dialog-content-pad-left: var(--ds-space-6x);   /* Dialog/Content/Pad left */
-  --ds-dialog-content-pad-right: var(--ds-space-6x);   /* Dialog/Content/Pad right */
+  --ds-dialog-header-pad-right: var(--ds-space-4x);   /* Dialog/Header/Pad right */
+  --ds-dialog-header-pad-left: var(--ds-space-4x);   /* Dialog/Header/Pad left */
+  --ds-dialog-content-pad-left: var(--ds-space-4x);   /* Dialog/Content/Pad left */
+  --ds-dialog-content-pad-right: var(--ds-space-4x);   /* Dialog/Content/Pad right */
   --ds-dialog-footer-pad-right: var(--ds-space-6x);   /* Dialog/Footer/Pad right */
   --ds-dialog-footer-pad-left: var(--ds-space-6x);   /* Dialog/Footer/Pad left */
   --ds-sidenav-item-l1-pad-bottom: var(--ds-space-3x);   /* Sidenav/Item/L1/Pad bottom */

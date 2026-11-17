@@ -154,7 +154,7 @@
       if (!any && !gVis) continue;
       var open = !!H.openGroups[g] || !!f;
       html += '<div class="ds-list-item apph-row" data-role="group" data-g="' + g + '">' +
-                '<span class="apph-row__chev material-icons" data-chev="' + g + '" aria-hidden="true">' + (open ? 'expand_more' : 'chevron_right') + '</span>' +
+                '<span class="apph-row__chev material-icons" data-chev="' + g + '" aria-hidden="true">' + (open ? 'expand_more' : 'keyboard_arrow_right') + '</span>' +
                 cbHTML('g' + g) + '<span class="apph-row__name">' + grp.name + '</span></div>';
       if (open) {
         for (var j = 0; j < grp.items.length; j++) {

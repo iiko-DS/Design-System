@@ -127,6 +127,8 @@
   /* Arrow select: сетка как в Figma — колонки через 40 (24 + 16) */
   .snap-arrows { display: grid; grid-template-columns: repeat(5, var(--ds-size-6x, 24px)); gap: var(--ds-size-4x, 16px); color: var(--ds-color-icon-primary, #616161); }
 </style>
+  <link rel="stylesheet" href="../../../icons/icons.css">
+  <script src="../../../icons/icons.js" defer></script>
 </head>
 <body>
 <div class="demo-bar">
@@ -640,7 +642,7 @@
   <div class="panel" data-vpanel="element" role="tabpanel" hidden>
     <div class="snap-els">
       <div class="snap-col">
-        <span class="ds-element-select ds-element-select--image-size"><span class="ds-element-select__image-size snap-el-img"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/></svg></span></span>
+        <span class="ds-element-select ds-element-select--image-size"><span class="ds-element-select__image-size snap-el-img"><svg class="i-stop_mini" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
       </div>
       <div class="snap-col">
         <span class="ds-element-select ds-element-select--icon-size"><span class="ds-element-select__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">info</span></span></span></span>
@@ -681,8 +683,8 @@
       <span></span>
       <div class="ds-arrow-select" title="arrow_back"><span class="ds-arrow-select__icon"><span class="material-icons">arrow_back</span></span></div>
       <div class="ds-arrow-select" title="arrow_forward"><span class="ds-arrow-select__icon"><span class="material-icons">arrow_forward</span></span></div>
-      <div class="ds-arrow-select" title="arrow_downward_alt"><span class="ds-arrow-select__icon"><svg viewBox="0 0 24 24"><path d="M12 18L6 12L7.4 10.6L11 14.2V5H13V14.2L16.6 10.6L18 12L12 18Z"/></svg></span></div>
-      <div class="ds-arrow-select" title="arrow_upward_alt"><span class="ds-arrow-select__icon"><svg viewBox="0 0 24 24"><path d="M11 18V8.8L7.4 12.4L6 11L12 5L18 11L16.6 12.4L13 8.8V18H11Z"/></svg></span></div>
+      <div class="ds-arrow-select" title="arrow_downward_alt"><span class="ds-arrow-select__icon"><svg class="i-arrow_downward_alt" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
+      <div class="ds-arrow-select" title="arrow_upward_alt"><span class="ds-arrow-select__icon"><svg class="i-arrow_upward_alt" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></div>
       <div class="ds-arrow-select" title="unfold_less"><span class="ds-arrow-select__icon"><span class="material-icons">unfold_less</span></span></div>
     </div>
   </div>

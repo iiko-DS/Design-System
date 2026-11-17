@@ -109,6 +109,8 @@
   .snap-ac-list--scroll .ds-scroll__background { justify-content: flex-start; }
   .snap-ac-list--scroll .ds-scroll__knob { height: 56px; }
 </style>
+  <link rel="stylesheet" href="../../../icons/icons.css">
+  <script src="../../../icons/icons.js" defer></script>
 </head>
 <body>
 <div class="demo-bar">
@@ -218,7 +220,7 @@
       <div class="snap-ac-exblock">
         <p class="snap-ac-excap">Basic pattern</p>
         <div class="snap-ac-block">
-          <div class="ds-autocomplete-form ds-autocomplete-form--populated st-focus snap-ac snap-ac--240"><div class="ds-input ds-input--m ds-input--populated"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">List item text|</span></div><span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span></div></div></div>
+          <div class="ds-autocomplete-form ds-autocomplete-form--populated st-focus snap-ac snap-ac--240"><div class="ds-input ds-input--m ds-input--populated"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">List item text|</span></div><span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></div></div></div>
         </div>
       </div>
 
@@ -235,7 +237,7 @@
       <div class="snap-ac-exblock">
         <p class="snap-ac-excap">Autocomplete default</p>
         <div class="snap-ac-block">
-          <div class="ds-autocomplete-form ds-autocomplete-form--populated st-focus snap-ac snap-ac--240"><div class="ds-input ds-input--m ds-input--populated"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">List item text|</span></div><span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span></div></div></div>
+          <div class="ds-autocomplete-form ds-autocomplete-form--populated st-focus snap-ac snap-ac--240"><div class="ds-input ds-input--m ds-input--populated"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">List item text|</span></div><span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span></div></div></div>
           <div class="ds-select-container snap-ac-list"><div class="ds-select-container__content">
             <div class="ds-select-item ds-select-item--false snap-ac-active"><span class="ds-select-item__label">List item text</span></div>
           </div></div>
@@ -347,7 +349,7 @@
                 <span class="ds-input__label" id="ac-live-label" hidden>Город</span>
                 <input class="ds-input__field" id="ac-live-input" type="text" placeholder="Город" autocomplete="off" spellcheck="false" aria-label="Город" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="ac-live-list" aria-haspopup="listbox">
               </div>
-              <span class="ds-input__icon snap-ac-clear" id="ac-live-clear" role="button" tabindex="0" aria-label="Очистить" hidden><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-close-24"/></svg></span></span>
+              <span class="ds-input__icon snap-ac-clear" id="ac-live-clear" role="button" tabindex="0" aria-label="Очистить" hidden><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
             </div>
           </div>
         </div>
@@ -378,9 +380,7 @@
 </div>
 
 <!-- иконки -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="ic-close-24" viewBox="0 0 24 24"><path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"/></symbol>
-</svg>
+
 
 <script>
   /* табы стенда */
