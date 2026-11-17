@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="../../fixes.css">
 <style>
   /* каркас демо-стенда */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
   .view { padding: 24px; }
@@ -72,7 +72,15 @@
   .snap-ta-live .ds-textarea__input-frame:focus-within { border-color: var(--ds-color-form-field-filled-focus-border-color, #448aff); }
   .snap-ta-live:focus-within .snap-ta-caption { color: var(--ds-color-form-field-filled-focus-label-text-color, #448aff); }
   .snap-ta-input { border: 0; outline: 0; background: transparent; padding: 0; width: 100%; height: 24px; resize: none; font-family: inherit; font-size: var(--ds-font-body-m-16-normal-regular-size, 16px); line-height: var(--ds-font-body-m-16-normal-regular-line, 24px); color: var(--ds-color-form-field-filled-default-input-text-color, #333333); }
-  .snap-ta-input::placeholder { color: #d6d6d6; opacity: 1; }
+  .snap-ta-input::placeholder { color: var(--ds-color-form-field-input-label-text-color, #616161); opacity: 1; }
+  /* живой Basic: рамка растёт по контенту (в компоненте 76), текст скроллится внутри, полоса — компонент Scroll */
+  .snap-ta-live .ds-textarea__input-frame { height: auto; min-height: 76px; }
+  .snap-ta-live .ds-textarea__input-content { flex: 1 1 auto; min-width: 0; }
+  .snap-ta-live .snap-ta-input { min-height: 24px; max-height: 96px; overflow: auto; scrollbar-width: none; }
+  .snap-ta-live .snap-ta-input::-webkit-scrollbar { display: none; }
+  .snap-ta-live__scroll { position: absolute; top: 5px; bottom: 6px; right: 0; width: 8px; }
+  .snap-ta-live__scroll .ds-scroll__background { flex: 1 1 auto; background: var(--ds-color-scroll-default-background, #fafafa); }
+  .snap-ta-live__scroll .ds-scroll__knob { height: 24px; }
 </style>
 </head>
 <body>
@@ -196,19 +204,21 @@
   <!-- 1. Basic example (справочная вкладка — блока примеров на канве нет) -->
     <div class="panel" data-vpanel="basic" role="tabpanel">
     <div class="snap-sect">
+      <p class="snap-cap" style="margin: 0 0 16px;">Basic example — живой Textarea: пусто — «Label» по центру (16/24); фокус/ввод — подпись 12/16 уезжает наверх, текст 16/24; при переполнении — полоса Scroll справа (ползунок пропорционален и тянется); «Support text» / «Hint text» под полем</p>
       <div class="snap-ta-live">
-        <div class="ds-textarea ds-textarea--populated snap-ta">
+        <div class="ds-textarea ds-textarea--empty snap-ta" id="ta-live-root">
           <div class="ds-textarea__input-frame">
             <div class="ds-textarea__input-content">
-              <span class="snap-ta-caption">Label</span>
-              <textarea class="snap-ta-input" id="ta-live" placeholder="Input text" aria-label="Input text" rows="1"></textarea>
+              <span class="snap-ta-caption" id="ta-live-caption" hidden>Label</span>
+              <textarea class="snap-ta-input" id="ta-live" placeholder="Label" aria-label="Label" rows="1"></textarea>
             </div>
+            <div class="ds-scroll ds-scroll--s snap-ta-live__scroll" id="ta-live-scroll"><div class="ds-scroll__background"><div class="ds-scroll__knob" id="ta-live-knob"></div></div></div>
           </div>
           <div class="ds-textarea__support"><div class="ds-textarea__text"><span class="snap-ta-support">Support text</span></div><div class="ds-textarea__hint"><span class="snap-ta-hint">Hint text</span></div></div>
         </div>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) живая textarea — ввод работает, фокус подсвечивает рамку и подпись (:focus-within — обвязка, в css выгрузки Focus не покрыт); (б) в компоненте поля ввода нет — рабочий &lt;textarea&gt; вставлен в слот текста (пробел ДС, журнал №125); (в) кадров «Textarea (Examples)» на канве нет — витрина собирается из набора. Журнал №125.</p>
+    <p class="snap-note">Пометки для ревью: (а) состояния как в Figma: Empty — подпись «Label» 16/24 по центру рамки (цвет #616161), Populated — подпись 12/16 сверху + значение 16/24 #333; фокус — рамка и подпись #448AFF (:focus-within — обвязка, в css выгрузки Focus не покрыт); (б) в компоненте поля ввода нет — рабочий &lt;textarea&gt; вставлен в слот текста (пробел ДС, журнал №125); высота рамки растёт по тексту (min 76), при переполнении — скролл внутри и полоса компонента Scroll справа (ползунок пропорционален, тянется, скрыт, когда скроллить нечего); (в) кадров «Textarea (Examples)» на канве нет — витрина собирается из набора; под полем — «Support text» / «Hint text». Журнал №125, №262.</p>
   </div>
 </div>
 
@@ -226,6 +236,57 @@
       panels.forEach(function (p) { p.hidden = p.getAttribute('data-vpanel') !== btn.getAttribute('data-vtab'); });
     });
   });
+
+  /* Basic example: живой Textarea — Empty (Label по центру) ↔ Populated (Label 12/16 сверху + текст),
+     авто-высота рамки, внутренний скролл с ползунком компонента Scroll */
+  (function () {
+    var root = document.getElementById('ta-live-root');
+    if (!root) return;
+    var input = document.getElementById('ta-live');
+    var caption = document.getElementById('ta-live-caption');
+    var scroll = document.getElementById('ta-live-scroll');
+    var knob = document.getElementById('ta-live-knob');
+    var track = scroll.querySelector('.ds-scroll__background');
+    function renderScroll() {
+      if (!track || !knob) return;
+      var max = Math.max(0, input.scrollHeight - input.clientHeight);
+      if (!max) { knob.style.display = 'none'; scroll.style.display = 'none'; return; }
+      scroll.style.display = '';
+      knob.style.display = '';
+      var trackH = track.clientHeight;
+      var h = Math.max(24, Math.round(trackH * input.clientHeight / input.scrollHeight));
+      knob.style.height = h + 'px';
+      knob.style.marginTop = Math.round((trackH - h) * input.scrollTop / max) + 'px';
+    }
+    function autosize() {
+      input.style.height = '24px';
+      input.style.height = Math.max(24, Math.min(96, input.scrollHeight)) + 'px';
+      renderScroll();
+    }
+    function sync() {
+      var up = input.value.length > 0 || document.activeElement === input;
+      root.classList.toggle('ds-textarea--empty', !up);
+      root.classList.toggle('ds-textarea--populated', up);
+      caption.hidden = !up;
+      autosize();
+    }
+    input.addEventListener('input', sync);
+    input.addEventListener('focus', sync);
+    input.addEventListener('blur', sync);
+    input.addEventListener('scroll', renderScroll);
+    knob.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      var startY = e.clientY;
+      var startTop = input.scrollTop;
+      var max = input.scrollHeight - input.clientHeight;
+      var range = track.clientHeight - knob.offsetHeight;
+      function move(ev) { if (range > 0) { input.scrollTop = startTop + (ev.clientY - startY) * max / range; renderScroll(); } }
+      function up() { document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up); }
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', up);
+    });
+    sync();
+  })();
 </script>
 </body>
 </html>

@@ -24,10 +24,15 @@
 <link rel="stylesheet" href="../../tokens.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../index.css">
+<!-- Radio и Checkbox: в components/index.css подключены только label-файлы — базовые css и иконки грузим отдельно -->
+<link rel="stylesheet" href="../Radio-Button_DS/radio.css">
+<link rel="stylesheet" href="../Radio-Button_DS/radio-icons.css">
+<link rel="stylesheet" href="../Checkbox_DS/checkbox.css">
+<link rel="stylesheet" href="../Checkbox_DS/checkbox-icons.css">
 <link rel="stylesheet" href="../../fixes.css">
 <style>
   /* каркас демо-стенда — как у других стендов (ср. components/Sidenav_DS/demo.html) */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
   .demo-bar__state { margin-left: 12px; color: var(--ds-color-text-secondary, #616161); font-variant-numeric: tabular-nums; }
@@ -48,6 +53,66 @@
   .snap-cs { color: var(--ds-color-text-secondary, #616161); margin: 0; }
   .snap-card-body { display: flex; flex-direction: column; gap: var(--ds-card-content-gap, 8px); width: 100%; }
   .snap-note { font-size: 12px; line-height: 16px; color: var(--ds-color-text-secondary, #616161); margin: 24px 0 0; max-width: 980px; }
+  /* ── Card (Examples) — кадр Figma 58755:14094 ────────────── */
+  .panel[data-vpanel="examples"] { max-width: none; }
+  .snap-cex { display: flex; gap: 48px; align-items: flex-start; }
+  .snap-cex__col { display: flex; flex-direction: column; gap: 24px; flex: 0 0 auto; }
+  .snap-cex__h { margin: 0; font-size: 24px; line-height: 28px; font-weight: 500; color: var(--ds-color-text-primary); }
+  .snap-cex__cap { margin: 0; font-size: 16px; line-height: 24px; color: var(--ds-color-text-secondary); }
+  .snap-cex__block { display: flex; flex-direction: column; gap: 8px; }
+  .snap-cex__row { display: flex; align-items: center; gap: 8px; }
+  .snap-cex__row--between { justify-content: space-between; }
+  .snap-cex__col-t { display: flex; flex-direction: column; gap: 4px; }
+  .snap-cex__col-t8 { display: flex; flex-direction: column; gap: 8px; }
+  .snap-cex__t20 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 500; color: var(--ds-color-text-primary); }
+  .snap-cex__t16 { margin: 0; font-size: 16px; line-height: 24px; color: var(--ds-color-text-primary); }
+  .snap-cex__t16m { margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: var(--ds-color-text-primary); }
+  .snap-cex__t14 { margin: 0; font-size: 14px; line-height: 20px; color: var(--ds-color-text-primary); }
+  .snap-cex__t14s { margin: 0; font-size: 14px; line-height: 20px; color: var(--ds-color-text-secondary); }
+  .snap-cex__t12 { margin: 0; font-size: 12px; line-height: 12px; color: var(--ds-color-text-secondary); }
+  .snap-cex__accent { color: var(--ds-color-text-accent); }
+  .snap-cex__positive { color: var(--ds-color-text-positive); }
+  .snap-cex__negative { color: var(--ds-color-text-negative); }
+  .snap-cex__muted { color: var(--ds-color-text-secondary); }
+  .snap-cex__disabled { color: var(--ds-color-text-disable, #9e9e9e); }
+  .snap-cex__dot { width: 16px; height: 16px; border-radius: 50%; background: var(--ds-color-icon-accent); flex: none; }
+  .snap-cex__content { gap: 8px; }
+  .snap-cex__pic { border-radius: 50%; flex: none; background: var(--ds-paint-surface-hover); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .snap-cex__pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .snap-cex__glyph { font-weight: 700; color: var(--ds-color-text-primary); line-height: 1; }
+  .snap-cex__tint { background: var(--ds-color-brand-accent-5, #f5f9ff); }
+  .snap-cex__icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: none; background: none; padding: 0; color: var(--ds-color-icon-secondary, #616161); }
+  .snap-cex__icons { display: inline-flex; align-items: center; }
+  .snap-cex__inline-link { color: var(--ds-color-text-accent); text-decoration: none; }
+  /* ── Card (Examples): кадр 58755:14094 ── */
+  .snap-cex__t14m { margin: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ds-color-text-primary, #333333); }
+  .snap-cex__dropzone { border: 1px dashed var(--ds-color-stroke-accent, #448aff); border-radius: var(--ds-radius-2x, 8px); padding: 16px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
+  .snap-cex__kpi { display: flex; flex-direction: column; gap: 4px; padding: 8px 16px; border-radius: var(--ds-radius-2x, 8px); }
+  .snap-cex__kpi--pos { background: var(--ds-color-status-positive-filled-background, #f3fcf7); }
+  .snap-cex__kpi--neg { background: var(--ds-color-status-negative-filled-background, #fff5f5); }
+  .snap-cex__kpi--acc { background: var(--ds-color-status-accent-filled-background, #f0f5ff); }
+  .snap-cex__kpi-value { font-size: 20px; line-height: 28px; font-weight: 500; color: var(--ds-color-text-primary, #333333); }
+  .snap-cex__kpi-num { font-size: 20px; line-height: 28px; font-weight: 500; color: var(--ds-color-text-primary, #333333); }
+  .snap-cex__radio-card { border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: var(--ds-radius-2x, 8px); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .snap-cex__radio-card--sel { background: var(--ds-color-brand-accent-5, #f5f9ff); border-color: var(--ds-color-stroke-accent, #448aff); }
+  .snap-cex__chart { display: inline-flex; align-items: center; }
+  .snap-cex__code { display: flex; align-items: flex-start; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: 4px 4px 0 0; min-height: 220px; background: #fff; }
+  .snap-cex__code-gutter { width: 28px; padding: 4px 8px; background: var(--ds-paint-surface-hover, #f5f5f5); color: var(--ds-color-text-secondary, #616161); font: 12px/16px monospace; text-align: right; }
+  .snap-cex__code-line { flex: 1; padding: 4px 8px; background: var(--ds-color-status-warning-filled-background, #fff8e1); font: 12px/16px monospace; color: var(--ds-color-text-primary, #333333); min-height: 24px; }
+  .snap-cex__code-status { display: flex; gap: 16px; padding: 4px 8px; background: var(--ds-paint-surface-hover, #f5f5f5); color: var(--ds-color-text-secondary, #616161); font: 12px/16px monospace; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-top: none; border-radius: 0 0 4px 4px; }
+  .snap-cex__doc { display: flex; flex-direction: column; border-top: 1px solid var(--ds-color-stroke-default, #e0e0e0); }
+  .snap-cex__doc-row { display: grid; grid-template-columns: 1fr 100px 100px 100px 100px; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 14px; line-height: 20px; color: var(--ds-color-text-primary, #333333); }
+  .snap-cex__doc-row--head { background: var(--ds-color-status-accent-filled-background, #f0f5ff); font-weight: 500; }
+  .snap-cex__dashed { border: 1px dashed var(--ds-color-stroke-default, #e0e0e0); }
+  /* в примерах кадра Custom-карточки собраны через Card content — лишний паддинг варианта снимаем */
+  .panel[data-vpanel="examples"] .ds-card--custom { padding: 0; }
+  /* Search в примерах: в css компонента фиксированные 243 и высота тянется 50 — в кадре поле по контейнеру, 48 */
+  .panel[data-vpanel="examples"] .ds-search { width: 100%; height: 48px; }
+  .panel[data-vpanel="examples"] .ds-search__label { flex: 1 0 0; min-width: 1px; }
+  /* Select form в ДС фиксированной ширины 250 — в карточках кадра поле тянется по контейнеру */
+  .panel[data-vpanel="examples"] .ds-select-form { width: 100%; }
+  .panel[data-vpanel="examples"] .ds-select-form__label { flex: 0 0 auto; }
+  .panel[data-vpanel="examples"] .ds-select-form__input { flex: 1 1 auto; min-width: 0; }
 </style>
 </head>
 <body>
@@ -63,6 +128,7 @@
     <button class="ds-tab" role="tab" data-vtab="content" aria-selected="false">Card content</button>
     <button class="ds-tab" role="tab" data-vtab="footer" aria-selected="false">Card footer</button>
     <button class="ds-tab" role="tab" data-vtab="view" aria-selected="false">Card view</button>
+    <button class="ds-tab" role="tab" data-vtab="examples" aria-selected="false">Card (Examples)</button>
   </div>
 
   <!-- 1. Basic example: живая сборка (Filled) — кнопка «Подробнее» кликабельна -->
@@ -203,6 +269,833 @@
       </div>
     </div>
   </div>
+  <!-- 6. Card (Examples) — кадр Figma 58755:14094: 8 групп примеров, тексты дословно с канвы -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden>
+    <div class="snap-cex">
+
+      <!-- ═══ 1. Карточки (58760:10740) ═══ -->
+      <div class="snap-cex__col" style="width:592px">
+        <h3 class="snap-cex__h">Карточки</h3>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Акции, наверное не совсем подходит, ведь тут есть disable</p>
+          <div class="ds-card ds-card--outlined" style="width:422px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <p class="snap-cex__t16m">Подарок в день рождения</p>
+                <p class="snap-cex__t14s">Выдаётся за Х д. до и Х после дня рождения</p>
+                <div class="snap-cex__row snap-cex__row--between">
+                  <span class="ds-status ds-status--positive ds-status--filled">
+                    <span class="ds-status__element-left"><span class="ds-status__icon"><span class="ds-icon-size ds-icon-size--4x"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1.5c-2.5 0-4.5 1.4-4.5 3v.5h9v-.5c0-1.6-2-3-4.5-3Z"/></svg></span></span></span>
+                    <span class="ds-status__label">Рассылка с ИИ</span>
+                  </span>
+                  <button type="button" class="ds-btn ds-btn--s ds-btn--accent ds-btn--outlined"><span class="ds-btn__label">Выбрать</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ds-card ds-card--outlined" style="width:422px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <p class="snap-cex__t16m snap-cex__disabled">Подарок за возвращение</p>
+                <p class="snap-cex__t14s">Гость получает подарок, если не был в заведении определенный период времени</p>
+                <div class="snap-cex__row" style="justify-content:flex-end;">
+                  <button type="button" class="ds-btn ds-btn--s ds-btn--neutral ds-btn--outlined ds-btn--disabled" disabled><span class="ds-btn__label">Выбрать</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">База гостей</p>
+          <div class="ds-card ds-card--outlined" style="width:501px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <div class="snap-cex__row">
+                    <span class="snap-cex__dot"></span>
+                    <p class="snap-cex__t16m">Потеряшки</p>
+                  </div>
+                  <button type="button" class="snap-cex__icon-btn" aria-label="Действия"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg></span></button>
+                </div>
+                <p class="snap-cex__t14s">Гости, которые давно не посещали заведение</p>
+                <div class="snap-cex__row" style="gap:8px;flex-wrap:wrap;">
+                  <span class="ds-status ds-status--neutral ds-status--filled">
+                    <span class="ds-status__element-left"><span class="ds-status__icon"><span class="ds-icon-size ds-icon-size--4x"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM5.5 9C3 9 1 10.3 1 12v1h9v-1c0-1.7-2-3-4.5-3Zm5 .2c-.6 0-1.1.1-1.6.2.9.8 1.6 1.8 1.6 3.1V13h4v-1c0-1.6-1.8-2.8-4-2.8Z"/></svg></span></span></span>
+                    <span class="ds-status__label">15 гостей</span>
+                  </span>
+                  <span class="ds-status ds-status--neutral ds-status--filled"><span class="ds-status__label">Условие 1</span></span>
+                  <span class="ds-status ds-status--neutral ds-status--filled"><span class="ds-status__label">Условие 1</span></span>
+                  <span class="ds-status ds-status--neutral ds-status--filled"><span class="ds-status__label">Условие 1</span></span>
+                  <span class="ds-status ds-status--neutral ds-status--filled"><span class="ds-status__label">еще 2</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Отчеты</p>
+          <div class="ds-card ds-card--shadow" style="width:501px">
+            <div class="ds-card__content">
+              <div class="snap-cex__row" style="gap:12px;align-items:flex-start;">
+                <span class="snap-cex__glyph" style="font-size:28px;color:var(--ds-color-icon-secondary,#616161);">T<sub style="font-size:16px;">t</sub></span>
+                <div class="snap-cex__col-t">
+                  <p class="snap-cex__t16">Карточка-виджет метрики</p>
+                  <p class="snap-cex__t14s">The widget is a simple text element with a font size setting. Designed to highlight individual parts of reports.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Карточка новостей с главной iikoWeb Главная</p>
+          <div class="ds-card ds-card--filled" style="width:378px">
+            <div class="ds-card__content">
+              <div class="snap-cex__row" style="gap:12px;align-items:flex-start;">
+                <span class="snap-cex__pic snap-cex__tint" style="width:60px;height:60px;">
+                  <span class="ds-icon-size ds-icon-size--6x" style="color:var(--ds-color-icon-accent);"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm-9 12H6v-2h5v2Zm0-4H6v-2h5v2Zm0-4H6V6h5v2Zm7 8h-5v-2h5v2Zm0-4h-5v-2h5v2Zm0-4h-5V6h5v2Z"/></svg></span>
+                </span>
+                <div class="snap-cex__col-t">
+                  <p class="snap-cex__t12">03.04.2026</p>
+                  <p class="snap-cex__t16">Новые тренды в ресторанном бизнесе</p>
+                  <p class="snap-cex__t14s">Когда расходы растут, а выручка нет, главное — не бежать сломя голову за новыми клиентами, а остановить утечки, которые уже есть. Часто деньги уходят незаметно: через неэффективные процессы, размытый контроль или отсутствие системы приоритетов.</p>
+                  <a class="snap-cex__t12 snap-cex__inline-link" href="#">Подробнее</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">E-invoice</p>
+          <div class="ds-card ds-card--outlined" style="width:452px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t12">26.11.21 / 11:15</p>
+                  <span class="snap-cex__t12 snap-cex__accent">NEW</span>
+                </div>
+                <p class="snap-cex__t20">Уведомление</p>
+                <p class="snap-cex__t14s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt...</p>
+                <div class="snap-cex__row" style="justify-content:flex-end;">
+                  <a class="snap-cex__t14s snap-cex__inline-link" href="#">подробнее</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ds-card ds-card--outlined" style="width:452px">
+            <div class="ds-card__content">
+              <div class="snap-cex__row" style="gap:12px;align-items:flex-start;">
+                <span class="snap-cex__pic" style="width:40px;height:40px;"></span>
+                <div class="snap-cex__col-t8" style="flex:1;">
+                  <div class="snap-cex__row snap-cex__row--between">
+                    <p class="snap-cex__t12">26.11.21 / 11:15</p>
+                    <span class="snap-cex__t12 snap-cex__negative">NEW</span>
+                  </div>
+                  <p class="snap-cex__t20">Новость</p>
+                  <p class="snap-cex__t14s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt...</p>
+                  <div class="snap-cex__row" style="justify-content:flex-end;">
+                    <a class="snap-cex__t14s snap-cex__inline-link" href="#">подробнее</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Карточка инвойса для мобилы E-invoice</p>
+          <div class="ds-card ds-card--shadow" style="width:346px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Invoice: №2021-001</p>
+                  <button type="button" class="snap-cex__icon-btn" aria-label="Действия"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M4 8.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg></span></button>
+                </div>
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t14s">Issued: 21.08.2021</p>
+                  <span class="ds-status ds-status--accent ds-status--filled"><span class="ds-status__label">Received</span></span>
+                </div>
+                <p class="snap-cex__t14s">Supplier: Romashka OOO</p>
+                <p class="snap-cex__t14s">Receiptient: Hooves LTD</p>
+                <div class="ds-divider"></div>
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t14">Amount</p>
+                  <p class="snap-cex__t14">£ 100 000,00</p>
+                </div>
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t14">VAT</p>
+                  <p class="snap-cex__t14">£ 100 000,00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Карта гостя</p>
+          <div class="snap-cex__row" style="gap:8px;align-items:flex-start;">
+            <div class="snap-cex__block" style="width:292px">
+              <p class="snap-cex__t14s">Оригинал</p>
+              <div class="ds-card ds-card--shadow" style="width:292px;height:570px;">
+                <div class="ds-card__content">
+                  <div class="snap-cex__col-t8">
+                    <p class="snap-cex__t16m">Бонусная карта</p>
+                    <p class="snap-cex__t14s">Оригинал кадра — инстанс «Bonus Card»: картинка-макет без текстовых слоёв и без компонентов ДС.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="snap-cex__block" style="width:292px">
+              <p class="snap-cex__t14s">Компонент</p>
+              <div class="ds-card ds-card--shadow" style="width:292px">
+                <div class="ds-card__content">
+                  <div class="snap-cex__col-t8">
+                    <div class="ds-text-ui">
+                      <div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Карта гостя</span></div>
+                    </div>
+                    <div class="ds-input ds-input--m ds-input--populated">
+                      <div class="ds-input__frame">
+                        <div class="ds-input__content"><span class="ds-input__label">Имя</span><span class="ds-input__field">Input text</span></div>
+                        <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span></span>
+                      </div>
+                    </div>
+                    <div class="ds-input ds-input--m ds-input--populated">
+                      <div class="ds-input__frame">
+                        <div class="ds-input__content"><span class="ds-input__label">Телефон</span><span class="ds-input__field">Input text</span></div>
+                        <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span></span>
+                      </div>
+                    </div>
+                    <label class="ds-slide-toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox" checked><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Бонусный баланс</span></span></label>
+                    <label class="ds-slide-toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox" checked><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Держатель карты</span></span></label>
+                    <label class="ds-slide-toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox" checked><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Кэшбек</span></span></label>
+                    <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Сохранить</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Учётная запись</p>
+          <div class="ds-card ds-card--shadow" style="width:555px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <p class="snap-cex__t20">Кафе "Лютик"</p>
+                <p class="snap-cex__t14s">iikoUID: 772-690-554, версия сервера: 8.2.12456</p>
+                <div class="ds-divider"></div>
+                <div class="snap-cex__col-t">
+                  <p class="snap-cex__t14"><span class="snap-cex__muted">Адрес:</span> Санкт-Петербург, Старый город, Новый Проспект, 12</p>
+                  <div class="snap-cex__row" style="gap:8px;"><p class="snap-cex__t14"><span class="snap-cex__muted">Основной email:</span> mail@mail.ru</p><a class="snap-cex__t14 snap-cex__inline-link" href="#">изменить</a></div>
+                  <div class="snap-cex__row" style="gap:8px;"><p class="snap-cex__t14"><span class="snap-cex__muted">E-mail для выставления счетов:</span> mail@mail.ru</p><a class="snap-cex__t14 snap-cex__inline-link" href="#">изменить</a></div>
+                  <div class="snap-cex__row" style="gap:8px;"><p class="snap-cex__t14"><span class="snap-cex__muted">Основной email:</span> mail@mail.ru</p><a class="snap-cex__t14 snap-cex__inline-link" href="#">изменить</a></div>
+                  <div class="snap-cex__row" style="gap:8px;"><p class="snap-cex__t14"><span class="snap-cex__muted">E-mail для выставления счетов:</span> mail@mail.ru</p><a class="snap-cex__t14 snap-cex__inline-link" href="#">изменить</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Карточки адреса Колл Центр</p>
+          <div class="ds-card ds-card--outlined" style="width:268px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <div class="snap-cex__row snap-cex__row--between" style="align-items:flex-start;">
+                  <p class="snap-cex__t14">Казань, Баки Урманче, 4, корпус 1, квартира 15</p>
+                  <button type="button" class="snap-cex__icon-btn" aria-label="Изменить"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M14.06 2.94a1.5 1.5 0 0 1 2.12 0l.88.88a1.5 1.5 0 0 1 0 2.12l-8.6 8.6-3.6.9.9-3.6 8.3-8.3ZM4 16h12v2H4v-2Z"/></svg></span></button>
+                </div>
+                <div class="snap-cex__row" style="gap:8px;"><span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-accent);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 8h14v9H3V8Zm2-4h10l2 4H3l2-4Z"/></svg></span><a class="snap-cex__t14 snap-cex__inline-link" href="#">Ресторан "Парижанка"</a></div>
+                <div class="snap-cex__row" style="gap:8px;"><span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm.9 4v4.6l3.4 2-.9 1.5-4.4-2.6V6h1.9Z"/></svg></span><p class="snap-cex__t14 snap-cex__muted">Как можно скорее</p></div>
+                <div class="snap-cex__row" style="justify-content:flex-end;">
+                  <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9.17 10.83H4.17V9.17h5V4.17h1.66v5h5v1.66h-5v5H9.17v-5Z"/></svg></span></span><span class="ds-btn__label">Заказ</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-cex__row" style="gap:8px;align-items:flex-start;">
+            <div class="snap-cex__block" style="width:232px">
+              <p class="snap-cex__t14s">Оригинал</p>
+              <div class="ds-card ds-card--outlined" style="width:232px"><div class="ds-card__content"><p class="snap-cex__t14">Москва, ул Часовая, д23, корп. 1, кв 10, под.2, эт. 3</p></div></div>
+            </div>
+            <div class="snap-cex__block" style="width:268px">
+              <p class="snap-cex__t14s">Компонент</p>
+              <div class="ds-card ds-card--outlined" style="width:268px"><div class="ds-card__content"><p class="snap-cex__t14">Москва, ул Часовая, д23, корп. 1, кв 10, под.2, эт. 3</p></div></div>
+            </div>
+          </div>
+          <div class="ds-card ds-card--outlined" style="width:435px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Ресторан русской кухни на Часовой</p>
+                  <span class="ds-status ds-status--positive ds-status--filled"><span class="ds-status__label">Открыт</span><span class="ds-status__element-right"><span class="ds-status__icon"><span class="ds-icon-size ds-icon-size--4x"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.2 11.6 3 8.4l1.1-1.1 2.1 2.1 5-5L12.3 5.5 6.2 11.6Z"/></svg></span></span></span></span>
+                </div>
+                <div class="snap-cex__row" style="gap:8px;"><span class="ds-icon-size ds-icon-size--4x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a4 4 0 0 1 4 4c0 3-4 9-4 9s-4-6-4-9a4 4 0 0 1 4-4Z"/></svg></span><p class="snap-cex__t12">Москва, ул Часовая, д23, корп. 1</p><a class="snap-cex__t12 snap-cex__inline-link" href="#">На карте</a></div>
+                <div class="snap-cex__row" style="gap:8px;"><span class="ds-icon-size ds-icon-size--4x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13Zm.7 3.2v3.8l2.8 1.6-.7 1.2-3.6-2.1V4.7h1.5Z"/></svg></span><p class="snap-cex__t12"><span class="snap-cex__muted">Время доставки:</span> Минимальное время</p></div>
+                <div class="snap-cex__row" style="gap:8px;"><span class="ds-icon-size ds-icon-size--4x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 11h1.6V6H2v5Zm3.4 0h1.6V4H5.4v7Zm3.4 0H10V7H8.8v4Zm3.4 0H14V2h-1.8v9Z"/></svg></span><p class="snap-cex__t12"><span class="snap-cex__muted">Загрузка:</span> Средняя</p></div>
+                <div class="snap-cex__row snap-cex__row--between">
+                  <div class="snap-cex__row" style="gap:8px;"><span class="ds-icon-size ds-icon-size--4x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 4h12v8H2V4Zm2 2v1h3V6H4Z"/></svg></span><p class="snap-cex__t12"><span class="snap-cex__muted">Заказ:</span> От 1 000 ₽ до 30 000 ₽</p></div>
+                  <p class="snap-cex__t12" style="color:var(--ds-color-text-warning,#ef6c00);">4.5 <span style="color:var(--ds-color-icon-warning,#ffb300);">★</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 2. Цветная карточка (58787:20370) ═══ -->
+      <div class="snap-cex__col" style="width:652px">
+        <h3 class="snap-cex__h">Цветная карточка</h3>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Колл Центр</p>
+          <div class="ds-card ds-card--filled" style="width:652px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <p class="snap-cex__t16m">Инструкция для оператора</p>
+                <p class="snap-cex__t14"><b>Шаг 1: Заполните имя гостя</b></p>
+                <p class="snap-cex__t14s">• Введите имя в соответствующее поле</p>
+                <p class="snap-cex__t14"><b>Шаг 2: Укажите адреса</b></p>
+                <p class="snap-cex__t14s">• Доставка: для получения товара курьером на указанный адрес<br>• Самовывоз: для самостоятельного получения в ресторане<br>• Заполните все необходимые поля</p>
+                <p class="snap-cex__t14"><b>Шаг 3: Выбор меню</b></p>
+                <p class="snap-cex__t14s">• Каталог: перейдите в раздел с меню и выберите блюда</p>
+                <p class="snap-cex__t14"><b>Шаг 4: Оплата заказа</b></p>
+                <p class="snap-cex__t14s">• Проверьте состав заказа<br>• Способы оплаты: выберите удобный вариант</p>
+                <p class="snap-cex__t14"><b>Шаг 5: Подтверждение:</b></p>
+                <p class="snap-cex__t14s">• Дождитесь уведомления об успешной оплате</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">integration_Just Eat</p>
+          <div class="ds-card ds-card--filled" style="width:546px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <div class="ds-input ds-input--m ds-input--empty">
+                  <div class="ds-input__frame">
+                    <div class="ds-input__content"><span class="ds-input__field">Search</span></div>
+                  </div>
+                </div>
+                <div class="snap-cex__col-t8">
+                  <p class="snap-cex__t16m">Расписание доставки</p>
+                  <div class="snap-cex__col-t">
+                    <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__input">Понедельник</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+                    <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__input">Вторник</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+                    <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__input">Среда</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+                    <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__input">Четверг</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+                    <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__input">Пятница</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+                    <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__input">Суббота</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+                    <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__input">Воскресенье</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Конструктор сайтов</p>
+          <div class="ds-card ds-card--filled" style="width:652px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <p class="snap-cex__t20">Конструктор сайтов</p>
+                <p class="snap-cex__t14s">Чтобы вы могли быстро ознакомиться с конструктором сайта, мы подготовили для вас небольшую базу знаний с шагами и описанием. Настроим сайт за деньги. Чтобы вы могли быстро ознакомиться с конструктором сайта, мы подготовили для вас небольшую базу знаний с шагами и описанием.</p>
+                <div class="snap-cex__row"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text"><span class="ds-btn__label">База знаний</span></button><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Настроить сайт</span></button></div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-cex__row" style="gap:8px;align-items:flex-start;">
+            <div class="snap-cex__block" style="width:320px">
+              <p class="snap-cex__t14s">Оригинал</p>
+              <div class="ds-card ds-card--outlined" style="width:320px"><div class="ds-card__content"><p class="snap-cex__t14">Уведомление</p><p class="snap-cex__t14s">Сайт готов к публикации</p></div></div>
+            </div>
+            <div class="snap-cex__block" style="width:324px">
+              <p class="snap-cex__t14s">Компонент</p>
+              <div class="ds-card ds-card--outlined" style="width:324px"><div class="ds-card__content"><p class="snap-cex__t14">Уведомление</p><p class="snap-cex__t14s">Сайт готов к публикации</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 3. Карточка с изображением (58790:21403) ═══ -->
+      <div class="snap-cex__col" style="width:798px">
+        <h3 class="snap-cex__h">Карточка с изображением</h3>
+
+        <div class="ds-card ds-card--outlined" style="width:317px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8" style="align-items:center;text-align:center;">
+              <span class="snap-cex__pic" style="width:96px;height:96px;background:var(--ds-color-text-primary,#333);">
+                <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><path fill="#4ee6a9" d="M20 8h16v8h8v16h-8v8H20v-8h-8V16h8V8Z"/></svg>
+              </span>
+              <p class="snap-cex__t16m">GuestMe</p>
+              <p class="snap-cex__t14s">Решение для бронирования столов в ресторане через сайт заведения</p>
+              <p class="snap-cex__t14s">от 3 900,00 ₽/мес.</p>
+            </div>
+          </div>
+          <div class="ds-card__footer ds-card__footer--right">
+            <div class="ds-card__footer__action">
+              <button type="button" class="ds-btn ds-btn--s ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Подробнее</span></button>
+              <button type="button" class="ds-btn ds-btn--s ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Подключить</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══ 4. Форма в карте (58759:13988) ═══ -->
+      <div class="snap-cex__col" style="width:852px">
+        <h3 class="snap-cex__h">Форма в карте</h3>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Карта гостя</p>
+          <div class="ds-card ds-card--outlined" style="width:628px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <p class="snap-cex__t16m">Информация на карте</p>
+                <div class="snap-cex__dropzone">
+                  <p class="snap-cex__t16 snap-cex__accent">Выберите логотип или перетащите сюда</p>
+                  <p class="snap-cex__t12">JPEG, PNG, SVG до 5 МБ</p>
+                </div>
+                <div class="ds-input ds-input--m ds-input--populated">
+                  <div class="ds-input__frame">
+                    <div class="ds-input__content"><span class="ds-input__label">Название заведения</span><span class="ds-input__field">Input text</span></div>
+                    <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span></span>
+                  </div>
+                  <div class="ds-input__support"><span>8/35</span></div>
+                </div>
+                <div class="ds-input ds-input--m ds-input--empty">
+                  <div class="ds-input__frame">
+                    <div class="ds-input__content"><span class="ds-input__field">Label</span></div>
+                    <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span></span>
+                  </div>
+                  <div class="ds-input__support"><span>0/60</span></div>
+                </div>
+                <label class="ds-slide-toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox" checked><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Бонусный баланс</span></span></label>
+                <label class="ds-slide-toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox" checked><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Держатель карты</span></span></label>
+                <label class="ds-slide-toggle"><span class="ds-slide-toggle__row"><input class="ds-slide-toggle__input" type="checkbox" checked><span class="ds-slide-toggle__track"></span><span class="ds-slide-toggle__title">Кэшбек</span></span></label>
+              </div>
+            </div>
+          </div>
+          <div class="ds-card ds-card--outlined" style="width:628px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Оформление</p>
+                  <button type="button" class="ds-btn ds-btn--s ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Выбрать шаблон</span></button>
+                </div>
+                <div class="snap-cex__row snap-cex__row--between" style="background:var(--ds-paint-surface-hover,#f5f5f5);border-radius:8px;padding:8px;">
+                  <div class="snap-cex__row" style="gap:12px;">
+                    <span class="snap-cex__pic" style="width:56px;height:40px;border-radius:4px;background:var(--ds-color-text-primary,#333);"></span>
+                    <div class="snap-cex__col-t">
+                      <a class="snap-cex__t14 snap-cex__inline-link" href="#">Banner.png</a>
+                      <p class="snap-cex__t12">Загружен 28.01.2026</p>
+                    </div>
+                  </div>
+                  <div class="snap-cex__row">
+                    <button type="button" class="snap-cex__icon-btn" aria-label="Изменить"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M14.06 2.94a1.5 1.5 0 0 1 2.12 0l.88.88a1.5 1.5 0 0 1 0 2.12l-8.6 8.6-3.6.9.9-3.6 8.3-8.3ZM4 16h12v2H4v-2Z"/></svg></span></button>
+                    <button type="button" class="snap-cex__icon-btn" aria-label="Удалить"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 15.83h8V7.5H6v8.33ZM13.33 4.17V3.33H6.67v.84H4.17V5h11.66V4.17h-2.5Z"/></svg></span></button>
+                  </div>
+                </div>
+                <div class="ds-input ds-input--m ds-input--populated">
+                  <div class="ds-input__frame">
+                    <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="#a1887f"/></svg></span></span>
+                    <div class="ds-input__content"><span class="ds-input__label">Цвет фона</span><span class="ds-input__field">Input text</span></div>
+                  </div>
+                </div>
+                <div class="ds-input ds-input--m ds-input--populated">
+                  <div class="ds-input__frame">
+                    <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="#fff" stroke="#e0e0e0"/></svg></span></span>
+                    <div class="ds-input__content"><span class="ds-input__label">Цвет текста</span><span class="ds-input__field">Input text</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Акции</p>
+          <div class="ds-card ds-card--outlined" style="width:852px">
+            <div class="ds-card__content">
+              <div class="snap-cex__col-t8">
+                <div class="snap-cex__row" style="gap:8px;">
+                  <p class="snap-cex__t16m">Период действия</p>
+                  <span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span>
+                </div>
+                <div class="snap-cex__row" style="gap:24px;align-items:flex-start;">
+                  <div class="ds-input ds-input--m ds-input--populated" style="flex:1;">
+                    <div class="ds-input__frame">
+                      <div class="ds-input__content"><span class="ds-input__label">Дата начала</span><span class="ds-input__field">Input text</span></div>
+                      <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5.6 6.4 1.4-1.4L10 8l3-3 1.4 1.4-3 3 3 3L13 13.8l-3-3-3 3-1.4-1.4 3-3-3-3Z"/></svg></span></span>
+                    </div>
+                  </div>
+                  <div class="ds-input ds-input--m ds-input--populated" style="flex:1;">
+                    <div class="ds-input__frame">
+                      <div class="ds-input__content"><span class="ds-input__label">Дата окончания</span><span class="ds-input__field">Input text</span></div>
+                      <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5.6 6.4 1.4-1.4L10 8l3-3 1.4 1.4-3 3 3 3L13 13.8l-3-3-3 3-1.4-1.4 3-3-3-3Z"/></svg></span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="snap-cex__row" style="gap:24px;align-items:flex-start;">
+                  <div class="ds-input-number ds-input-number--s" style="flex:1;">
+                    <div class="ds-input-number__frame">
+                      <div class="snap-cex__col-t"><span class="snap-cex__t12">Количество дней до</span><span class="snap-cex__t16">Input text</span></div>
+                      <div class="ds-input-number-but-icon"><div class="ds-input-number-but-icon__container">
+                        <button type="button" class="ds-input-number-but-icon__button" aria-label="Минус"><span class="ds-input-number-but-icon__icon">−</span></button>
+                        <button type="button" class="ds-input-number-but-icon__button" aria-label="Плюс"><span class="ds-input-number-but-icon__icon">+</span></button>
+                      </div></div>
+                    </div>
+                  </div>
+                  <div class="ds-input-number ds-input-number--s" style="flex:1;">
+                    <div class="ds-input-number__frame">
+                      <div class="snap-cex__col-t"><span class="snap-cex__t12">Количество дней после</span><span class="snap-cex__t16">Input text</span></div>
+                      <div class="ds-input-number-but-icon"><div class="ds-input-number-but-icon__container">
+                        <button type="button" class="ds-input-number-but-icon__button" aria-label="Минус"><span class="ds-input-number-but-icon__icon">−</span></button>
+                        <button type="button" class="ds-input-number-but-icon__button" aria-label="Плюс"><span class="ds-input-number-but-icon__icon">+</span></button>
+                      </div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══ 5. Форма-карточка с другой карточкой-expansion, баннером внутри New ПРК (58767:25209) ═══ -->
+      <div class="snap-cex__col" style="width:852px">
+        <h3 class="snap-cex__h">Форма-карточка с другой карточкой-expansion, баннером внутри New ПРК</h3>
+
+        <div class="ds-card ds-card--outlined" style="width:852px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8">
+              <div class="ds-text-ui">
+                <div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Логистика и склады</span></div>
+              </div>
+              <div class="ds-expansion ds-expansion--info">
+                <div class="ds-expansion__header">
+                  <span class="ds-expansion__title"><span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-accent);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 11.2a5.2 5.2 0 1 1 0-10.4 5.2 5.2 0 0 1 0 10.4Z"/></svg></span> На что влияет выбор складов</span>
+                  <span class="ds-expansion__action">Подробнее <span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 12 5-6 5 6H5Z"/></svg></span></span>
+                </div>
+                <div class="ds-expansion-content"><div class="ds-expansion-content__text">Это Slot. В блоке контента может быть всё что угодно</div></div>
+              </div>
+              <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__label">Склад отгрузки</span><span class="ds-select-form__input">Название склада 2</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+              <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__label">Склад списания ингредиентов</span><span class="ds-select-form__input">Название склада 3</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+              <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__label">Склад хранения товаров</span><span class="ds-select-form__input">Название склада 4</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-card ds-card--outlined" style="width:852px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8">
+              <div class="ds-text-ui"><div class="ds-text-ui__content"><span class="ds-text-ui__list-item">Логистика и склады</span></div></div>
+              <div class="ds-expansion ds-expansion--info">
+                <div class="ds-expansion__header">
+                  <span class="ds-expansion__title"><span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-accent);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 11.2a5.2 5.2 0 1 1 0-10.4 5.2 5.2 0 0 1 0 10.4Z"/></svg></span> На что влияет выбор складов</span>
+                  <span class="ds-expansion__action">Подробнее <span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span>
+                </div>
+              </div>
+              <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__label">Склад отгрузки</span><span class="ds-select-form__input">Название склада 2</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+              <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__label">Склад списания ингредиентов</span><span class="ds-select-form__input">Название склада 3</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+              <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__label">Склад хранения товаров</span><span class="ds-select-form__input">Название склада 4</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+              <div class="ds-banner ds-banner--warning">
+                <span class="ds-banner__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M1.7 17h16.6L10 3 1.7 17Zm9.2-2H9v-2h1.9v2Zm0-3.5H9V8.6h1.9v2.9Z"/></svg></span></span>
+                <div class="ds-banner__text"><p class="ds-banner__title">Склад списания ингредиентов = Склад хранения</p><p class="ds-banner__description">Акт приготовления сформирован не будет</p></div>
+              </div>
+              <div class="ds-banner ds-banner--warning">
+                <span class="ds-banner__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M1.7 17h16.6L10 3 1.7 17Zm9.2-2H9v-2h1.9v2Zm0-3.5H9V8.6h1.9v2.9Z"/></svg></span></span>
+                <div class="ds-banner__text"><p class="ds-banner__title">Склад хранения = Склад отгрузки</p><p class="ds-banner__description">Акт перемещения сформирован не будет</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-card ds-card--outlined" style="width:852px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8">
+              <div class="snap-cex__row" style="gap:8px;">
+                <p class="snap-cex__t16m">Периодичность создания и поставки заказа</p>
+                <span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span>
+              </div>
+              <div class="ds-select-form ds-select-form--m"><div class="ds-select-form__input-frame"><span class="ds-select-form__label">Расписание</span><span class="ds-select-form__input">Детализированное расписание поставщика</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div></div>
+              <div class="ds-expansion ds-expansion--info">
+                <div class="ds-expansion__header">
+                  <span class="ds-expansion__title"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m7 5 6 5-6 5V5Z"/></svg></span><span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span> Title text <span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span></span>
+                  <span class="ds-expansion__action"><span class="ds-icon-size ds-icon-size--5x" style="color:var(--ds-color-icon-secondary,#616161);"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm2 9H8v-1.4h1.2V9.6H8V8.2h2.8v4.9H12V14.5Z"/></svg></span><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 12 5-6 5 6H5Z"/></svg></span></span>
+                </div>
+                <div class="ds-expansion-content" style="min-height:340px;"><div class="ds-expansion-content__text">Это Slot. В блоке контента может быть всё что угодно</div></div>
+              </div>
+              <p class="snap-cex__t14">Расписание доставки заказа</p>
+              <div class="snap-cex__code">
+                <div class="snap-cex__code-gutter"><span>1</span></div>
+                <div class="snap-cex__code-line"><span class="snap-cex__muted">{}</span></div>
+              </div>
+              <div class="snap-cex__code-status"><span>Ln: 1</span><span>Col: 1</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 6. Карточки-показатели (58799:27699) ═══ -->
+      <div class="snap-cex__col" style="width:1100px">
+        <h3 class="snap-cex__h">Карточки-показатели</h3>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Склад_Остатки на складе</p>
+          <div class="snap-cex__row" style="gap:8px;align-items:flex-start;">
+            <div class="ds-card ds-card--filled snap-cex__kpi" style="width:356px"><div class="ds-card__content">
+              <p class="snap-cex__t12">Приход</p>
+              <div class="snap-cex__row" style="gap:8px;align-items:baseline;"><span class="snap-cex__kpi-value">2 645.00 ₽</span><span class="snap-cex__t12 snap-cex__positive">+ 2 кг</span></div>
+            </div></div>
+            <div class="ds-card ds-card--filled snap-cex__kpi" style="width:356px"><div class="ds-card__content">
+              <p class="snap-cex__t12">Расход</p>
+              <div class="snap-cex__row" style="gap:8px;align-items:baseline;"><span class="snap-cex__kpi-value">387.50 ₽</span><span class="snap-cex__t12 snap-cex__negative">- 1.5 кг</span></div>
+            </div></div>
+            <div class="ds-card ds-card--filled snap-cex__kpi" style="width:356px"><div class="ds-card__content">
+              <p class="snap-cex__t12">Остаток (23.04.2022)</p>
+              <div class="snap-cex__row" style="gap:8px;align-items:baseline;"><span class="snap-cex__kpi-value">2 712.00 ₽</span><span class="snap-cex__t12 snap-cex__accent">10.5 кг</span></div>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">ЕГАИС</p>
+          <div class="snap-cex__row" style="gap:8px;align-items:flex-start;">
+            <div class="ds-card ds-card--outlined" style="width:177px"><div class="ds-card__content"><div class="snap-cex__row" style="gap:8px;align-items:baseline;"><span class="snap-cex__t14">Всего позиций</span><span class="snap-cex__kpi-num">3</span></div></div></div>
+            <div class="ds-card ds-card--outlined" style="width:203px"><div class="ds-card__content"><div class="snap-cex__row" style="gap:8px;align-items:baseline;"><span class="snap-cex__t14">С расхождениями</span><span class="snap-cex__kpi-num">3</span></div></div></div>
+            <div class="ds-card ds-card--outlined" style="width:296px"><div class="ds-card__content"><div class="snap-cex__row" style="gap:8px;align-items:baseline;"><span class="snap-cex__t14">Расхождения</span><span class="snap-cex__kpi-num snap-cex__negative">-0.51 л</span><span class="snap-cex__kpi-num snap-cex__positive">+0.7 л</span></div></div></div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Отчеты</p>
+          <div class="snap-cex__row" style="gap:8px;align-items:flex-start;">
+            <div class="snap-cex__block" style="width:212px">
+              <p class="snap-cex__t14s">Оригинал</p>
+              <div class="ds-card ds-card--outlined" style="width:212px"><div class="ds-card__content"><p class="snap-cex__t12">Выручка</p><p class="snap-cex__kpi-value">96 645.00 ₽</p><p class="snap-cex__t12 snap-cex__positive">↑ 12.23%</p></div></div>
+            </div>
+            <div class="snap-cex__block" style="width:163px">
+              <p class="snap-cex__t14s">Компонент</p>
+              <div class="ds-card ds-card--shadow" style="width:163px"><div class="ds-card__content"><p class="snap-cex__t12">Выручка</p><p class="snap-cex__t20">96 645.00 ₽</p><p class="snap-cex__t12 snap-cex__positive">↑ 12.23%</p></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-cex__block">
+          <p class="snap-cex__cap">Главная</p>
+          <div class="ds-card ds-card--outlined" style="width:814px">
+            <div class="ds-card__content">
+              <div class="snap-cex__row" style="gap:24px;align-items:flex-start;justify-content:space-between;">
+                <div class="snap-cex__col-t"><span class="snap-cex__t12">Выручка</span><span class="snap-cex__row" style="gap:4px;"><span class="snap-cex__t14m">6 645 ₽</span><span class="snap-cex__t12 snap-cex__positive">+12,5%</span></span></div>
+                <div class="snap-cex__col-t"><span class="snap-cex__t12">Чеки</span><span class="snap-cex__row" style="gap:4px;"><span class="snap-cex__t14m">15</span><span class="snap-cex__t12 snap-cex__positive">+12,5%</span></span></div>
+                <div class="snap-cex__col-t"><span class="snap-cex__t12">Средний чек</span><span class="snap-cex__row" style="gap:4px;"><span class="snap-cex__t14m">6 645 ₽</span><span class="snap-cex__t12 snap-cex__positive">+12,5%</span></span></div>
+                <div class="snap-cex__col-t"><span class="snap-cex__t12">Сумма скидок</span><span class="snap-cex__row" style="gap:4px;"><span class="snap-cex__t14m">2 000 ₽</span><span class="snap-cex__t12 snap-cex__negative">-5,5%</span></span></div>
+                <div class="snap-cex__col-t"><span class="snap-cex__t12">Фудкост</span><span class="snap-cex__row" style="gap:4px;"><span class="snap-cex__t14m">25%</span><span class="snap-cex__t12 snap-cex__positive">+12,5%</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 7. Карточка-радио, карточка с радио внутри Склад_Заказ товаров (58780:14430) ═══ -->
+      <div class="snap-cex__col" style="width:558px">
+        <h3 class="snap-cex__h">Карточка-радио, карточка с радио внутри Склад_Заказ товаров</h3>
+
+        <div class="ds-card ds-card--filled" style="width:501px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8">
+              <div class="snap-cex__row snap-cex__row--between">
+                <p class="snap-cex__t20">Создание заказа</p>
+                <button type="button" class="snap-cex__icon-btn" aria-label="Закрыть"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5.3 4.2 4.7 4.7 4.7-4.7 1.1 1.1L11.1 10l4.7 4.7-1.1 1.1L10 11.1l-4.7 4.7-1.1-1.1L8.9 10 4.2 5.3l1.1-1.1Z"/></svg></span></button>
+              </div>
+              <span class="ds-search"><span class="ds-search__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.3333 17.5L11.0833 12.25C10.6667 12.5833 10.1875 12.8472 9.64583 13.0417C9.10417 13.2361 8.52778 13.3333 7.91667 13.3333C6.40278 13.3333 5.12153 12.809 4.07292 11.7604C3.02431 10.7118 2.5 9.43056 2.5 7.91667C2.5 6.40278 3.02431 5.12153 4.07292 4.07292C5.12153 3.02431 6.40278 2.5 7.91667 2.5C9.43056 2.5 10.7118 3.02431 11.7604 4.07292C12.809 5.12153 13.3333 6.40278 13.3333 7.91667C13.3333 8.52778 13.2361 9.10417 13.0417 9.64583C12.8472 10.1875 12.5833 10.6667 12.25 11.0833L17.5 16.3333L16.3333 17.5ZM7.91667 11.6667C8.95833 11.6667 9.84375 11.3021 10.5729 10.5729C11.3021 9.84375 11.6667 8.95833 11.6667 7.91667C11.6667 6.875 11.3021 5.98958 10.5729 5.26042C9.84375 4.53125 8.95833 4.16667 7.91667 4.16667C6.875 4.16667 5.98958 4.53125 5.26042 5.26042C4.53125 5.98958 4.16667 6.875 4.16667 7.91667C4.16667 8.95833 4.53125 9.84375 5.26042 10.5729C5.98958 11.3021 6.875 11.6667 7.91667 11.6667Z"/></svg></span></span><span class="ds-search__label">Search text</span><span class="ds-search__right-icon"><span class="ds-divider"></span><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5.83333 18.4167C4.68056 18.4167 3.69792 18.0104 2.88542 17.1979C2.07292 16.3854 1.66667 15.4028 1.66667 14.25C1.66667 13.0972 2.07292 12.1146 2.88542 11.3021C3.69792 10.4896 4.68056 10.0833 5.83333 10.0833C6.98611 10.0833 7.96875 10.4896 8.78125 11.3021C9.59375 12.1146 10 13.0972 10 14.25C10 15.4028 9.59375 16.3854 8.78125 17.1979C7.96875 18.0104 6.98611 18.4167 5.83333 18.4167ZM17.1667 17.5833L11.8333 12.25C11.6667 12.0694 11.4896 11.8854 11.3021 11.6979C11.1146 11.5104 10.9306 11.3333 10.75 11.1667C11.2778 10.8333 11.7014 10.3889 12.0208 9.83333C12.3403 9.27778 12.5 8.66667 12.5 8C12.5 6.95833 12.1354 6.07292 11.4062 5.34375C10.6771 4.61458 9.79167 4.25 8.75 4.25C7.70833 4.25 6.82292 4.61458 6.09375 5.34375C5.36458 6.07292 5 6.95833 5 8C5 8.08333 5.00347 8.16319 5.01042 8.23958C5.01736 8.31597 5.02778 8.39583 5.04167 8.47917C4.79167 8.50694 4.51736 8.5625 4.21875 8.64583C3.92014 8.72917 3.65278 8.82639 3.41667 8.9375C3.38889 8.78472 3.36806 8.63194 3.35417 8.47917C3.34028 8.32639 3.33333 8.16667 3.33333 8C3.33333 6.48611 3.85764 5.20486 4.90625 4.15625C5.95486 3.10764 7.23611 2.58333 8.75 2.58333C10.2639 2.58333 11.5451 3.10764 12.5937 4.15625C13.6424 5.20486 14.1667 6.48611 14.1667 8C14.1667 8.59722 14.0729 9.16319 13.8854 9.69792C13.6979 10.2326 13.4375 10.7222 13.1042 11.1667L18.3333 16.4167L17.1667 17.5833ZM4.35417 16.3125L5.83333 14.8333L7.29167 16.3125L7.89583 15.7292L6.41667 14.25L7.89583 12.7708L7.3125 12.1875L5.83333 13.6667L4.35417 12.1875L3.77083 12.7708L5.25 14.25L3.77083 15.7292L4.35417 16.3125Z"/></svg></span></span></span>
+              <div class="snap-cex__radio-card">
+                <div class="snap-cex__row snap-cex__row--between"><p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p></div>
+                <p class="snap-cex__t14s">Заказ у внутреннего производства или распределение крупной закупки</p>
+                <p class="snap-cex__t14">Жаренная продукция ПН - СБ</p>
+                <p class="snap-cex__t14">Ручной заказ: кондитерка СР, СБ</p>
+                <p class="snap-cex__t14">Морсы ПН, СР, ПТ</p>
+                <a class="snap-cex__t14 snap-cex__inline-link" href="#">Показать все</a>
+              </div>
+              <div class="snap-cex__radio-card snap-cex__radio-card--sel">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p>
+                  <label class="ds-radio"><input class="ds-radio__input" type="checkbox" checked><span class="ds-radio__box"></span></label>
+                </div>
+                <p class="snap-cex__t14s">Заказ у внутреннего производства или распределение крупной закупки</p>
+                <p class="snap-cex__t14">Жаренная продукция ПН - СБ</p>
+                <p class="snap-cex__t14">Ручной заказ: кондитерка СР, СБ</p>
+                <p class="snap-cex__t14">Морсы ПН, СР, ПТ</p>
+                <a class="snap-cex__t14 snap-cex__inline-link" href="#">Показать все</a>
+              </div>
+              <div class="snap-cex__radio-card">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p>
+                  <span class="ds-radio"><span class="ds-radio__box"></span></span>
+                </div>
+                <p class="snap-cex__t14s">Заказ у внутреннего производства или распределение крупной закупки</p>
+                <p class="snap-cex__t14">Жаренная продукция ПН - СБ</p>
+                <p class="snap-cex__t14">Ручной заказ: кондитерка СР, СБ</p>
+                <p class="snap-cex__t14">Морсы ПН, СР, ПТ</p>
+                <a class="snap-cex__t14 snap-cex__inline-link" href="#">Показать все</a>
+              </div>
+              <div class="snap-cex__radio-card">
+                <div class="snap-cex__row" style="gap:8px;"><span class="ds-radio"><span class="ds-radio__box"></span></span><p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- второй кадр группы: Card view 58799:28955 (501×981) — та же форма, 5 секций -->
+        <div class="ds-card ds-card--filled" style="width:501px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8">
+              <div class="snap-cex__row snap-cex__row--between">
+                <p class="snap-cex__t20">Создание заказа</p>
+                <button type="button" class="snap-cex__icon-btn" aria-label="Закрыть"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5.3 4.2 4.7 4.7 4.7-4.7 1.1 1.1L11.1 10l4.7 4.7-1.1 1.1L10 11.1l-4.7 4.7-1.1-1.1L8.9 10 4.2 5.3l1.1-1.1Z"/></svg></span></button>
+              </div>
+              <span class="ds-search"><span class="ds-search__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.3333 17.5L11.0833 12.25C10.6667 12.5833 10.1875 12.8472 9.64583 13.0417C9.10417 13.2361 8.52778 13.3333 7.91667 13.3333C6.40278 13.3333 5.12153 12.809 4.07292 11.7604C3.02431 10.7118 2.5 9.43056 2.5 7.91667C2.5 6.40278 3.02431 5.12153 4.07292 4.07292C5.12153 3.02431 6.40278 2.5 7.91667 2.5C9.43056 2.5 10.7118 3.02431 11.7604 4.07292C12.809 5.12153 13.3333 6.40278 13.3333 7.91667C13.3333 8.52778 13.2361 9.10417 13.0417 9.64583C12.8472 10.1875 12.5833 10.6667 12.25 11.0833L17.5 16.3333L16.3333 17.5ZM7.91667 11.6667C8.95833 11.6667 9.84375 11.3021 10.5729 10.5729C11.3021 9.84375 11.6667 8.95833 11.6667 7.91667C11.6667 6.875 11.3021 5.98958 10.5729 5.26042C9.84375 4.53125 8.95833 4.16667 7.91667 4.16667C6.875 4.16667 5.98958 4.53125 5.26042 5.26042C4.53125 5.98958 4.16667 6.875 4.16667 7.91667C4.16667 8.95833 4.53125 9.84375 5.26042 10.5729C5.98958 11.3021 6.875 11.6667 7.91667 11.6667Z"/></svg></span></span><span class="ds-search__label">Search text</span><span class="ds-search__right-icon"><span class="ds-divider"></span><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5.83333 18.4167C4.68056 18.4167 3.69792 18.0104 2.88542 17.1979C2.07292 16.3854 1.66667 15.4028 1.66667 14.25C1.66667 13.0972 2.07292 12.1146 2.88542 11.3021C3.69792 10.4896 4.68056 10.0833 5.83333 10.0833C6.98611 10.0833 7.96875 10.4896 8.78125 11.3021C9.59375 12.1146 10 13.0972 10 14.25C10 15.4028 9.59375 16.3854 8.78125 17.1979C7.96875 18.0104 6.98611 18.4167 5.83333 18.4167ZM17.1667 17.5833L11.8333 12.25C11.6667 12.0694 11.4896 11.8854 11.3021 11.6979C11.1146 11.5104 10.9306 11.3333 10.75 11.1667C11.2778 10.8333 11.7014 10.3889 12.0208 9.83333C12.3403 9.27778 12.5 8.66667 12.5 8C12.5 6.95833 12.1354 6.07292 11.4062 5.34375C10.6771 4.61458 9.79167 4.25 8.75 4.25C7.70833 4.25 6.82292 4.61458 6.09375 5.34375C5.36458 6.07292 5 6.95833 5 8C5 8.08333 5.00347 8.16319 5.01042 8.23958C5.01736 8.31597 5.02778 8.39583 5.04167 8.47917C4.79167 8.50694 4.51736 8.5625 4.21875 8.64583C3.92014 8.72917 3.65278 8.82639 3.41667 8.9375C3.38889 8.78472 3.36806 8.63194 3.35417 8.47917C3.34028 8.32639 3.33333 8.16667 3.33333 8C3.33333 6.48611 3.85764 5.20486 4.90625 4.15625C5.95486 3.10764 7.23611 2.58333 8.75 2.58333C10.2639 2.58333 11.5451 3.10764 12.5937 4.15625C13.6424 5.20486 14.1667 6.48611 14.1667 8C14.1667 8.59722 14.0729 9.16319 13.8854 9.69792C13.6979 10.2326 13.4375 10.7222 13.1042 11.1667L18.3333 16.4167L17.1667 17.5833ZM4.35417 16.3125L5.83333 14.8333L7.29167 16.3125L7.89583 15.7292L6.41667 14.25L7.89583 12.7708L7.3125 12.1875L5.83333 13.6667L4.35417 12.1875L3.77083 12.7708L5.25 14.25L3.77083 15.7292L4.35417 16.3125Z"/></svg></span></span></span>
+              <div class="snap-cex__radio-card">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p>
+                  <span class="ds-radio"><span class="ds-radio__box"></span></span>
+                </div>
+                <p class="snap-cex__t14s">Заказ у внутреннего производства или распределение крупной закупки</p>
+                <p class="snap-cex__t14">Жаренная продукция ПН - СБ</p>
+                <p class="snap-cex__t14">Ручной заказ: кондитерка СР, СБ</p>
+                <p class="snap-cex__t14">Морсы ПН, СР, ПТ</p>
+                <a class="snap-cex__t14 snap-cex__inline-link" href="#">Показать все</a>
+              </div>
+              <div class="snap-cex__radio-card">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p>
+                  <span class="ds-radio"><span class="ds-radio__box"></span></span>
+                </div>
+                <p class="snap-cex__t14s">Заказ у внутреннего производства или распределение крупной закупки</p>
+                <p class="snap-cex__t14">Жаренная продукция ПН - СБ</p>
+                <p class="snap-cex__t14">Ручной заказ: кондитерка СР, СБ</p>
+                <p class="snap-cex__t14">Морсы ПН, СР, ПТ</p>
+                <a class="snap-cex__t14 snap-cex__inline-link" href="#">Показать все</a>
+              </div>
+              <div class="snap-cex__radio-card">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p>
+                  <span class="ds-radio"><span class="ds-radio__box"></span></span>
+                </div>
+                <p class="snap-cex__t14s">Заказ у внутреннего производства или распределение крупной закупки</p>
+                <p class="snap-cex__t14">Жаренная продукция ПН - СБ</p>
+                <p class="snap-cex__t14">Ручной заказ: кондитерка СР, СБ</p>
+                <p class="snap-cex__t14">Морсы ПН, СР, ПТ</p>
+                <a class="snap-cex__t14 snap-cex__inline-link" href="#">Показать все</a>
+              </div>
+              <div class="snap-cex__radio-card">
+                <div class="snap-cex__row snap-cex__row--between">
+                  <p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p>
+                  <span class="ds-radio"><span class="ds-radio__box"></span></span>
+                </div>
+                <p class="snap-cex__t14s">Заказ у внутреннего производства или распределение крупной закупки</p>
+                <div class="snap-cex__col-t">
+                  <p class="snap-cex__t14">Жаренная продукция ПН - СБ</p>
+                  <p class="snap-cex__t14">Ручной заказ: кондитерка СР, СБ</p>
+                  <p class="snap-cex__t14">Морсы ПН, СР, ПТ</p>
+                </div>
+                <a class="snap-cex__t14 snap-cex__inline-link" href="#">Показать все</a>
+              </div>
+              <div class="snap-cex__radio-card">
+                <div class="snap-cex__row" style="gap:8px;"><span class="ds-radio"><span class="ds-radio__box"></span></span><p class="snap-cex__t16m">Заказ у внутреннего поставщика (ПРК)</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- «Карточка с радио и чекбоксами Общие настройки» — Frame 18 (58792:24733, 558×1676) -->
+        <p class="snap-cex__cap">Карточка с радио и чекбоксами Общие настройки</p>
+        <div class="ds-card ds-card--filled" style="width:558px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8">
+              <div class="snap-cex__row snap-cex__row--between">
+                <p class="snap-cex__t20">E-invoice</p>
+                <button type="button" class="snap-cex__icon-btn" aria-label="Действия"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg></span></button>
+              </div>
+              <div class="ds-input ds-input--m"><div class="ds-input__frame"><span class="ds-input__label">Label</span><span class="ds-input__field ds-input--populated">Input text</span></div></div>
+              <div class="snap-cex__col-t8" style="gap:0;">
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-checkbox"><span class="ds-checkbox__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-checkbox"><span class="ds-checkbox__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-checkbox"><span class="ds-checkbox__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-checkbox"><span class="ds-checkbox__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-checkbox"><span class="ds-checkbox__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-checkbox"><span class="ds-checkbox__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-checkbox"><span class="ds-checkbox__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;"><p class="snap-cex__t14">Text default</p><span class="ds-checkbox"><span class="ds-checkbox__box"></span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-card ds-card--filled" style="width:558px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8">
+              <div class="snap-cex__row snap-cex__row--between">
+                <p class="snap-cex__t20">E-invoice</p>
+                <button type="button" class="snap-cex__icon-btn" aria-label="Действия"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg></span></button>
+              </div>
+              <div class="ds-input ds-input--m"><div class="ds-input__frame"><span class="ds-input__label">Label</span><span class="ds-input__field ds-input--populated">Input text</span></div></div>
+              <div class="snap-cex__col-t8" style="gap:0;">
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-radio"><span class="ds-radio__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-radio ds-radio--selected"><span class="ds-radio__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-radio"><span class="ds-radio__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-radio"><span class="ds-radio__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-radio"><span class="ds-radio__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-radio"><span class="ds-radio__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;border-bottom:1px solid var(--ds-color-stroke-default,#e0e0e0);"><p class="snap-cex__t14">Text default</p><span class="ds-radio"><span class="ds-radio__box"></span></span></div>
+                <div class="snap-cex__row snap-cex__row--between" style="min-height:40px;"><p class="snap-cex__t14">Text default</p><span class="ds-radio"><span class="ds-radio__box"></span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 8. Dashed обводкой Шаблоны документов (58787:18652) ═══ -->
+      <div class="snap-cex__col" style="width:752px">
+        <h3 class="snap-cex__h">Dashed обводкой<br>Шаблоны документов</h3>
+
+        <div class="ds-card ds-card--outlined snap-cex__dashed" style="width:752px">
+          <div class="ds-card__content">
+            <div class="snap-cex__col-t8">
+              <div class="snap-cex__row" style="gap:24px;align-items:flex-start;">
+                <p class="snap-cex__t14">The widget is a simple text element with a font size setting. Designed to highlight individual parts of reports.</p>
+                <span class="snap-cex__chart" aria-hidden="true"><svg viewBox="0 0 220 70" width="220" height="70"><polyline points="0,55 30,55 45,40 60,48 75,20 90,44 105,38 120,52 135,45 150,50 165,45 180,52 220,50" fill="none" stroke="#448aff" stroke-width="1.5"/></svg></span>
+                <p class="snap-cex__t14">The widget is a simple text element with a font size setting. Designed to highlight individual parts of reports.</p>
+              </div>
+              <div class="snap-cex__row snap-cex__row--between">
+                <div class="snap-cex__col-t"><p class="snap-cex__t14">ЗБ №-25 (12.06.2023)</p><p class="snap-cex__t14">Фиофан А. А.</p></div>
+                <p class="snap-cex__t14">1 000 сом.</p>
+              </div>
+              <div class="snap-cex__doc">
+                <div class="snap-cex__doc-row snap-cex__doc-row--head"><span>Название</span><span>375</span><span>583</span><span>750</span><span>On.</span></div>
+                <div class="snap-cex__doc-row"><span>Кольцо</span><span>0</span><span>3</span><span>0</span><span>asd</span></div>
+                <div class="snap-cex__doc-row"><span>Цепочка</span><span>0</span><span>3</span><span>0</span><span>asd</span></div>
+                <div class="snap-cex__doc-row"><span>Коронки</span><span>2</span><span>0</span><span>0</span><span>asd</span></div>
+                <div class="snap-cex__doc-row"><span></span><span>Итого</span><span>2</span><span>3</span><span>asd</span></div>
+              </div>
+              <p class="snap-cex__t14">Общий вес залога: 45</p>
+              <p class="snap-cex__t14">Иванов И. И. ＿＿＿＿＿＿</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="snap-note">Пометки для ревью: (а) вкладка собрана по кадру Figma «Card (Examples)» (58755:14094): восемь групп — Карточки · Цветная карточка · Карточка с изображением · Форма в карте · Форма-карточка с другой карточкой-expansion, баннером внутри New ПРК · Карточки-показатели · Карточка-радио, карточка с радио внутри Склад_Заказ товаров · Dashed обводкой Шаблоны документов; тексты заголовков, описаний, подписей и таблиц перенесены дословно с канвы; (б) карточки собраны на компонентах ДС (Card view/header/content/footer, Button, Input, Input number, Select form, Slide toggle, Status, Radio, Search, Expansion panel, Banners, Divider, Text UI, Icon size), обвязка — классы стенда `snap-cex*`; (в) группа «Карточка с изображением»: в кадре логотипы сервисов — растровые картинки (GuestMe, SwapCat, SwapDog, iikoDashboard), в ДС слота изображения нет — на стенде заменены знакоместом-заглушкой того же размера (журнал №275); (г) в группе «Карта гостя» исходный кадр «Оригинал» — инстанс Bonus Card без текстовых слоёв, поэтому слева показана карточка-заглушка с пометкой, справа — сборка на компонентах; (д) в группе «New ПРК» последний кадр содержит редактор кода расписания (строки, номера строк, статус Ln/Col) — это не компонент ДС, воспроизведён стендовым блоком `.snap-cex__code`; (е) в группе «Шаблоны документов» таблица — содержимое документа внутри карточки, набрана стендовой сеткой `.snap-cex__doc` (компонент Table в кадре не используется); (ж) в третьей группе плитки приложений и разделы («Для работы в зале и кассами», «Для управления бизнесом») — маркетинговые блоки кадра, не компоненты ДС; (з) интерактив: вкладка статична (как витрина примеров) — живые состояния показываются в «Basic example». Журнал №275.</p>
+    <p class="snap-note">Сверка 16.11.2026 (по замечанию владельца «вижу много косяков»): (1) типы карточек приведены к кадру — Filled у «новости с главной», «Колл Центр», «integration_Just Eat», «Конструктор сайтов», карточек-показателей «Склад_Остатки»; Shadow у мобильного инвойса, «Учётной записи», карточки-компонента отчёта, метрики «Отчеты»; Outlined у форм «Карта гостя», «Акции», «New ПРК», «Шаблоны документов» и у карточек-адресов. Раньше часть карточек была собрана вариантом Custom и выглядела без рамки/заливки/тени, как в кадре; (2) у GuestMe действия перенесены в Card footer (в кадре подвал видимый, 60 px), а не в контент; (3) в группе «Карточка-радио…» добавлены недостающие карточки — второй Card view и «Карточка с радио и чекбоксами Общие настройки» (Frame 18); раньше группа обрывалась на первой карточке; (4) в группе «Карточка с изображением» удалены блоки, которых в файле Figma нет (плитки приложений SwapCat/SwapDog/iikoDashboard) — в кадре одна карточка GuestMe; (5) Radio и Checkbox в примерах не отрисовывались (16 радиокнопок и 8 чекбоксов имели размер 0×0): `components/index.css` подключает только label-файлы, поэтому в шапку стенда добавлены `Radio-Button_DS/radio.css`, `radio-icons.css`, `Checkbox_DS/checkbox.css`, `checkbox-icons.css`; выбранная радиокнопка — настоящий input checked (иконка Accent); (6) известные расхождения: высоты групп 2, 4, 5, 7 меньше кадра (1529/906/1956/3005 против 1854/1000/1830/3762) — в Figma текстовые слои лежат в фиксированных по высоте фреймах и обрезаются, на стенде текст показывается целиком; логотипы сервисов и картинки — растровые, в ДС слота изображения нет, стоят заглушки того же размера. Search в примерах собран полным составом компонента (лупа — точный путь Figma, «Search text», правый слот с Divider и search_off); в css компонента ширина 243 и высота 50 — в примерах переопределено на 100% и 48 (прежний самодельный глиф лупы удалён).</p>
+  </div>
+
 </div>
 <script>
   window.addEventListener('DOMContentLoaded', function () {

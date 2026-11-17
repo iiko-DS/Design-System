@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: var(--ds-size-1x);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-input-number-but-icon__label {
   font-size: var(--ds-font-body-m-16-normal-regular-size);

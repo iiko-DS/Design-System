@@ -4,7 +4,7 @@
   padding: var(--ds-sidenav-footer-l2-pad-top, 12px) var(--ds-sidenav-footer-l2-pad-right, 16px) var(--ds-sidenav-footer-l2-pad-bottom, 12px) var(--ds-sidenav-footer-l2-pad-left, 16px);
   gap: var(--ds-sidenav-footer-l2-gap, 12px);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-sidenav-footer__label {
   font-size: var(--ds-font-caption-l-12-normal-regular-size);

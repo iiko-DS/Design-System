@@ -4,7 +4,7 @@
   padding: var(--ds-scroll-pad-top, 2px) var(--ds-scroll-pad-right, 2px) var(--ds-scroll-pad-bottom, 2px) var(--ds-scroll-pad-left, 2px);
   width: 184px;
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-scroll__background {
   display: flex;

@@ -1,5 +1,5 @@
 .ds-datepicker {
-  width: fit-content;
+  width: 312px;   /* карточка календаря Figma — 312 (Type=Day/Year/Month), пад 8/16 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,7 +7,7 @@
   border-radius: var(--ds-size-3x);
   border: 1px solid var(--ds-color-stroke-default, #e0e0e0);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-datepicker__label {
   font-size: var(--ds-font-caption-l-12-normal-regular-size);
@@ -73,5 +73,32 @@
 }
 .ds-datepicker--month {
   color: var(--ds-color-text-primary, #333333);
+}
+
+/* Двухмесячный вид — кадр 61306-79280 (625×337): две колонки по 312 и разделитель 1 */
+.ds-datepicker--dual {
+  width: 625px;
+  padding: 0;
+  flex-direction: row;
+  align-items: center;   /* Figma: items-center у кадра 61306-79280 */
+}
+.ds-datepicker--dual .ds-datepicker__month {
+  width: 312px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--ds-size-2x) var(--ds-size-4x) var(--ds-size-2x) var(--ds-size-4x);
+}
+.ds-datepicker__vdivider {
+  width: var(--ds-size-0-25x, 1px);
+  height: 280px;            /* Figma: Divider h-[280px] w-px */
+  flex: none;
+  background: var(--ds-color-stroke-default, #e0e0e0);
+}
+.ds-datepicker--dual .ds-datepicker__control-panel,
+.ds-datepicker--dual .ds-datepicker__elements,
+.ds-datepicker--dual .ds-datepicker__divider,
+.ds-datepicker--dual .ds-datepicker__days {
+  width: 280px;
 }
 

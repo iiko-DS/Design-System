@@ -13,7 +13,7 @@
   box-sizing: border-box;
   border: 1px solid transparent;
   border-radius: var(--ds-radius-2x);            /* 8px */
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-typography-font-size-3-5x); /* 14px */
   font-weight: var(--ds-typography-font-weight-medium); /* 500 */
   letter-spacing: var(--ds-typography-letter-spacing-s); /* 0.5px */

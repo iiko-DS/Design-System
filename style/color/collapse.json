@@ -1,0 +1,1877 @@
+{
+ "meta": {
+  "rule": "Одна переменная/стиль = один цвет; карточки-дубли в usedBy",
+  "colors": 130,
+  "cards": 138
+ },
+ "colors": [
+  {
+   "token": "Accent/5",
+   "cssVar": "--ds-palette-accent-5",
+   "hex": "#f8f9fc",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "5",
+     "paletteRef": "Value",
+     "code": "#F8F9FC"
+    },
+    {
+     "block": "Brand",
+     "card": "Super Lightest",
+     "paletteRef": "Primary.Super Lightest",
+     "code": "BL-05"
+    }
+   ]
+  },
+  {
+   "token": "Accent/10",
+   "cssVar": "--ds-palette-accent-10",
+   "hex": "#f5f9ff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#F5F9FF"
+    },
+    {
+     "block": "Brand",
+     "card": "Lightest",
+     "paletteRef": "Primary.Lightest",
+     "code": "BL-100"
+    }
+   ]
+  },
+  {
+   "token": "Accent/50",
+   "cssVar": "--ds-palette-accent-50",
+   "hex": "#f0f5ff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#F0F5FF"
+    },
+    {
+     "block": "Brand",
+     "card": "Lighter",
+     "paletteRef": "Primary.Lighter",
+     "code": "BL-200"
+    }
+   ]
+  },
+  {
+   "token": "Accent/100",
+   "cssVar": "--ds-palette-accent-100",
+   "hex": "#e8f0ff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#E8F0FF"
+    },
+    {
+     "block": "Brand",
+     "card": "Light",
+     "paletteRef": "Primary.Light",
+     "code": "BL-300"
+    }
+   ]
+  },
+  {
+   "token": "Accent/200",
+   "cssVar": "--ds-palette-accent-200",
+   "hex": "#ccdfff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#CCDFFF"
+    }
+   ]
+  },
+  {
+   "token": "Accent/300",
+   "cssVar": "--ds-palette-accent-300",
+   "hex": "#a8c9ff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#A8C9FF"
+    }
+   ]
+  },
+  {
+   "token": "Accent/400",
+   "cssVar": "--ds-palette-accent-400",
+   "hex": "#75a9ff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#75A9FF"
+    }
+   ]
+  },
+  {
+   "token": "Accent/500",
+   "cssVar": "--ds-palette-accent-500",
+   "hex": "#448aff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "#448AFF"
+    }
+   ]
+  },
+  {
+   "token": "Accent/600",
+   "cssVar": "--ds-palette-accent-600",
+   "hex": "#3969d5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#3969D5"
+    }
+   ]
+  },
+  {
+   "token": "Accent/700",
+   "cssVar": "--ds-palette-accent-700",
+   "hex": "#2651b5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#2651B5"
+    }
+   ]
+  },
+  {
+   "token": "Accent/800",
+   "cssVar": "--ds-palette-accent-800",
+   "hex": "#123da1",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#123DA1"
+    }
+   ]
+  },
+  {
+   "token": "Accent/900",
+   "cssVar": "--ds-palette-accent-900",
+   "hex": "#162a69",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#162A69"
+    }
+   ]
+  },
+  {
+   "token": "Accent/950",
+   "cssVar": "--ds-palette-accent-950",
+   "hex": "#151d37",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#151D37"
+    }
+   ]
+  },
+  {
+   "token": "Accent/990",
+   "cssVar": "--ds-palette-accent-990",
+   "hex": "#0d111c",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#0D111C"
+    }
+   ]
+  },
+  {
+   "token": "Positive/5",
+   "cssVar": "--ds-palette-positive-5",
+   "hex": "#f8fbfa",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "5",
+     "paletteRef": "Value",
+     "code": "#F8FBFA"
+    }
+   ]
+  },
+  {
+   "token": "Positive/10",
+   "cssVar": "--ds-palette-positive-10",
+   "hex": "#f3fcf7",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#F3FCF7"
+    }
+   ]
+  },
+  {
+   "token": "Positive/50",
+   "cssVar": "--ds-palette-positive-50",
+   "hex": "#ebfbf2",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#EBFBF2"
+    }
+   ]
+  },
+  {
+   "token": "Positive/100",
+   "cssVar": "--ds-palette-positive-100",
+   "hex": "#e0f8ea",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#E0F8EA"
+    }
+   ]
+  },
+  {
+   "token": "Positive/200",
+   "cssVar": "--ds-palette-positive-200",
+   "hex": "#c1f1d5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#C1F1D5"
+    }
+   ]
+  },
+  {
+   "token": "Positive/300",
+   "cssVar": "--ds-palette-positive-300",
+   "hex": "#97e8b9",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#97E8B9"
+    }
+   ]
+  },
+  {
+   "token": "Positive/400",
+   "cssVar": "--ds-palette-positive-400",
+   "hex": "#50d889",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#50D889"
+    }
+   ]
+  },
+  {
+   "token": "Positive/500",
+   "cssVar": "--ds-palette-positive-500",
+   "hex": "#14b456",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "#14B456"
+    }
+   ]
+  },
+  {
+   "token": "Positive/600",
+   "cssVar": "--ds-palette-positive-600",
+   "hex": "#119c34",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#119C34"
+    }
+   ]
+  },
+  {
+   "token": "Positive/700",
+   "cssVar": "--ds-palette-positive-700",
+   "hex": "#0f852c",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#0F852C"
+    }
+   ]
+  },
+  {
+   "token": "Positive/800",
+   "cssVar": "--ds-palette-positive-800",
+   "hex": "#0c6e21",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#0C6E21"
+    }
+   ]
+  },
+  {
+   "token": "Positive/900",
+   "cssVar": "--ds-palette-positive-900",
+   "hex": "#0a571a",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#0A571A"
+    }
+   ]
+  },
+  {
+   "token": "Positive/950",
+   "cssVar": "--ds-palette-positive-950",
+   "hex": "#074013",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#074013"
+    }
+   ]
+  },
+  {
+   "token": "Positive/990",
+   "cssVar": "--ds-palette-positive-990",
+   "hex": "#04250b",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#04250B"
+    }
+   ]
+  },
+  {
+   "token": "Warning/5",
+   "cssVar": "--ds-palette-warning-5",
+   "hex": "#fdfcfa",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "5",
+     "paletteRef": "Value",
+     "code": "#FDFCFA"
+    }
+   ]
+  },
+  {
+   "token": "Warning/10",
+   "cssVar": "--ds-palette-warning-10",
+   "hex": "#fffcf8",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#FFFCF8"
+    }
+   ]
+  },
+  {
+   "token": "Warning/50",
+   "cssVar": "--ds-palette-warning-50",
+   "hex": "#fff9f0",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#FFF9F0"
+    }
+   ]
+  },
+  {
+   "token": "Warning/100",
+   "cssVar": "--ds-palette-warning-100",
+   "hex": "#fff4e5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#FFF4E5"
+    }
+   ]
+  },
+  {
+   "token": "Warning/200",
+   "cssVar": "--ds-palette-warning-200",
+   "hex": "#ffe9cc",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#FFE9CC"
+    }
+   ]
+  },
+  {
+   "token": "Warning/300",
+   "cssVar": "--ds-palette-warning-300",
+   "hex": "#ffd9a8",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#FFD9A8"
+    }
+   ]
+  },
+  {
+   "token": "Warning/400",
+   "cssVar": "--ds-palette-warning-400",
+   "hex": "#ffc375",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#FFC375"
+    }
+   ]
+  },
+  {
+   "token": "Warning/500",
+   "cssVar": "--ds-palette-warning-500",
+   "hex": "#ffab40",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "\r#FFAB40"
+    }
+   ]
+  },
+  {
+   "token": "Warning/600",
+   "cssVar": "--ds-palette-warning-600",
+   "hex": "#fe8c06",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#FE8C06"
+    }
+   ]
+  },
+  {
+   "token": "Warning/700",
+   "cssVar": "--ds-palette-warning-700",
+   "hex": "#ea7806",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#EA7806"
+    }
+   ]
+  },
+  {
+   "token": "Warning/800",
+   "cssVar": "--ds-palette-warning-800",
+   "hex": "#cc5f00",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#CC5F00"
+    }
+   ]
+  },
+  {
+   "token": "Warning/900",
+   "cssVar": "--ds-palette-warning-900",
+   "hex": "#994000",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#994000"
+    }
+   ]
+  },
+  {
+   "token": "Warning/950",
+   "cssVar": "--ds-palette-warning-950",
+   "hex": "#662a00",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#662A00"
+    }
+   ]
+  },
+  {
+   "token": "Warning/990",
+   "cssVar": "--ds-palette-warning-990",
+   "hex": "#331500",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#331500"
+    }
+   ]
+  },
+  {
+   "token": "Negative/5",
+   "cssVar": "--ds-palette-negative-5",
+   "hex": "#fbf8f8",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "5",
+     "paletteRef": "Value",
+     "code": "#FBF8F8"
+    }
+   ]
+  },
+  {
+   "token": "Negative/10",
+   "cssVar": "--ds-palette-negative-10",
+   "hex": "#fff8f8",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#FFF8F8"
+    }
+   ]
+  },
+  {
+   "token": "Negative/50",
+   "cssVar": "--ds-palette-negative-50",
+   "hex": "#fff2f2",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#FFF2F2"
+    }
+   ]
+  },
+  {
+   "token": "Negative/100",
+   "cssVar": "--ds-palette-negative-100",
+   "hex": "#ffe5e5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#FFE5E5"
+    }
+   ]
+  },
+  {
+   "token": "Negative/200",
+   "cssVar": "--ds-palette-negative-200",
+   "hex": "#ffcccc",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#FFCCCC"
+    }
+   ]
+  },
+  {
+   "token": "Negative/300",
+   "cssVar": "--ds-palette-negative-300",
+   "hex": "#ffb8b8",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#FFB8B8"
+    }
+   ]
+  },
+  {
+   "token": "Negative/400",
+   "cssVar": "--ds-palette-negative-400",
+   "hex": "#ff8585",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#FF8585"
+    }
+   ]
+  },
+  {
+   "token": "Negative/500",
+   "cssVar": "--ds-palette-negative-500",
+   "hex": "#ff5252",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "#FF5252"
+    }
+   ]
+  },
+  {
+   "token": "Negative/600",
+   "cssVar": "--ds-palette-negative-600",
+   "hex": "#f4372f",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#F4372F"
+    }
+   ]
+  },
+  {
+   "token": "Negative/700",
+   "cssVar": "--ds-palette-negative-700",
+   "hex": "#de1a12",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#DE1A12"
+    }
+   ]
+  },
+  {
+   "token": "Negative/800",
+   "cssVar": "--ds-palette-negative-800",
+   "hex": "#af150e",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#AF150E"
+    }
+   ]
+  },
+  {
+   "token": "Negative/900",
+   "cssVar": "--ds-palette-negative-900",
+   "hex": "#7f0f0a",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#7F0F0A"
+    }
+   ]
+  },
+  {
+   "token": "Negative/950",
+   "cssVar": "--ds-palette-negative-950",
+   "hex": "#500907",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#500907"
+    }
+   ]
+  },
+  {
+   "token": "Negative/990",
+   "cssVar": "--ds-palette-negative-990",
+   "hex": "#300403",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#300403"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/0",
+   "cssVar": "--ds-palette-neutral-0",
+   "hex": "#ffffff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "0",
+     "paletteRef": "Value",
+     "code": "#FFFFFF"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/10",
+   "cssVar": "--ds-palette-neutral-10",
+   "hex": "#fafafa",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#FAFAFA"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/50",
+   "cssVar": "--ds-palette-neutral-50",
+   "hex": "#f5f5f5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#F5F5F5"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/100",
+   "cssVar": "--ds-palette-neutral-100",
+   "hex": "#ebebeb",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#EBEBEB"
+    },
+    {
+     "block": "Surface",
+     "card": "Hover",
+     "paletteRef": "Neutral.SuperLight",
+     "code": "NT-100"
+    },
+    {
+     "block": "Table surface",
+     "card": "Hover",
+     "paletteRef": "Neutral.SuperLight",
+     "code": "NT-100"
+    },
+    {
+     "block": "Shapes",
+     "card": "Hover",
+     "paletteRef": "Neutral.SuperLight",
+     "code": "NT-100"
+    },
+    {
+     "block": "Button",
+     "card": "Hover",
+     "paletteRef": "Neutral.SuperLight",
+     "code": "NT-100"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/200",
+   "cssVar": "--ds-palette-neutral-200",
+   "hex": "#e0e0e0",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#E0E0E0"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/300",
+   "cssVar": "--ds-palette-neutral-300",
+   "hex": "#d6d6d6",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#D6D6D6"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/400",
+   "cssVar": "--ds-palette-neutral-400",
+   "hex": "#bdbdbd",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#BDBDBD"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/500",
+   "cssVar": "--ds-palette-neutral-500",
+   "hex": "#9e9e9e",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "#9E9E9E"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/600",
+   "cssVar": "--ds-palette-neutral-600",
+   "hex": "#757575",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#757575"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/700",
+   "cssVar": "--ds-palette-neutral-700",
+   "hex": "#616161",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#616161"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/800",
+   "cssVar": "--ds-palette-neutral-800",
+   "hex": "#424242",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#424242"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/900",
+   "cssVar": "--ds-palette-neutral-900",
+   "hex": "#333333",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#333333"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/950",
+   "cssVar": "--ds-palette-neutral-950",
+   "hex": "#212121",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#212121"
+    }
+   ]
+  },
+  {
+   "token": "Neutral/990",
+   "cssVar": "--ds-palette-neutral-990",
+   "hex": "#121212",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#121212"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/5",
+   "cssVar": "--ds-palette-contrast-1-5",
+   "hex": "#fbf7fc",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "5",
+     "paletteRef": "Value",
+     "code": "#FBF7FC"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/10",
+   "cssVar": "--ds-palette-contrast-1-10",
+   "hex": "#fcf6fd",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#FCF6FD"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/50",
+   "cssVar": "--ds-palette-contrast-1-50",
+   "hex": "#faf2fc",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#FAF2FC"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/100",
+   "cssVar": "--ds-palette-contrast-1-100",
+   "hex": "#f4e2f9",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#F4E2F9"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/200",
+   "cssVar": "--ds-palette-contrast-1-200",
+   "hex": "#efd5f6",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#EFD5F6"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/300",
+   "cssVar": "--ds-palette-contrast-1-300",
+   "hex": "#e4b8ef",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#E4B8EF"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/400",
+   "cssVar": "--ds-palette-contrast-1-400",
+   "hex": "#d58ee6",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#D58EE6"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/500",
+   "cssVar": "--ds-palette-contrast-1-500",
+   "hex": "#c564dd",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "#C564DD"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/600",
+   "cssVar": "--ds-palette-contrast-1-600",
+   "hex": "#b53ad4",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#B53AD4"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/700",
+   "cssVar": "--ds-palette-contrast-1-700",
+   "hex": "#9c27b0",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#9C27B0"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/800",
+   "cssVar": "--ds-palette-contrast-1-800",
+   "hex": "#761e86",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#761E86"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/900",
+   "cssVar": "--ds-palette-contrast-1-900",
+   "hex": "#641971",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#641971"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/950",
+   "cssVar": "--ds-palette-contrast-1-950",
+   "hex": "#3f1047",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#3F1047"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-1/990",
+   "cssVar": "--ds-palette-contrast-1-990",
+   "hex": "#2c0b32",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#2C0B32"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/5",
+   "cssVar": "--ds-palette-contrast-2-5",
+   "hex": "#faf8f8",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "5",
+     "paletteRef": "Value",
+     "code": "#FAF8F8"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/10",
+   "cssVar": "--ds-palette-contrast-2-10",
+   "hex": "#fcf8f6",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#FCF8F6"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/50",
+   "cssVar": "--ds-palette-contrast-2-50",
+   "hex": "#fcf5f3",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#FCF5F3"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/100",
+   "cssVar": "--ds-palette-contrast-2-100",
+   "hex": "#f7e9e3",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#F7E9E3"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/200",
+   "cssVar": "--ds-palette-contrast-2-200",
+   "hex": "#f1d9d0",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#F1D9D0"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/300",
+   "cssVar": "--ds-palette-contrast-2-300",
+   "hex": "#ebc9bc",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#EBC9BC"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/400",
+   "cssVar": "--ds-palette-contrast-2-400",
+   "hex": "#d9ac9b",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#D9AC9B"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/500",
+   "cssVar": "--ds-palette-contrast-2-500",
+   "hex": "#c29180",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "#C29180"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/600",
+   "cssVar": "--ds-palette-contrast-2-600",
+   "hex": "#a57969",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#A57969"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/700",
+   "cssVar": "--ds-palette-contrast-2-700",
+   "hex": "#896152",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#896152"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/800",
+   "cssVar": "--ds-palette-contrast-2-800",
+   "hex": "#795548",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#795548"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/900",
+   "cssVar": "--ds-palette-contrast-2-900",
+   "hex": "#5a3f35",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#5A3F35"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/950",
+   "cssVar": "--ds-palette-contrast-2-950",
+   "hex": "#3e261e",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#3E261E"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-2/990",
+   "cssVar": "--ds-palette-contrast-2-990",
+   "hex": "#291a14",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#291A14"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/5",
+   "cssVar": "--ds-palette-contrast-3-5",
+   "hex": "#f9fafb",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "5",
+     "paletteRef": "Value",
+     "code": "#F9FAFB"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/10",
+   "cssVar": "--ds-palette-contrast-3-10",
+   "hex": "#f8fafc",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#F8FAFC"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/50",
+   "cssVar": "--ds-palette-contrast-3-50",
+   "hex": "#f4f9fb",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#F4F9FB"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/100",
+   "cssVar": "--ds-palette-contrast-3-100",
+   "hex": "#e7eff3",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#E7EFF3"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/200",
+   "cssVar": "--ds-palette-contrast-3-200",
+   "hex": "#d9e3e8",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#D9E3E8"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/300",
+   "cssVar": "--ds-palette-contrast-3-300",
+   "hex": "#c9d7de",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#C9D7DE"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/400",
+   "cssVar": "--ds-palette-contrast-3-400",
+   "hex": "#a9c0cb",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#A9C0CB"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/500",
+   "cssVar": "--ds-palette-contrast-3-500",
+   "hex": "#90a7b2",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "#90A7B2"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/600",
+   "cssVar": "--ds-palette-contrast-3-600",
+   "hex": "#728f9d",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#728F9D"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/700",
+   "cssVar": "--ds-palette-contrast-3-700",
+   "hex": "#607d8b",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#607D8B"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/800",
+   "cssVar": "--ds-palette-contrast-3-800",
+   "hex": "#4b626d",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#4B626D"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/900",
+   "cssVar": "--ds-palette-contrast-3-900",
+   "hex": "#36474e",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#36474E"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/950",
+   "cssVar": "--ds-palette-contrast-3-950",
+   "hex": "#263136",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#263136"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-3/990",
+   "cssVar": "--ds-palette-contrast-3-990",
+   "hex": "#142229",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#142229"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/5",
+   "cssVar": "--ds-palette-contrast-4-5",
+   "hex": "#f9fbea",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "5",
+     "paletteRef": "Value",
+     "code": "#F9FBEA"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/10",
+   "cssVar": "--ds-palette-contrast-4-10",
+   "hex": "#f6f8dd",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "10",
+     "paletteRef": "Value",
+     "code": "#F6F8DD"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/50",
+   "cssVar": "--ds-palette-contrast-4-50",
+   "hex": "#f3f6d5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "50",
+     "paletteRef": "Value",
+     "code": "#F3F6D5"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/100",
+   "cssVar": "--ds-palette-contrast-4-100",
+   "hex": "#edf2c0",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "100",
+     "paletteRef": "Value",
+     "code": "#EDF2C0"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/200",
+   "cssVar": "--ds-palette-contrast-4-200",
+   "hex": "#e8edab",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "200",
+     "paletteRef": "Value",
+     "code": "#E8EDAB"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/300",
+   "cssVar": "--ds-palette-contrast-4-300",
+   "hex": "#e2e996",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "300",
+     "paletteRef": "Value",
+     "code": "#E2E996"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/400",
+   "cssVar": "--ds-palette-contrast-4-400",
+   "hex": "#dce481",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "400",
+     "paletteRef": "Value",
+     "code": "#DCE481"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/500",
+   "cssVar": "--ds-palette-contrast-4-500",
+   "hex": "#d6e06c",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "500",
+     "paletteRef": "Value",
+     "code": "#D6E06C"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/600",
+   "cssVar": "--ds-palette-contrast-4-600",
+   "hex": "#cad742",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "600",
+     "paletteRef": "Value",
+     "code": "#CAD742"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/700",
+   "cssVar": "--ds-palette-contrast-4-700",
+   "hex": "#b1bd28",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "700",
+     "paletteRef": "Value",
+     "code": "#B1BD28"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/800",
+   "cssVar": "--ds-palette-contrast-4-800",
+   "hex": "#8a931f",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "800",
+     "paletteRef": "Value",
+     "code": "#8A931F"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/900",
+   "cssVar": "--ds-palette-contrast-4-900",
+   "hex": "#626916",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "900",
+     "paletteRef": "Value",
+     "code": "#626916"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/950",
+   "cssVar": "--ds-palette-contrast-4-950",
+   "hex": "#4f5412",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "950",
+     "paletteRef": "Value",
+     "code": "#4F5412"
+    }
+   ]
+  },
+  {
+   "token": "Contrast-4/990",
+   "cssVar": "--ds-palette-contrast-4-990",
+   "hex": "#272a09",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Palettes",
+     "card": "990",
+     "paletteRef": "Value",
+     "code": "#272A09"
+    }
+   ]
+  },
+  {
+   "token": "Brand/Accent/Default",
+   "cssVar": "--ds-color-brand-accent-default",
+   "hex": "#448aff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Brand",
+     "card": "Default",
+     "paletteRef": "Primary",
+     "code": "BL-500"
+    }
+   ]
+  },
+  {
+   "token": "Brand/Accent/Dark",
+   "cssVar": "--ds-color-brand-accent-dark",
+   "hex": "#3969d5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Brand",
+     "card": "Dark",
+     "paletteRef": "Primary.Dark",
+     "code": "BL-700"
+    }
+   ]
+  },
+  {
+   "token": "Brand/Accent/Darker",
+   "cssVar": "--ds-color-brand-accent-darker",
+   "hex": "#2651b5",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Brand",
+     "card": "Darker",
+     "paletteRef": "Primary.Darker",
+     "code": "BL-900"
+    }
+   ]
+  },
+  {
+   "token": "Brand/Neutral/Default",
+   "cssVar": "--ds-color-brand-neutral-default",
+   "hex": "#ffffff",
+   "alpha": 1.0,
+   "usedBy": [
+    {
+     "block": "Surface",
+     "card": "Default",
+     "paletteRef": "Neutral.White",
+     "code": "NT-0"
+    }
+   ]
+  }
+ ]
+}

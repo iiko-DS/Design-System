@@ -4,7 +4,7 @@
   width: fit-content;
   gap: var(--ds-size-2-5x);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-element-menu__label {
   font-size: var(--ds-font-body-s-14-normal-regular-size);

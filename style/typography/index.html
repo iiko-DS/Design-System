@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typography — iiko Web DS</title>
+<link rel="stylesheet" href="../../components-web/font.css">
+<link rel="stylesheet" href="../../components-web/tokens.css">
+<link rel="stylesheet" href="typography.css">
+</head>
+<body>
+<main class="page">
+  <div class="blocks" id="blocks"></div>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  const SRC = 'typography.json';
+  const px = v => (v == null ? '' : v + 'px');
+
+  // Стили — из токенов ДС (по размеру кегля текста в макете).
+  const FONT_TOKENS = {
+    34: '--ds-font-header-l-34',
+    24: '--ds-font-header-m-24',
+    20: '--ds-font-header-s-20',
+    18: '--ds-font-body-l-18',
+    16: '--ds-font-body-m-16',
+    14: '--ds-font-body-s-14',
+    12: '--ds-font-caption-l-12',
+    10: '--ds-font-caption-m-10',
+    8: '--ds-font-caption-s-8'
+  };
+
+  const COLOR_TOKENS = {
+    '#333333': '--ds-color-text-primary',
+    '#616161': '--ds-color-text-secondary'
+  };
+
+  const RECT_TOKENS = {
+    fill: { '#ffffff': '--ds-color-surface-default' },
+    stroke: { '#e0e0e0': '--ds-color-stroke-default' }
+  };
+
+  function rgba(hex, alpha) {
+    const h = String(hex || '').replace('#', '');
+    const s = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+    const r = parseInt(s.slice(0, 2), 16);
+    const g = parseInt(s.slice(2, 4), 16);
+    const b = parseInt(s.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha == null ? 1 : alpha})`;
+  }
+
+  function textNode(t) {
+    const el = document.createElement('div');
+    // В макете высота текста = число строк × интерлиньяж: одна строка — без переноса,
+    // несколько — с переносом (описание-«lorem»).
+    const multiline = t.h && t.lh && t.h > t.lh + 0.5;
+    el.className = 'tt ' + (multiline ? 'tt--wrap' : 'tt--nowrap') + (t.caps ? ' tt--caps' : '');
+
+    const base = FONT_TOKENS[t.size];
+    if (base) {
+      const style = base + '-normal-' + (t.weight === 500 ? 'medium' : 'regular');
+      el.style.font = `var(${style})`;
+      el.style.letterSpacing = `var(${style}-spacing)`;
+    } else {
+      el.style.fontSize = px(t.size);
+      el.style.fontWeight = t.weight || 400;
+      if (t.lh) el.style.lineHeight = px(t.lh);
+      if (t.ls) el.style.letterSpacing = px(t.ls);
+    }
+
+    const colorToken = COLOR_TOKENS[String(t.color || '').toLowerCase()];
+    el.style.color = colorToken ? `var(${colorToken})` : rgba(t.color, t.alpha);
+
+    el.style.left = px(t.x);
+    el.style.top = px(t.y);
+    el.style.width = px(t.w);
+    if (t.h) el.style.height = px(t.h);
+    if (t.align) el.style.textAlign = t.align;
+    el.textContent = t.text;
+    return el;
+  }
+
+  function rectNode(r) {
+    const el = document.createElement('div');
+    el.className = 'rect';
+    el.style.left = px(r.x);
+    el.style.top = px(r.y);
+    el.style.width = px(r.w);
+    el.style.height = px(r.h);
+    if (r.radius) el.style.borderRadius = px(r.radius);
+
+    const fillToken = r.fill && RECT_TOKENS.fill[String(r.fill).toLowerCase()];
+    el.style.background = fillToken ? `var(${fillToken})` : (r.fill ? rgba(r.fill, r.alpha) : 'transparent');
+
+    if (r.stroke) {
+      const strokeToken = RECT_TOKENS.stroke[String(r.stroke).toLowerCase()];
+      const color = strokeToken ? `var(${strokeToken})` : rgba(r.stroke, 1);
+      el.style.boxShadow = `inset 0 0 0 ${px(r.strokeWeight || 1)} ${color}`;
+    }
+    return el;
+  }
+
+  function render(data) {
+    const host = document.getElementById('blocks');
+    host.textContent = '';
+
+    const block = document.createElement('section');
+    block.className = 'block';
+
+    const sheet = document.createElement('div');
+    sheet.className = 'sheet';
+    sheet.style.width = px(data.w);
+    sheet.style.height = px(data.h);
+
+    (data.rects || []).forEach(r => sheet.appendChild(rectNode(r)));
+    (data.texts || []).forEach(t => sheet.appendChild(textNode(t)));
+
+    block.appendChild(sheet);
+    host.appendChild(block);
+
+    function fit() {
+      const width = host.clientWidth;
+      if (!width) return;
+      const scale = width / data.w;
+      sheet.style.transform = `scale(${scale})`;
+      block.style.height = (data.h * scale) + 'px';
+    }
+
+    fit();
+    new ResizeObserver(fit).observe(host);
+  }
+
+  fetch(SRC)
+    .then(r => {
+      if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+      return r.json();
+    })
+    .then(render)
+    .catch(err => {
+      document.getElementById('blocks').textContent =
+        'Не удалось прочитать ' + SRC + ': ' + err.message;
+    });
+})();
+</script>
+</body>
+</html>

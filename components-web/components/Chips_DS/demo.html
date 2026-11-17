@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 <style>
   /* каркас демо-стенда — как у других стендов */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .material-icons { font-family: 'Material Icons Outlined'; }   /* иконки — только аутлайн (правило) */
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
@@ -65,6 +65,20 @@
 
   /* иконки чипа — собственные слоты компонента: ds-chips__add / ds-chips__close и контейнер глифа
      ds-chips__icon (20 у M, 16 у S); размеры задаёт css компонента, глифы — svg из Figma (fill на svg) */
+
+  /* ── Chips (Examples), кадр 59313:39366 ── */
+  .panel[data-vpanel="examples"] { max-width: none; width: max-content; }   /* кадр шире окна — как в Figma, с горизонтальной прокруткой */
+  .snap-chex { display: flex; flex-direction: column; gap: 40px; }
+  .snap-chex__h { margin: 0 0 12px; font-size: 24px; line-height: 32px; font-weight: 500; color: var(--ds-color-text-primary); }
+  .snap-chex__h--s { font-size: 20px; line-height: 28px; }
+  .snap-chex__row { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+  .snap-chex__col { display: flex; flex-direction: column; gap: 16px; }
+  .snap-chex__t14 { margin: 0; font-size: 14px; line-height: 20px; color: var(--ds-color-text-primary); }
+  .snap-chex__t16 { margin: 0; font-size: 16px; line-height: 24px; color: var(--ds-color-text-primary); }
+  /* Search в кадре — 600×48 (в css компонента фиксированные 243 и высота тянется 50) */
+  .panel[data-vpanel="examples"] .ds-search { width: 100%; height: 48px; }
+  .panel[data-vpanel="examples"] .ds-search__label { flex: 1 0 0; min-width: 1px; }
+  .snap-chex__t20 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 500; color: var(--ds-color-text-primary); }
 </style>
 </head>
 <body>
@@ -77,6 +91,7 @@
     <button class="ds-tab ds-tab--active" role="tab" aria-selected="true" data-vtab="basic">Basic example</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="chips">Chips</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="chips-group">Chips group</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="examples">Chips (Examples)</button>
   </div>
 
   <!-- 1. Basic example: живая группа фильтров — «✕» снимает чип, «Сбросить» возвращает все -->
@@ -171,6 +186,149 @@
     <p class="snap-note">Пометки для ревью: (а) группа — чипы-фильтры или выбранные значения в один ряд с переносом (описание компонента); раскладка — flex c gap 8, варианты только по размеру чипов (M/S); у чипов в компоненте скрыт левый слот (Element left = false) — только текст и крестик; (б) тексты «Chip text» — как в компоненте; пример с реальными названиями — в «Basic example»; (в) S-группа: чипы 24 с текстом 12/16 — правка fixes п. 40 (до неё css оставлял M-размеры 32/14). Журнал №144, №150, №190.</p>
   </div>
 
+  <!-- 4. Chips (Examples) — кадр Figma 59313:39366 -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden>
+    <div class="snap-chex">
+
+      <!-- Информационные (возможен только hover) -->
+      <div>
+        <p class="snap-chex__h">Информационные (возможен только hover)</p>
+        <div class="snap-chex__row" style="flex-direction:column;gap:32px;">
+          <div class="ds-card ds-card--outlined" style="width:550px">
+            <div class="ds-card__content">
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="display:flex;flex-direction:column;gap:12px;flex:1 1 auto;min-width:0;">
+                  <div style="display:flex;gap:12px;align-items:center;">
+                    <p class="snap-chex__t16">Список</p>
+                    <span class="ds-status ds-status--neutral ds-status--filled"><span class="ds-status__label">Группа</span></span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <p class="snap-chex__t14">Группа гостей, которые празднуют день рождения с 1 по 31 июля</p>
+                    <span class="ds-chips-group ds-chips-group--s">
+                      <span class="ds-chips ds-chips--outlined ds-chips--s"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 16 16" fill="currentColor"><use href="#ic-close-16"/></svg></span></span></span>
+                      <span class="ds-chips ds-chips--outlined ds-chips--s"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 16 16" fill="currentColor"><use href="#ic-close-16"/></svg></span></span></span>
+                      <span class="ds-chips ds-chips--outlined ds-chips--s"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 16 16" fill="currentColor"><use href="#ic-close-16"/></svg></span></span></span>
+                      <span class="ds-chips ds-chips--outlined ds-chips--s"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 16 16" fill="currentColor"><use href="#ic-close-16"/></svg></span></span></span>
+                    </span>
+                  </div>
+                </div>
+                <span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="snap-chex__col">
+            <div class="ds-table-header-row" style="width:773px">
+              <div class="ds-table-content-cell" style="width:250px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:83px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:100px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:80px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:80px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:180px"><span class="ds-table-content-cell__value">Text</span></div>
+            </div>
+            <div class="ds-table-content-row" style="width:486px">
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+            </div>
+            <div class="ds-table-content-row" style="width:486px">
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+              <div class="ds-table-content-cell" style="width:81px"><span class="ds-table-content-cell__value">Text</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:32px;padding:32px;background:var(--ds-paint-surface-default-v2,#f8f9fc);width:1126px;box-sizing:border-box;">
+          <p class="snap-chex__h snap-chex__h--s">Остатки на складе</p>
+          <span class="ds-chips-group" style="margin-top:12px;">
+            <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+            <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+            <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+            <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+            <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+          </span>
+          <div style="display:flex;gap:16px;margin-top:24px;">
+            <div class="ds-card ds-card--outlined" style="width:343px"><div class="ds-card__content"><p class="snap-chex__t14">Informer widget</p><p class="snap-chex__t20">2 645.00 ₽</p></div></div>
+            <div class="ds-card ds-card--outlined" style="width:343px"><div class="ds-card__content"><p class="snap-chex__t14">Informer widget</p><p class="snap-chex__t20">2 645.00 ₽</p></div></div>
+            <div class="ds-card ds-card--outlined" style="width:343px"><div class="ds-card__content"><p class="snap-chex__t14">Informer widget</p><p class="snap-chex__t20">2 645.00 ₽</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Интерактивные → История / примеры поисковых запросов -->
+      <div>
+        <p class="snap-chex__h">Интерактивные</p>
+        <p class="snap-chex__h snap-chex__h--s">История / примеры поисковых запросов</p>
+        <div class="snap-chex__row" style="gap:24px;">
+          <div class="snap-chex__col" style="width:600px">
+            <span class="ds-search"><span class="ds-search__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-search"/></svg></span></span><span class="ds-search__label">Search text</span><span class="ds-search__right-icon"><span class="ds-divider"></span><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-search-off-20"/></svg></span></span></span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+            </div>
+          </div>
+          <div class="snap-chex__col" style="width:600px">
+            <span class="ds-search"><span class="ds-search__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-search"/></svg></span></span><span class="ds-search__label">Search text</span><span class="ds-search__right-icon"><span class="ds-divider"></span><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-search-off-20"/></svg></span></span></span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Переменные в тексте -->
+      <div>
+        <p class="snap-chex__h snap-chex__h--s">Переменные в тексте</p>
+        <div class="ds-input ds-input--m" style="width:411px">
+          <div class="ds-input__frame" style="height:auto;min-height:208px;align-items:flex-start;">
+            <div style="display:flex;flex-direction:column;gap:8px;width:100%;">
+              <span class="ds-input__label">Label</span>
+              <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
+                <span class="ds-input__field ds-input--populated">Input text</span>
+                <span class="ds-chips ds-chips--outlined ds-chips--s"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 16 16" fill="currentColor"><use href="#ic-close-16"/></svg></span></span></span>
+              </div>
+              <span class="ds-input__field ds-input--populated">Input text</span>
+              <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
+                <span class="ds-input__field ds-input--populated">Input text</span>
+                <span class="ds-chips ds-chips--outlined ds-chips--s"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><svg viewBox="0 0 16 16" fill="currentColor"><use href="#ic-close-16"/></svg></span></span></span>
+              </div>
+              <span class="ds-input__field ds-input--populated">Input text</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="snap-note">Пометки для ревью: (а) вкладка повторяет кадр Figma «Chips Examples» (59313:39366): три раздела — «Информационные (возможен только hover)» (карточка с группой S-чипов 24 + таблица с чипами + блок «Остатки на складе» с группой M-чипов 32), «Интерактивные» → «История / примеры поисковых запросов» (две колонки «Search + 11 чипов M») и «Переменные в тексте» (поле с чипами внутри текста); заголовки разделов — компонент «Title variant» (H M 24/32 и H S 20/28); (б) чипы — компонент `ds-chips` (M 32 / S 24) в группе `ds-chips-group` (у S — модификатор `--s`), крестик — слот `__close` + `__icon` (20 у M, 16 у S); (в) тексты внутри инстансов в метаданных не раскрываются: чипы подписаны дефолтным «Chip text», ячейки таблицы — «Text», информеры — «Informer widget»; в кадре подписи разной ширины (например чипы 78/132/55/77/98/97) — то есть там реальные слова; (г) в кадре есть служебные слои прототипа (Cursor 24×24, Hint container) и информеры-виджеты (другой компонент) — на стенде показаны рамками-заглушками; (д) поле Search в разделе «История / примеры поисковых запросов» собрано полным составом компонента `ds-search`: лупа из символа `#ic-search` (точный путь Figma), текст «Search text», правый слот с `ds-divider` и иконкой `#ic-search-off-20`; в css компонента ширина жёстко 243 и высота тянется 50 — в примерах переопределено на 100% ширины и 48 высоты (как в кадре 600×48). Журнал №144, №150, №190.</p>
+  </div>
+
 </div>
 
 <!-- svg-иконки — точные пути из Figma: add 20/16 (слот чипа), close 20/16 (54025:273 «close») -->
@@ -187,6 +345,13 @@
   <!-- крестик S-чипа: отдельный глиф close 16 из Figma (не масштаб 20-го — сверено с ассетами) -->
   <symbol id="ic-close-16" viewBox="0 0 16 16">
     <path d="M4.26667 12.6667L3.33333 11.7333L7.06667 8L3.33333 4.26667L4.26667 3.33333L8 7.06667L11.7333 3.33333L12.6667 4.26667L8.93333 8L12.6667 11.7333L11.7333 12.6667L8 8.93333L4.26667 12.6667Z"/>
+  </symbol>
+  <!-- иконки компонента Search (точные пути из Figma, как на стенде Search_DS) -->
+  <symbol id="ic-search" viewBox="0 0 20 20">
+    <path d="M16.3333 17.5L11.0833 12.25C10.6667 12.5833 10.1875 12.8472 9.64583 13.0417C9.10417 13.2361 8.52778 13.3333 7.91667 13.3333C6.40278 13.3333 5.12153 12.809 4.07292 11.7604C3.02431 10.7118 2.5 9.43056 2.5 7.91667C2.5 6.40278 3.02431 5.12153 4.07292 4.07292C5.12153 3.02431 6.40278 2.5 7.91667 2.5C9.43056 2.5 10.7118 3.02431 11.7604 4.07292C12.809 5.12153 13.3333 6.40278 13.3333 7.91667C13.3333 8.52778 13.2361 9.10417 13.0417 9.64583C12.8472 10.1875 12.5833 10.6667 12.25 11.0833L17.5 16.3333L16.3333 17.5ZM7.91667 11.6667C8.95833 11.6667 9.84375 11.3021 10.5729 10.5729C11.3021 9.84375 11.6667 8.95833 11.6667 7.91667C11.6667 6.875 11.3021 5.98958 10.5729 5.26042C9.84375 4.53125 8.95833 4.16667 7.91667 4.16667C6.875 4.16667 5.98958 4.53125 5.26042 5.26042C4.53125 5.98958 4.16667 6.875 4.16667 7.91667C4.16667 8.95833 4.53125 9.84375 5.26042 10.5729C5.98958 11.3021 6.875 11.6667 7.91667 11.6667Z"/>
+  </symbol>
+  <symbol id="ic-search-off-20" viewBox="0 0 20 20">
+    <path d="M5.83333 18.4167C4.68056 18.4167 3.69792 18.0104 2.88542 17.1979C2.07292 16.3854 1.66667 15.4028 1.66667 14.25C1.66667 13.0972 2.07292 12.1146 2.88542 11.3021C3.69792 10.4896 4.68056 10.0833 5.83333 10.0833C6.98611 10.0833 7.96875 10.4896 8.78125 11.3021C9.59375 12.1146 10 13.0972 10 14.25C10 15.4028 9.59375 16.3854 8.78125 17.1979C7.96875 18.0104 6.98611 18.4167 5.83333 18.4167ZM17.1667 17.5833L11.8333 12.25C11.6667 12.0694 11.4896 11.8854 11.3021 11.6979C11.1146 11.5104 10.9306 11.3333 10.75 11.1667C11.2778 10.8333 11.7014 10.3889 12.0208 9.83333C12.3403 9.27778 12.5 8.66667 12.5 8C12.5 6.95833 12.1354 6.07292 11.4062 5.34375C10.6771 4.61458 9.79167 4.25 8.75 4.25C7.70833 4.25 6.82292 4.61458 6.09375 5.34375C5.36458 6.07292 5 6.95833 5 8C5 8.08333 5.00347 8.16319 5.01042 8.23958C5.01736 8.31597 5.02778 8.39583 5.04167 8.47917C4.79167 8.50694 4.51736 8.5625 4.21875 8.64583C3.92014 8.72917 3.65278 8.82639 3.41667 8.9375C3.38889 8.78472 3.36806 8.63194 3.35417 8.47917C3.34028 8.32639 3.33333 8.16667 3.33333 8C3.33333 6.48611 3.85764 5.20486 4.90625 4.15625C5.95486 3.10764 7.23611 2.58333 8.75 2.58333C10.2639 2.58333 11.5451 3.10764 12.5937 4.15625C13.6424 5.20486 14.1667 6.48611 14.1667 8C14.1667 8.59722 14.0729 9.16319 13.8854 9.69792C13.6979 10.2326 13.4375 10.7222 13.1042 11.1667L18.3333 16.4167L17.1667 17.5833ZM4.35417 16.3125L5.83333 14.8333L7.29167 16.3125L7.89583 15.7292L6.41667 14.25L7.89583 12.7708L7.3125 12.1875L5.83333 13.6667L4.35417 12.1875L3.77083 12.7708L5.25 14.25L3.77083 15.7292L4.35417 16.3125Z"/>
   </symbol>
 </svg>
 

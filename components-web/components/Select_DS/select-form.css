@@ -4,7 +4,7 @@
   flex-direction: column;
   background: #ffffff;
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, 'Roboto', 'Helvetica Neue', Arial, sans-serif);
 }
 .ds-select-form__label {
   font-size: var(--ds-font-body-m-16-normal-regular-size);

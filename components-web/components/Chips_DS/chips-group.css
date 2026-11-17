@@ -5,7 +5,7 @@
   align-items: center;
   gap: var(--ds-chips-gap-group, 8px);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-chips-group__label {
   font-size: var(--ds-font-body-s-14-normal-regular-size);

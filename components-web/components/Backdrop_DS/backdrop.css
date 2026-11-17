@@ -4,6 +4,6 @@
   flex-direction: row;
   background: var(--ds-color-backdrop-background, #333333);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 

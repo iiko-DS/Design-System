@@ -258,21 +258,21 @@
 
 /* Классы типографики: применяются как есть, без хардкода размеров */
 .ds-text-header-l-34-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-l-34-normal-regular-size);
   line-height: var(--ds-font-header-l-34-normal-regular-line);
   letter-spacing: var(--ds-font-header-l-34-normal-regular-spacing);
   font-weight: var(--ds-font-header-l-34-normal-regular-weight);
 }
 .ds-text-header-l-34-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-l-34-normal-medium-size);
   line-height: var(--ds-font-header-l-34-normal-medium-line);
   letter-spacing: var(--ds-font-header-l-34-normal-medium-spacing);
   font-weight: var(--ds-font-header-l-34-normal-medium-weight);
 }
 .ds-text-header-l-34-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-l-34-caps-regular-size);
   line-height: var(--ds-font-header-l-34-caps-regular-line);
   letter-spacing: var(--ds-font-header-l-34-caps-regular-spacing);
@@ -280,7 +280,7 @@
   text-transform: uppercase;
 }
 .ds-text-header-l-34-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-l-34-caps-medium-size);
   line-height: var(--ds-font-header-l-34-caps-medium-line);
   letter-spacing: var(--ds-font-header-l-34-caps-medium-spacing);
@@ -288,21 +288,21 @@
   text-transform: uppercase;
 }
 .ds-text-header-m-24-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-m-24-normal-regular-size);
   line-height: var(--ds-font-header-m-24-normal-regular-line);
   letter-spacing: var(--ds-font-header-m-24-normal-regular-spacing);
   font-weight: var(--ds-font-header-m-24-normal-regular-weight);
 }
 .ds-text-header-m-24-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-m-24-normal-medium-size);
   line-height: var(--ds-font-header-m-24-normal-medium-line);
   letter-spacing: var(--ds-font-header-m-24-normal-medium-spacing);
   font-weight: var(--ds-font-header-m-24-normal-medium-weight);
 }
 .ds-text-header-m-24-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-m-24-caps-regular-size);
   line-height: var(--ds-font-header-m-24-caps-regular-line);
   letter-spacing: var(--ds-font-header-m-24-caps-regular-spacing);
@@ -310,7 +310,7 @@
   text-transform: uppercase;
 }
 .ds-text-header-m-24-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-m-24-caps-medium-size);
   line-height: var(--ds-font-header-m-24-caps-medium-line);
   letter-spacing: var(--ds-font-header-m-24-caps-medium-spacing);
@@ -318,21 +318,21 @@
   text-transform: uppercase;
 }
 .ds-text-header-s-20-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-s-20-normal-regular-size);
   line-height: var(--ds-font-header-s-20-normal-regular-line);
   letter-spacing: var(--ds-font-header-s-20-normal-regular-spacing);
   font-weight: var(--ds-font-header-s-20-normal-regular-weight);
 }
 .ds-text-header-s-20-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-s-20-normal-medium-size);
   line-height: var(--ds-font-header-s-20-normal-medium-line);
   letter-spacing: var(--ds-font-header-s-20-normal-medium-spacing);
   font-weight: var(--ds-font-header-s-20-normal-medium-weight);
 }
 .ds-text-header-s-20-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-s-20-caps-regular-size);
   line-height: var(--ds-font-header-s-20-caps-regular-line);
   letter-spacing: var(--ds-font-header-s-20-caps-regular-spacing);
@@ -340,7 +340,7 @@
   text-transform: uppercase;
 }
 .ds-text-header-s-20-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-header-s-20-caps-medium-size);
   line-height: var(--ds-font-header-s-20-caps-medium-line);
   letter-spacing: var(--ds-font-header-s-20-caps-medium-spacing);
@@ -348,21 +348,21 @@
   text-transform: uppercase;
 }
 .ds-text-body-l-18-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-l-18-normal-regular-size);
   line-height: var(--ds-font-body-l-18-normal-regular-line);
   letter-spacing: var(--ds-font-body-l-18-normal-regular-spacing);
   font-weight: var(--ds-font-body-l-18-normal-regular-weight);
 }
 .ds-text-body-l-18-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-l-18-normal-medium-size);
   line-height: var(--ds-font-body-l-18-normal-medium-line);
   letter-spacing: var(--ds-font-body-l-18-normal-medium-spacing);
   font-weight: var(--ds-font-body-l-18-normal-medium-weight);
 }
 .ds-text-body-l-18-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-l-18-caps-regular-size);
   line-height: var(--ds-font-body-l-18-caps-regular-line);
   letter-spacing: var(--ds-font-body-l-18-caps-regular-spacing);
@@ -370,7 +370,7 @@
   text-transform: uppercase;
 }
 .ds-text-body-l-18-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-l-18-caps-medium-size);
   line-height: var(--ds-font-body-l-18-caps-medium-line);
   letter-spacing: var(--ds-font-body-l-18-caps-medium-spacing);
@@ -378,21 +378,21 @@
   text-transform: uppercase;
 }
 .ds-text-body-m-16-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-m-16-normal-regular-size);
   line-height: var(--ds-font-body-m-16-normal-regular-line);
   letter-spacing: var(--ds-font-body-m-16-normal-regular-spacing);
   font-weight: var(--ds-font-body-m-16-normal-regular-weight);
 }
 .ds-text-body-m-16-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-m-16-normal-medium-size);
   line-height: var(--ds-font-body-m-16-normal-medium-line);
   letter-spacing: var(--ds-font-body-m-16-normal-medium-spacing);
   font-weight: var(--ds-font-body-m-16-normal-medium-weight);
 }
 .ds-text-body-m-16-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-m-16-caps-regular-size);
   line-height: var(--ds-font-body-m-16-caps-regular-line);
   letter-spacing: var(--ds-font-body-m-16-caps-regular-spacing);
@@ -400,7 +400,7 @@
   text-transform: uppercase;
 }
 .ds-text-body-m-16-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-m-16-caps-medium-size);
   line-height: var(--ds-font-body-m-16-caps-medium-line);
   letter-spacing: var(--ds-font-body-m-16-caps-medium-spacing);
@@ -408,21 +408,21 @@
   text-transform: uppercase;
 }
 .ds-text-body-s-14-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-s-14-normal-regular-size);
   line-height: var(--ds-font-body-s-14-normal-regular-line);
   letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing);
   font-weight: var(--ds-font-body-s-14-normal-regular-weight);
 }
 .ds-text-body-s-14-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-s-14-normal-medium-size);
   line-height: var(--ds-font-body-s-14-normal-medium-line);
   letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing);
   font-weight: var(--ds-font-body-s-14-normal-medium-weight);
 }
 .ds-text-body-s-14-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-s-14-caps-regular-size);
   line-height: var(--ds-font-body-s-14-caps-regular-line);
   letter-spacing: var(--ds-font-body-s-14-caps-regular-spacing);
@@ -430,7 +430,7 @@
   text-transform: uppercase;
 }
 .ds-text-body-s-14-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-body-s-14-caps-medium-size);
   line-height: var(--ds-font-body-s-14-caps-medium-line);
   letter-spacing: var(--ds-font-body-s-14-caps-medium-spacing);
@@ -438,21 +438,21 @@
   text-transform: uppercase;
 }
 .ds-text-caption-l-12-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-l-12-normal-regular-size);
   line-height: var(--ds-font-caption-l-12-normal-regular-line);
   letter-spacing: var(--ds-font-caption-l-12-normal-regular-spacing);
   font-weight: var(--ds-font-caption-l-12-normal-regular-weight);
 }
 .ds-text-caption-l-12-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-l-12-normal-medium-size);
   line-height: var(--ds-font-caption-l-12-normal-medium-line);
   letter-spacing: var(--ds-font-caption-l-12-normal-medium-spacing);
   font-weight: var(--ds-font-caption-l-12-normal-medium-weight);
 }
 .ds-text-caption-l-12-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-l-12-caps-regular-size);
   line-height: var(--ds-font-caption-l-12-caps-regular-line);
   letter-spacing: var(--ds-font-caption-l-12-caps-regular-spacing);
@@ -460,7 +460,7 @@
   text-transform: uppercase;
 }
 .ds-text-caption-l-12-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-l-12-caps-medium-size);
   line-height: var(--ds-font-caption-l-12-caps-medium-line);
   letter-spacing: var(--ds-font-caption-l-12-caps-medium-spacing);
@@ -468,14 +468,14 @@
   text-transform: uppercase;
 }
 .ds-text-caption-m-10-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-m-10-normal-regular-size);
   line-height: var(--ds-font-caption-m-10-normal-regular-line);
   letter-spacing: var(--ds-font-caption-m-10-normal-regular-spacing);
   font-weight: var(--ds-font-caption-m-10-normal-regular-weight);
 }
 .ds-text-caption-m-10-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-m-10-normal-medium-size);
   line-height: var(--ds-font-caption-m-10-normal-medium-line);
   letter-spacing: var(--ds-font-caption-m-10-normal-medium-spacing);
@@ -483,7 +483,7 @@
   text-transform: capitalize;
 }
 .ds-text-caption-m-10-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-m-10-caps-regular-size);
   line-height: var(--ds-font-caption-m-10-caps-regular-line);
   letter-spacing: var(--ds-font-caption-m-10-caps-regular-spacing);
@@ -491,7 +491,7 @@
   text-transform: uppercase;
 }
 .ds-text-caption-m-10-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-m-10-caps-medium-size);
   line-height: var(--ds-font-caption-m-10-caps-medium-line);
   letter-spacing: var(--ds-font-caption-m-10-caps-medium-spacing);
@@ -499,21 +499,21 @@
   text-transform: uppercase;
 }
 .ds-text-caption-s-8-normal-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-s-8-normal-regular-size);
   line-height: var(--ds-font-caption-s-8-normal-regular-line);
   letter-spacing: var(--ds-font-caption-s-8-normal-regular-spacing);
   font-weight: var(--ds-font-caption-s-8-normal-regular-weight);
 }
 .ds-text-caption-s-8-normal-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-s-8-normal-medium-size);
   line-height: var(--ds-font-caption-s-8-normal-medium-line);
   letter-spacing: var(--ds-font-caption-s-8-normal-medium-spacing);
   font-weight: var(--ds-font-caption-s-8-normal-medium-weight);
 }
 .ds-text-caption-s-8-caps-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-s-8-caps-regular-size);
   line-height: var(--ds-font-caption-s-8-caps-regular-line);
   letter-spacing: var(--ds-font-caption-s-8-caps-regular-spacing);
@@ -521,7 +521,7 @@
   text-transform: uppercase;
 }
 .ds-text-caption-s-8-caps-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-font-caption-s-8-caps-medium-size);
   line-height: var(--ds-font-caption-s-8-caps-medium-line);
   letter-spacing: var(--ds-font-caption-s-8-caps-medium-spacing);

@@ -4,7 +4,7 @@
   display: flex;
   border-radius: var(--ds-size-1x);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-element-sidenav__label {
   font-size: var(--ds-font-caption-m-10-normal-medium-size);

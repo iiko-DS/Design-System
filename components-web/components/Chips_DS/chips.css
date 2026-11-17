@@ -8,7 +8,7 @@
   gap: var(--ds-chips-m-size-gap, 8px);
   border-radius: var(--ds-chips-m-size-border-radius, 12px);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, 'Roboto', 'Helvetica Neue', Arial, sans-serif);
 }
 .ds-chips__label {
   font-size: var(--ds-font-body-s-14-normal-regular-size);

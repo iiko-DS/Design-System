@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="../../fixes.css">
 <style>
   /* каркас демо-стенда */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
   .view { padding: 24px; }
@@ -110,7 +110,7 @@
         <button type="button" class="ds-btn-icon ds-btn-icon--m ds-btn-icon--neutral ds-btn-icon--outlined"><span class="ds-btn-icon__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-add"/></svg></span></span></button>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) живые кнопки (accent filled, neutral outlined): hover/press работают от css компонента; (б) слот ds-btn-icon__icon содержит инстанс «Icon size» — в сборке контейнер ds-icon-size (20: M/S, 16: XS), как в Figma; (в) все 153 варианта — в витрине «Button icon»; (г) отдельного блока примеров на канве страницы НЕТ — создавать примеры не из чего (§4); (д) мобильные компоненты — вне веба. Журнал №123, №162, №163.</p>
+    <p class="snap-note">Пометки для ревью: (а) живые кнопки (accent filled, neutral outlined): hover/press работают от css компонента; (б) слот ds-btn-icon__icon содержит инстанс «Icon size» — в сборке контейнер ds-icon-size (20: M/S, 16: XS), как в Figma; (в) все 153 варианта — в витрине «Button icon»; (г) отдельного блока примеров на канве страницы НЕТ — создавать примеры не из чего (§4); решение владельца 16.11.2026: пока «Button icon (Examples)» нет в Figma — вкладку не делаем; (д) мобильные компоненты — вне веба. Журнал №123, №162, №163.</p>
   </div>
 
   <!-- 2. Button icon (компонент 17123:81299, 153 варианта; порядок и расположение — как в Figma, без подписей) -->
@@ -381,7 +381,7 @@
         </div>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) компонент «Button icon group» (53828:5738): 2 варианта — Orientation=Horizontally (3 инстанса Button icon Size=M, Style=Neutral, Type=Filled, State=Default, 36; зазор 8; 124×36) и Vertically (36×124); (б) сегменты — живые кнопки ДС; (в) блока примеров на канве страницы НЕТ. Журнал №123, №162, №163.</p>
+    <p class="snap-note">Пометки для ревью: (а) компонент «Button icon group» (53828:5738): 2 варианта — Orientation=Horizontally (3 инстанса Button icon Size=M, Style=Neutral, Type=Filled, State=Default, 36; зазор 8; 124×36) и Vertically (36×124); (б) сегменты — живые кнопки ДС; (в) блока примеров на канве страницы НЕТ (решение владельца 16.11.2026 — вкладку «(Examples)» не делаем до появления фрейма в Figma). Журнал №123, №162, №163.</p>
   </div>
 </div>
 

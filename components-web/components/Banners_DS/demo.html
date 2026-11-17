@@ -8,8 +8,10 @@
   Демо стенд компонента Banners (страница «Banners_DS», 54367:2214). Папка: DS/components-web/components/Banners_DS/.
   Источник — канва «Banners_DS» Figma «Iiko Web DS (New)»: компонент «Banners» (54367:2566; 12 вариантов —
   Style Neutral/Accent/Positive/Warning/Negative/Tip × Orientation Horizontal/Vertical). Блок «Banners examples»
-  (56358:10085) НЕ собираем (указание: макет примеров не трогаем) — на стенде только «Basic example»
-  (упрощённый живой пример баннера) и витрина компонента. На канве ещё: «Token Audit — Banners» (61245:3601: 6 инстансов,
+  (56358:10085) собирается в отдельной вкладке «Banners (Examples)» (правило 16.11.2026): 5 сценариев из Figma —
+  neutral с крестиком, warning с иконкой, negative с кнопками, accent с кнопкой в футере (810 и 605) и tip с dashed-обводкой.
+  Вкладки: Basic example (живой пример) / Banners (витрина 12 вариантов) / Banners (Examples).
+  На канве ещё: «Token Audit — Banners» (61245:3601: 6 инстансов,
   1 расхождение — у Warning-инстанса 58304:2874 Corner Radius отвязан: 8 вместо 12) и «Mobile Recommendations»
   (61799:340; вне веба — не воспроизводится).
   Состав варианта (по коду узлов): Icon size 20 «notifications» (колокол; у всех стилей,
@@ -30,7 +32,7 @@
 <link rel="stylesheet" href="../../fixes.css">
 <style>
   /* каркас демо-стенда — как у других стендов */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
   .view { padding: 24px; }
@@ -56,20 +58,35 @@
 
   /* иконки баннера: svg-глифы по кадру Icon size 20 (fill — на самом svg, не на path: shadow-DOM <use>) */
   .ds-banner__icon svg { width: 100%; height: 100%; display: block; fill: currentColor; }
+  /* иконка в кнопке футера (слот Element left кнопки — Icon size 20) */
+  .ds-btn__icon svg { width: 20px; height: 20px; display: block; fill: currentColor; }
   /* крестик: в Figma всегда #616161 (Icon/Primary) */
   .snap-banner-close { color: var(--ds-color-icon-primary, #616161); }
   .snap-banner-close--live { cursor: pointer; }
+
+  /* ── Banners (Examples): кадры фрейма 56358:10085 ─────────── */
+  .snap-bex { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+  .snap-bex__col { display: flex; flex-direction: column; gap: 48px; }
+  .snap-bex__block { display: flex; flex-direction: column; gap: 24px; }
+  /* подпись сценария — Header S 20/28, как в Figma */
+  .snap-bex__cap { margin: 0; font: var(--ds-font-header-s-20-normal-regular); letter-spacing: var(--ds-font-header-s-20-normal-regular-spacing); color: var(--ds-color-text-primary); }
+  /* заголовок внутри текста баннера — Medium (Body S 500); обычный текст — Regular */
+  .snap-bnr-t { font-weight: var(--ds-typography-font-weight-medium); }
+  .snap-w810 { width: 810px; }
+  .snap-w605 { width: 605px; }
+  .snap-w448 { width: 448px; }
 </style>
 </head>
 <body>
 <div class="demo-bar">
   <span class="demo-bar__title">Banners — демо стенд</span>
-  <span>Figma: Banners (54367-2566; 12 вариантов) · Basic example — упрощённый живой пример</span>
+  <span>Figma: Banners (54367-2566) — 12 вариантов · Banners examples (56358-10085) — 5 сценариев</span>
 </div>
 <div class="view">
   <div class="ds-tabs" role="tablist" aria-label="Banners">
     <button class="ds-tab ds-tab--active" role="tab" aria-selected="true" data-vtab="basic">Basic example</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="banners">Banners</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="examples">Banners (Examples)</button>
   </div>
 
   <!-- 2. Banners — витрина как в Figma (компонент 54367:2566): две колонки — Horizontal (570×52) и Vertical (570×80), в каждой 6 стилей; Tip отделён отступом, как в Figma; вариант = иконка + текст + кнопки + крестик -->
@@ -170,6 +187,73 @@
     <p class="snap-note">Пометки для ревью: (а) состав варианта — по коду узлов компонента 54367:2566: Icon size 20 (глиф «notifications» — колокол; у всех шести стилей; цвет — токены Banners/*/Icon color, у Warning #EA7806), текст «Banner text» (Body S 14/20; у Tip — Caption L 12/16), Button group (2 кнопки S: Neutral Filled + Accent Filled), Close — Icon size 20 (#616161); слоты Element left / Buttons / Close по умолчанию включены; (б) артборды: H 570×52, V 570×80 — пад 12/16, гэп 8, радиус 12 (токены Banners/*); (в) Tip в css отсутствует — собран в fixes.css п. 23 токенами: фон Banners/Accent/Background tip (#F5F9FF), граница Banners/Border dash size × Banners/Border color (dashed; браузерный пунктир аппроксимирует Figma-паттерн [2,2]), текст 12/16 — Banners/Text size tip; (г) в css у Neutral рамка 1px цветом Stroke/Accent — артефакт выгрузки (в Figma обводки нет: цвет обводки задан только у Tip) — снята в fixes п. 23; (д) выравнивание содержимого — по верхнему краю (items-start), кнопки вертикального баннера — вправо (в css было center / не задано) — fixes п. 23; (е) Token Audit канвы (61245:3601): 1 расхождение — у Warning-инстанса 58304:2874 Corner Radius отвязан (8 вместо 12) — решить в Фигме; (ж) блок «Mobile Recommendations» (61799:340) — рекомендации мобильной адаптации, вне веба. Журнал №113.</p>
   </div>
 
+  <!-- 3. Banners (Examples) — кадры фрейма Figma «Banners examples» (56358:10085): 5 сценариев -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden>
+    <div class="snap-bex">
+      <div class="snap-bex__col">
+
+        <div class="snap-bex__block">
+          <p class="snap-bex__cap">Без кнопок и иконок, но с крестиком</p>
+          <div class="ds-banner ds-banner--neutral ds-banner--horizontal snap-w570">
+            <span class="ds-banner__text">Если документы ещё не подготовлены, вы можете использовать наши шаблоны как основу.</span>
+            <span class="ds-banner__icon snap-banner-close"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg><use href="#ic-close-20"/></svg></span></span>
+          </div>
+        </div>
+
+        <div class="snap-bex__block">
+          <p class="snap-bex__cap">С иконкой и без крестика</p>
+          <div class="ds-banner ds-banner--warning ds-banner--horizontal snap-w570">
+            <span class="ds-banner__icon"><span class="ds-icon-size ds-icon-size--5x"><svg><use href="#ic-warning-20"/></svg></span></span>
+            <span class="ds-banner__text"><span class="snap-bnr-t">Склад хранения = Склад отгрузки</span><br>Акт перемещения сформирован не будет</span>
+          </div>
+        </div>
+
+        <div class="snap-bex__block">
+          <p class="snap-bex__cap">С кнопками и без крестика</p>
+          <div class="ds-banner ds-banner--negative ds-banner--horizontal snap-w810">
+            <span class="ds-banner__text"><span class="snap-bnr-t">Счёт не оплачен!</span><br>Счет 1234567 Лизензии iikoCloud за период 23.10—22.11.2025</span>
+            <span class="ds-banner__buttons"><span class="ds-btn-group ds-btn-group--horizontal"><span class="ds-btn ds-btn--s ds-btn--neutral ds-btn--filled"><span class="ds-btn__label">Button</span></span><span class="ds-btn ds-btn--s ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Button</span></span></span></span>
+          </div>
+        </div>
+
+        <div class="snap-bex__block">
+          <p class="snap-bex__cap">С кнопкой в футере и крестиком</p>
+          <div class="ds-banner ds-banner--accent ds-banner--vertical snap-w810">
+            <div class="ds-banner__row">
+              <span class="ds-banner__text">Если документы ещё не подготовлены, вы можете использовать наши шаблоны как основу.  Важно: шаблоны являются примером. В соответствии с 152-ФЗ ответственность за содержание документов несёте вы.</span>
+              <span class="ds-banner__icon snap-banner-close"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg><use href="#ic-close-20"/></svg></span></span>
+            </div>
+            <span class="ds-banner__buttons"><span class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined"><span class="ds-btn__icon"><svg><use href="#ic-download-20"/></svg></span><span class="ds-btn__label">Скачать шаблоны</span></span></span>
+          </div>
+          <div class="ds-banner ds-banner--accent ds-banner--vertical snap-w605">
+            <div class="ds-banner__row">
+              <span class="ds-banner__text">Если документы ещё не подготовлены, вы можете использовать наши шаблоны как основу.  Важно: шаблоны являются примером. В соответствии с 152-ФЗ ответственность за содержание документов несёте вы.</span>
+              <span class="ds-banner__icon snap-banner-close"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg><use href="#ic-close-20"/></svg></span></span>
+            </div>
+            <span class="ds-banner__buttons"><span class="ds-btn ds-btn--s ds-btn--accent ds-btn--outlined"><span class="ds-btn__icon"><svg><use href="#ic-download-20"/></svg></span><span class="ds-btn__label">Скачать шаблоны</span></span></span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="snap-bex__col">
+        <div class="snap-bex__block">
+          <p class="snap-bex__cap">Баннер подсказка с обводкой border dashed</p>
+          <div class="ds-banner ds-banner--tip ds-banner--vertical snap-w448">
+            <div class="ds-banner__row">
+              <span class="ds-banner__icon"><span class="ds-icon-size ds-icon-size--5x"><svg><use href="#ic-lamp-20"/></svg></span></span>
+              <span class="ds-banner__text"><span class="snap-bnr-t">Рекомендуем настроить приветственный бонус</span><br>Новые гости смогут получить бонус сразу после регистрации по QR-коду.</span>
+              <span class="ds-banner__icon snap-banner-close"><span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><svg><use href="#ic-close-20"/></svg></span></span>
+            </div>
+            <span class="ds-banner__buttons"><span class="ds-btn ds-btn--xs ds-btn--neutral ds-btn--filled"><span class="ds-btn__label">Настроить акцию</span></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="snap-note">Пометки для ревью: (а) вкладка — кадры фрейма Figma «Banners examples» (56358:10085), 5 сценариев в порядке Figma; тексты дословно; (б) собрано компонентом ДС «Banners» (Style × Orientation) со слотами: Icon (Icon size 20), Text, Buttons (Button group для двух кнопок), Close (Icon size 20, Icon/Primary #616161); (в) warning-сценарий: первая строка-заголовок Medium 500, вторая Regular 400 (Body S 14/20), иконка warning в цвете Banners/Warning/Icon color (#EA7806); (г) negative: текст в две строки (заголовок Medium + расшифровка Regular), кнопки S — Neutral Filled + Accent Filled, без крестика; (д) accent с кнопкой в футере: две ширины кадра — 810 (кнопка M) и 605 (кнопка S, поэтому высота 120 вместо 128), кнопка Accent Outlined с иконкой download; (е) tip 448: dashed-обводка (fixes п. 23), текст Caption L 12/16 (заголовок Medium), кнопка XS Neutral Filled справа в футере, иконка wb_incandescent; (ж) ширины заданы кадром (570/810/605/448), высота — по контенту; (з) ширина 605 в кадре — «сжатый» вариант того же сценария, разница только в размере кнопки; (и) у warning-инстанса 58304:2874 в Figma радиус 8 вместо 12 (Token Audit канвы) — на стенде радиус ДС 12; (к) tip в браузере выше на 2 px (106 против 104): Figma считает dashed-рамку внутри высоты кадра, а в CSS border добавляется к контентной высоте — рамка 1 px сверху и снизу. Журнал №113.</p>
+  </div>
+
   <!-- 1. Basic example: упрощённый живой пример баннера (иконка, текст, кнопки, крестик) -->
   <div class="panel" data-vpanel="basic" role="tabpanel">
     <div class="snap-sect">
@@ -189,17 +273,27 @@
         <button type="button" class="ds-btn ds-btn--s ds-btn--neutral ds-btn--outlined" id="bnr-restore" hidden><span class="ds-btn__label">Вернуть баннер</span></button>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) Basic — упрощённый живой пример (вариант Neutral, Horizontal: иконка, текст, две кнопки S — Neutral Filled + Accent Filled — и крестик); кнопки живые — нажимаются; крестик закрывает, «Вернуть баннер» показывает снова (обвязка стенда); (б) фон баннера белый и без обводки — как в Figma; на канве такие баннеры лежат на светлой подложке — на стенде подложка Surface/Default V2 (#F8F9FC), иначе нейтральный баннер не виден на белом; (в) блок «Banners examples» (56358:10085) не собираем (указание: макет примеров не трогаем); (г) в css у Neutral рамка 1px цветом Stroke/Accent — артефакт, снята в fixes.css п. 23. Журнал №113.</p>
+    <p class="snap-note">Пометки для ревью: (а) Basic — упрощённый живой пример (вариант Neutral, Horizontal: иконка, текст, две кнопки S — Neutral Filled + Accent Filled — и крестик); кнопки живые — нажимаются; крестик закрывает, «Вернуть баннер» показывает снова (обвязка стенда); (б) фон баннера белый и без обводки — как в Figma; на канве такие баннеры лежат на светлой подложке — на стенде подложка Surface/Default V2 (#F8F9FC), иначе нейтральный баннер не виден на белом; (в) статичные кадры примеров — во вкладке «Banners (Examples)» (фрейм 56358:10085); (г) в css у Neutral рамка 1px цветом Stroke/Accent — артефакт, снята в fixes.css п. 23. Журнал №113.</p>
   </div>
 </div>
 
-<!-- svg-иконки — точные пути из Figma: notifications (колокол — во всех стилях), close (20). Глифы примеров не нужны — блок «Banners examples» не собираем -->
+  <!-- svg-иконки — точные пути из Figma: notifications (колокол — во всех стилях), close (20), warning/download/wb_incandescent — глифы примеров -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="ic-bell" viewBox="0 0 20 20">
     <path d="M3.33333 15.8333V14.1667H4.99999V8.33332C4.99999 7.18054 5.34722 6.15624 6.04166 5.26041C6.73611 4.36457 7.63888 3.77777 8.74999 3.49999V2.91666C8.74999 2.56943 8.87152 2.2743 9.11458 2.03124C9.35763 1.78818 9.65277 1.66666 9.99999 1.66666C10.3472 1.66666 10.6424 1.78818 10.8854 2.03124C11.1285 2.2743 11.25 2.56943 11.25 2.91666V3.49999C12.3611 3.77777 13.2639 4.36457 13.9583 5.26041C14.6528 6.15624 15 7.18054 15 8.33332V14.1667H16.6667V15.8333H3.33333ZM9.99999 18.3333C9.54166 18.3333 9.1493 18.1701 8.82291 17.8437C8.49652 17.5174 8.33333 17.125 8.33333 16.6667H11.6667C11.6667 17.125 11.5035 17.5174 11.1771 17.8437C10.8507 18.1701 10.4583 18.3333 9.99999 18.3333ZM6.66666 14.1667H13.3333V8.33332C13.3333 7.41666 13.0069 6.63193 12.3542 5.97916C11.7014 5.32638 10.9167 4.99999 9.99999 4.99999C9.08333 4.99999 8.29861 5.32638 7.64583 5.97916C6.99305 6.63193 6.66666 7.41666 6.66666 8.33332V14.1667Z"/>
   </symbol>
   <symbol id="ic-close-20" viewBox="0 0 20 20">
     <path d="M5.33329 15.8333L4.16663 14.6667L8.83329 9.99999L4.16663 5.33332L5.33329 4.16666L9.99996 8.83332L14.6666 4.16666L15.8333 5.33332L11.1666 9.99999L15.8333 14.6667L14.6666 15.8333L9.99996 11.1667L5.33329 15.8333Z"/>
+  </symbol>
+  <!-- глифы примеров: warning (58304:2874), download (58368:16498), wb_incandescent (59827:5322) — пути из Figma -->
+  <symbol id="ic-warning-20" viewBox="0 0 20 20">
+    <path d="M0.833333 17.4167L10 1.58333L19.1667 17.4167H0.833333ZM3.70833 15.75H16.2917L10 4.91667L3.70833 15.75ZM10 14.9167C10.2361 14.9167 10.434 14.8368 10.5938 14.6771C10.7535 14.5174 10.8333 14.3194 10.8333 14.0833C10.8333 13.8472 10.7535 13.6493 10.5938 13.4896C10.434 13.3299 10.2361 13.25 10 13.25C9.76389 13.25 9.56597 13.3299 9.40625 13.4896C9.24653 13.6493 9.16667 13.8472 9.16667 14.0833C9.16667 14.3194 9.24653 14.5174 9.40625 14.6771C9.56597 14.8368 9.76389 14.9167 10 14.9167ZM9.16667 12.4167H10.8333V8.25H9.16667V12.4167Z"/>
+  </symbol>
+  <symbol id="ic-download-20" viewBox="0 0 20 20">
+    <path d="M10 13.3333L5.83333 9.16667L7 7.95833L9.16667 10.125V3.33333H10.8333V10.125L13 7.95833L14.1667 9.16667L10 13.3333ZM5 16.6667C4.54167 16.6667 4.14931 16.5035 3.82292 16.1771C3.49653 15.8507 3.33333 15.4583 3.33333 15V12.5H5V15H15V12.5H16.6667V15C16.6667 15.4583 16.5035 15.8507 16.1771 16.1771C15.8507 16.5035 15.4583 16.6667 15 16.6667H5Z"/>
+  </symbol>
+  <symbol id="ic-lamp-20" viewBox="0 0 20 20">
+    <path d="M9.16667 18.4167V15.9167H10.8333V18.4167H9.16667ZM1.66667 10.9167V9.25H4.16667V10.9167H1.66667ZM15.8333 10.9167V9.25H18.3333V10.9167H15.8333ZM15 16.6667L13.25 14.9167L14.4167 13.75L16.1667 15.5L15 16.6667ZM5 16.6667L3.83333 15.5L5.58333 13.75L6.75 14.9167L5 16.6667ZM10 14.25C8.84722 14.25 7.86458 13.8438 7.05208 13.0312C6.23958 12.2188 5.83333 11.2361 5.83333 10.0833C5.83333 9.41667 5.98264 8.79514 6.28125 8.21875C6.57986 7.64236 6.98611 7.15278 7.5 6.75V2.58333H12.5V6.75C13.0139 7.15278 13.4201 7.64236 13.7187 8.21875C14.0174 8.79514 14.1667 9.41667 14.1667 10.0833C14.1667 11.2361 13.7604 12.2188 12.9479 13.0312C12.1354 13.8438 11.1528 14.25 10 14.25ZM9.16667 6C9.30555 5.97222 9.44444 5.95139 9.58333 5.9375C9.72222 5.92361 9.86111 5.91667 10 5.91667C10.1389 5.91667 10.2778 5.92361 10.4167 5.9375C10.5556 5.95139 10.6944 5.97222 10.8333 6V4.25H9.16667V6ZM10 12.5833C10.6944 12.5833 11.2847 12.3403 11.7708 11.8542C12.2569 11.3681 12.5 10.7778 12.5 10.0833C12.5 9.38889 12.2569 8.79861 11.7708 8.3125C11.2847 7.82639 10.6944 7.58333 10 7.58333C9.30555 7.58333 8.71528 7.82639 8.22917 8.3125C7.74305 8.79861 7.5 9.38889 7.5 10.0833C7.5 10.7778 7.74305 11.3681 8.22917 11.8542C8.71528 12.3403 9.30555 12.5833 10 12.5833Z"/>
   </symbol>
 </svg>
 

@@ -8,7 +8,7 @@
   border-radius: var(--ds-size-2x);
   background: var(--ds-color-brand-accent-super-lightest, #f8f9fc);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-picture__crop {
   height: 173px;

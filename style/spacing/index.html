@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Space — iiko Web DS</title>
+<link rel="stylesheet" href="../../components-web/font.css">
+<link rel="stylesheet" href="../../components-web/tokens.css">
+<link rel="stylesheet" href="spacing.css">
+</head>
+<body>
+<main class="page">
+  <div class="blocks" id="blocks"></div>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  const SRC = 'spacing.json';
+  const px = v => (v == null ? '' : v + 'px');
+
+  // Стили — из токенов ДС (по размеру кегля текста в макете).
+  const FONT_TOKENS = {
+    34: '--ds-font-header-l-34',
+    16: '--ds-font-body-m-16'
+  };
+
+  const COLOR_TOKENS = {
+    '#333333': '--ds-color-text-primary',
+    '#616161': '--ds-color-text-secondary'
+  };
+
+  const FILL_TOKENS = {
+    '#ffffff': '--ds-color-surface-default',
+    '#ebebeb': '--ds-palette-neutral-100',
+    '#e0e0e0': '--ds-color-stroke-default'
+  };
+
+  const STROKE_TOKENS = {
+    '#ff5252': '--ds-color-stroke-negative'
+  };
+
+  function rgba(hex, alpha) {
+    const h = String(hex || '').replace('#', '');
+    const s = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+    const r = parseInt(s.slice(0, 2), 16);
+    const g = parseInt(s.slice(2, 4), 16);
+    const b = parseInt(s.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha == null ? 1 : alpha})`;
+  }
+
+  function textNode(t) {
+    const el = document.createElement('div');
+    const multiline = t.h && t.lh && t.h > t.lh + 0.5;
+    el.className = 'tt ' + (multiline ? 'tt--wrap' : 'tt--nowrap');
+
+    const base = FONT_TOKENS[t.size];
+    if (base) {
+      const style = base + '-normal-' + (t.weight === 500 ? 'medium' : 'regular');
+      el.style.font = `var(${style})`;
+      el.style.letterSpacing = `var(${style}-spacing)`;
+    } else {
+      el.style.fontSize = px(t.size);
+      el.style.fontWeight = t.weight || 400;
+      if (t.lh) el.style.lineHeight = px(t.lh);
+      if (t.ls) el.style.letterSpacing = px(t.ls);
+    }
+
+    const colorToken = COLOR_TOKENS[String(t.color || '').toLowerCase()];
+    el.style.color = colorToken ? `var(${colorToken})` : rgba(t.color, t.alpha);
+
+    el.style.left = px(t.x);
+    el.style.top = px(t.y);
+    el.style.width = px(t.w);
+    if (t.h) el.style.height = px(t.h);
+    if (t.align) el.style.textAlign = t.align;
+    el.textContent = t.text;
+    return el;
+  }
+
+  function boxNode(b) {
+    const el = document.createElement('div');
+    el.className = 'box';
+    el.style.left = px(b.x);
+    el.style.top = px(b.y);
+    el.style.width = px(b.w);
+    el.style.height = px(b.h);
+    if (b.r) el.style.borderRadius = px(b.r);
+
+    const fillToken = b.fill && FILL_TOKENS[String(b.fill).toLowerCase()];
+    el.style.background = fillToken ? `var(${fillToken})` : (b.fill ? rgba(b.fill, b.alpha) : 'transparent');
+
+    if (b.stroke) {
+      const strokeToken = STROKE_TOKENS[String(b.stroke).toLowerCase()];
+      el.style.border = `${px(b.sw || 1)} dashed ${strokeToken ? `var(${strokeToken})` : rgba(b.stroke, 1)}`;
+    }
+    return el;
+  }
+
+  function render(data) {
+    const host = document.getElementById('blocks');
+    host.textContent = '';
+
+    const block = document.createElement('section');
+    block.className = 'block';
+
+    const sheet = document.createElement('div');
+    sheet.className = 'sheet';
+    sheet.style.width = px(data.w);
+    sheet.style.height = px(data.h);
+
+    (data.boxes || []).forEach(b => sheet.appendChild(boxNode(b)));
+    (data.texts || []).forEach(t => sheet.appendChild(textNode(t)));
+
+    block.appendChild(sheet);
+    host.appendChild(block);
+
+    function fit() {
+      const width = host.clientWidth;
+      if (!width) return;
+      const scale = width / data.w;
+      sheet.style.transform = `scale(${scale})`;
+      block.style.height = (data.h * scale) + 'px';
+    }
+
+    fit();
+    new ResizeObserver(fit).observe(host);
+  }
+
+  fetch(SRC)
+    .then(r => {
+      if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+      return r.json();
+    })
+    .then(render)
+    .catch(err => {
+      document.getElementById('blocks').textContent =
+        'Не удалось прочитать ' + SRC + ': ' + err.message;
+    });
+})();
+</script>
+</body>
+</html>

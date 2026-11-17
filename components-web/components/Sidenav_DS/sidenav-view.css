@@ -5,7 +5,7 @@
   padding: var(--ds-sidenav-sidebar-pad-top, 8px) 0 var(--ds-sidenav-sidebar-pad-bottom, 8px) 0;
   width: fit-content;
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-sidenav-view__label {
   font-size: var(--ds-font-caption-m-10-normal-regular-size);

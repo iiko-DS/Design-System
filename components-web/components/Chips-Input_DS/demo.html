@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="../../fixes.css">
 <style>
   /* каркас демо-стенда */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, 'Roboto', 'Helvetica Neue', Arial, sans-serif); color: var(--ds-color-text-primary); }
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
   .view { padding: 24px; }
@@ -42,21 +42,146 @@
   .snap-ci { width: 280px; }
   .snap-ci .ds-chips-input__frame { width: 100%; box-sizing: border-box; }
   .snap-ci .ds-chips-input__content { flex-wrap: wrap; row-gap: 4px; }
-  .snap-ci-caption { font-size: var(--ds-font-caption-l-12-normal-regular-size, 12px); line-height: var(--ds-font-caption-l-12-normal-regular-line, 16px); color: var(--ds-color-form-field-filled-default-label-text-color, #616161); }
-  .snap-ci-input { flex: 1 1 90px; min-width: 40px; border: 0; padding: 0; background: none; outline: none; font-family: inherit; font-size: var(--ds-font-body-m-16-normal-regular-size, 16px); line-height: var(--ds-font-body-m-16-normal-regular-line, 24px); color: #333333; }
-  .snap-ci-input::placeholder { color: #616161; }
+  .snap-ci-caption { font-size: var(--ds-font-caption-l-12-normal-regular-size, 12px); line-height: var(--ds-font-caption-l-12-normal-regular-line, 16px); letter-spacing: var(--ds-typography-letter-spacing-s, .5px); color: var(--ds-color-form-field-filled-default-label-text-color, #616161); }
+  .snap-ci-input { flex: 1 1 90px; min-width: 40px; border: 0; padding: 0; background: none; outline: none; font-family: inherit; font-size: var(--ds-font-body-m-16-normal-regular-size, 16px); line-height: var(--ds-font-body-m-16-normal-regular-line, 24px); letter-spacing: var(--ds-typography-letter-spacing-s, .5px); color: #333333; }
+  /* плейсхолдер в кадре — цвет in-fill текста #333 (Input text → input-text-color), не серый #616161 */
+  .snap-ci-input::placeholder { color: #333333; }
   .snap-ci--focus .snap-ci-caption { color: var(--ds-color-form-field-filled-focus-label-text-color, #448aff); }
   .snap-ci--focus .ds-chips-input__frame { border-color: var(--ds-color-form-field-filled-focus-border-color, #448aff); }
   .snap-ci--error .snap-ci-caption { color: var(--ds-color-text-negative, #ff5252); }
   .snap-ci--error .ds-chips-input__frame { border-color: var(--ds-color-form-field-filled-error-border-color, #ff5252); }
   .snap-ci--error .snap-ci-support { color: var(--ds-color-text-negative, #ff5252); }
   .snap-ci--hover .ds-chips-input__frame { background: var(--ds-color-form-field-filled-hover-input-background-hover, #f5f5f5); border-color: var(--ds-color-form-field-filled-hover-border-color, #9e9e9e); }
-  .snap-ci--disable .ds-chips-input__frame { background: #f5f5f5; border-color: #e0e0e0; }
+  /* Error+Hover: фон hover, но рамка остаётся красной error (иначе hover-правило перекрывало error) */
+  .snap-ci--error.snap-ci--hover .ds-chips-input__frame { background: var(--ds-color-form-field-filled-hover-input-background-hover, #f5f5f5); border-color: var(--ds-color-form-field-filled-error-border-color, #ff5252); }
+  /* Disable: рамка кадра #EBEBEB (filled/disable/border-color), фон #F5F5F5 */
+  .snap-ci--disable .ds-chips-input__frame { background: #f5f5f5; border-color: #ebebeb; }
+  /* Витрина, примеры и поведение — статичные кадры: hover не меняет замороженные состояния,
+     но элементы остаются выделяемыми (никакого pointer-events: none) */
+  .snap-ci--focus { --ci-border: #448aff; --ci-bg: #f8f9fc; }
+  .snap-ci--error { --ci-border: #ff5252; --ci-bg: #f8f9fc; }
+  .snap-ci--hover { --ci-border: #9e9e9e; --ci-bg: #f5f5f5; }
+  .snap-ci--error.snap-ci--hover { --ci-border: #ff5252; --ci-bg: #f5f5f5; }
+  .snap-ci--disable { --ci-border: #ebebeb; --ci-bg: #f5f5f5; }
+  .snap-ciact__form--focus { --ff-border: #448aff; }
+  .panel[data-vpanel="chips-input"] .snap-sect .ds-chips-input:hover,
+  .panel[data-vpanel="examples"] .snap-ciex .ds-chips-input:hover,
+  .panel[data-vpanel="action"] .snap-ciact .ds-chips-input:hover { background: transparent; border-color: transparent; }
+  .panel[data-vpanel="chips-input"] .snap-sect .ds-chips-input:hover .ds-chips-input__frame,
+  .panel[data-vpanel="examples"] .snap-ciex .ds-chips-input:hover .ds-chips-input__frame,
+  .panel[data-vpanel="action"] .snap-ciact .ds-chips-input:hover .ds-chips-input__frame { background: var(--ci-bg, #f8f9fc); border-color: var(--ci-border, #e0e0e0); }
+  .panel[data-vpanel="chips-input"] .snap-sect .ds-chips:hover,
+  .panel[data-vpanel="examples"] .snap-ciex .ds-chips:hover,
+  .panel[data-vpanel="action"] .snap-ciact .ds-chips:hover { background: #ffffff; border-color: #e0e0e0; }
+  .panel[data-vpanel="chips-input"] .snap-sect .ds-chips--disabled:hover,
+  .panel[data-vpanel="action"] .snap-ciact .ds-chips--disabled:hover { border-color: #ebebeb; background: #ffffff; }
+  .panel[data-vpanel="action"] .snap-ciact .snap-ciact__edit:hover { border-color: #448aff; }
+  .panel[data-vpanel="action"] .snap-ciact .ds-input__frame:hover { background: var(--ff-bg, #f8f9fc); border-color: var(--ff-border, #e0e0e0); }
+  .panel[data-vpanel="action"] .snap-ciact .ds-select-item:hover { background: transparent; }
+  .panel[data-vpanel="action"] .snap-ciact .ds-select-item.snap-ciact__item--hover:hover { background: #f5f5f5; }
   .snap-ci--disable .snap-ci-caption, .snap-ci--disable .snap-ci-input { color: #9e9e9e; }
+  /* в Disable плейсхолдер тоже #9E9E9E (filled/disable/input-text-color), а не #333 */
+  .snap-ci--disable .snap-ci-input::placeholder { color: #9e9e9e; }
   .snap-ci--disable .ds-chips--outlined { border-color: #ebebeb; color: #9e9e9e; }
   /* иконка поля — собственный слот компонента ds-chips-input__icon (20×20 из css); цвета состояний — обвязка */
   .snap-ci--error .ds-chips-input__icon { color: var(--ds-color-text-negative, #ff5252); }
   .snap-ci--disable .ds-chips-input__icon { color: #9e9e9e; }
+
+  /* ── Chips Input examples, кадр 60567:51660 ── */
+  .panel[data-vpanel="examples"] { max-width: none; width: max-content; }
+  .snap-ciex { display: flex; gap: 64px; align-items: flex-start; }
+  .snap-ciex__col { display: flex; flex-direction: column; gap: 16px; }
+  .snap-ciex__h { margin: 0; padding-bottom: 6px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 20px; line-height: 28px; letter-spacing: .5px; font-weight: 500; color: var(--ds-color-text-primary); }
+  .snap-ciex__form { display: flex; flex-direction: column; gap: 16px; padding: 8px; }
+  .snap-ciex__body { margin: 0; max-width: 500px; font-size: 14px; line-height: 20px; color: var(--ds-color-text-secondary, #616161); }
+  .snap-ciex__t14 { margin: 0; font-size: 14px; line-height: 20px; letter-spacing: .5px; color: var(--ds-color-text-primary); }
+  .snap-ciex__dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+  .snap-ciex__dot--red { background: var(--ds-color-icon-negative, #ff5252); }
+  .snap-ciex__dot--orange { background: var(--ds-color-icon-warning, #ffa726); }
+  .snap-ciex__dot--blue { background: var(--ds-color-icon-accent, #448aff); }
+  .snap-ciex__dot--violet { background: var(--ds-color-icon-violet, #b15cff); }
+  /* поле + выпадающий список — одним блоком: в кадре список вплотную к полю (зазор 2) */
+  .snap-ciex__pair { display: flex; flex-direction: column; gap: 2px; }
+  .snap-ciex__avatar { width: 20px; height: 20px; border-radius: 50%; background: var(--ds-color-brand-accent-10, #f0f5ff); display: inline-flex; align-items: center; justify-content: center; flex: none; color: var(--ds-color-icon-secondary, #616161); }
+  .panel[data-vpanel="examples"] .ds-textarea { width: 452px; }
+  .panel[data-vpanel="examples"] .ds-chips-input { width: 100%; }
+  .panel[data-vpanel="examples"] .ds-expansion .ds-chips-input--s { width: 452px; }
+  /* в css Expansion content жёсткие 597px — внутри 500-й панели вылезало на 97px */
+  .panel[data-vpanel="examples"] .ds-expansion-content { width: 100%; box-sizing: border-box; }
+
+  /* ── Chips Input (Поведение), кадр 59527:36473 ── */
+  .panel[data-vpanel="action"] { max-width: none; width: max-content; }
+  .snap-ciact { display: flex; flex-direction: column; gap: 40px; }
+  .snap-ciact__block { display: flex; flex-direction: column; gap: 8px; }
+  .snap-ciact__h { margin: 0; padding: 4px 0; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-weight: 500; letter-spacing: .5px; color: var(--ds-color-text-primary); }
+  .snap-ciact__h--m { font-size: 24px; line-height: 32px; }
+  .snap-ciact__h--s { font-size: 18px; line-height: 24px; }
+  .snap-ciact__desc { margin: 0; width: 720px; font-size: 14px; line-height: 20px; letter-spacing: .5px; color: var(--ds-color-text-secondary, #616161); }
+  .snap-ciact__row { display: flex; align-items: flex-start; margin-top: 20px; }
+  .snap-ciact__cell { position: relative; flex: none; }
+  /* стрелки-аннотации кадра */
+  .snap-ciact__arrow { position: relative; flex: none; width: 50px; height: 24px; margin-top: 24px; }
+  .snap-ciact__arrow::before { content: ''; position: absolute; left: 3px; right: 9px; top: 11px; border-top: 1.5px solid var(--ds-color-icon-secondary, #616161); }
+  .snap-ciact__arrow::after { content: ''; position: absolute; right: 3px; top: 6.5px; border-left: 8px solid var(--ds-color-icon-secondary, #616161); border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; }
+  .snap-ciact__arrow--64 { margin-top: 32px; }
+  .snap-ciact__arrow--multi { margin-top: 52px; }
+  .snap-ciact__note { position: absolute; left: 1px; width: 48px; font-size: 10px; line-height: 10px; text-align: center; color: var(--ds-color-text-secondary, #616161); }
+  .snap-ciact__note--below { top: 15px; }
+  .snap-ciact__note--above { bottom: 15px; }
+  /* Autocomplete form — 48px, подпись внутри */
+  .snap-ciact__form { width: 400px; }
+  .panel[data-vpanel="action"] .ds-chips-input { width: 400px; }
+  /* в css компонента content с flex-wrap: wrap — в однострочных кадрах чипы переносились (380 > 374) */
+  .panel[data-vpanel="action"] .snap-ciact__cell > .ds-chips-input .ds-chips-input__content { flex-wrap: nowrap; }
+  /* и сами чипы не сжимаем — иначе текст ломается на две строки */
+  .panel[data-vpanel="action"] .snap-ciact__cell .ds-chips { flex: 0 0 auto; }
+  .snap-ciact__form .ds-input__frame { height: 48px; padding: 4px 12px; }
+  .snap-ciact__form .ds-input__content { justify-content: flex-start; gap: 0; }
+  .snap-ciact__form--focus .ds-input__frame { border-color: var(--ds-color-form-field-filled-focus-border-color, #448aff); }
+  .snap-ciact__form--focus .ds-input__label { color: #448aff; }
+  .snap-ciact__form--empty .ds-input__frame { padding: 12px; }
+  .snap-ciact__form--empty .ds-input__content { justify-content: center; }
+  .snap-ciact__form--empty .ds-input__label { font-size: 16px; line-height: 24px; letter-spacing: .5px; color: #616161; }
+  .snap-ciact__form .ds-input__field { flex: none; }
+  /* Input Empty (Variant=Empty): одна строка 16/24 #616161 по центру 48-го поля */
+  .snap-ciact__line16 .ds-input__frame { padding: 12px; }
+  .snap-ciact__line16 .ds-input__content { justify-content: center; }
+  .snap-ciact__line-text { font-size: 16px; line-height: 24px; letter-spacing: .5px; color: #616161; }
+  /* строка ввода Populated: каретка + текст/плейсхолдер 16/24 */
+  .snap-ciact__inline { display: flex; align-items: center; font-size: 16px; line-height: 24px; letter-spacing: .5px; color: #333333; }
+  .snap-ciact__caret16 { color: #333333; }
+  .snap-ciact__caret-ph { font-size: 16px; line-height: 24px; letter-spacing: .5px; color: var(--ds-color-text-placeholder, #d6d6d6); }
+  .snap-ciact__ph-dark { font-size: 16px; line-height: 24px; letter-spacing: .5px; color: #333333; }
+  .snap-ciact__ph { color: var(--ds-color-text-placeholder, #d6d6d6); }
+  /* выпадающий список вплотную к полю */
+  .snap-ciact__pair { display: flex; flex-direction: column; gap: 2px; }
+  .snap-ciact__pair .ds-select-container { width: 400px; }
+  .ds-select-item.snap-ciact__item--hover { background: #f5f5f5; }
+  .snap-ciact__none { display: flex; align-items: center; height: 36px; padding: 0 16px; box-sizing: border-box; font-size: 14px; line-height: 20px; letter-spacing: .5px; color: #9e9e9e; }
+  /* многострочные поля */
+  .snap-ciact__lines { flex-direction: column; align-items: stretch; gap: 8px; }
+  .snap-ciact__line { display: flex; align-items: center; gap: 8px; min-height: 32px; }
+  .snap-ciact__line .ds-chips { position: relative; z-index: 1; }
+  .snap-ciact__insert { width: 4px; height: 24px; border-radius: 2px; background: var(--ds-color-text-accent, #448aff); flex: none; }
+  .snap-ciact__value { font-size: 16px; line-height: 24px; letter-spacing: .5px; color: #333333; white-space: nowrap; }
+  .snap-ciact__clip { position: relative; z-index: 0; width: 231px; height: 24px; margin-left: -32px; overflow: hidden; white-space: nowrap; font-size: 16px; line-height: 24px; letter-spacing: .5px; color: #333333; }
+  /* редактируемый чип — синяя рамка и текст */
+  .snap-ciact__edit { border-color: var(--ds-color-text-accent, #448aff); }
+  .snap-ciact__edit .ds-chips__chip-text,
+  .snap-ciact__edit .ds-chips__icon { color: var(--ds-color-text-accent, #448aff); }
+  .snap-ciact__caret { color: var(--ds-color-text-accent, #448aff); font-size: 14px; line-height: 20px; }
+  /* перетаскивание */
+  .snap-ciact__drag { position: absolute; left: 109px; top: 48px; display: flex; align-items: center; z-index: 3; }
+  .snap-ciact__drag .ds-chips { box-shadow: 0 2px 6px rgba(0, 0, 0, .16); }
+  .snap-ciact__cursor { position: absolute; z-index: 4; }
+  .snap-ciact__cursor--text { left: 169px; top: 31px; }
+  .snap-ciact__cursor--hand { left: 100px; bottom: 4px; }
+  .snap-ciact__drag svg { position: static; flex: none; }
+  /* дуга «Добавить» → поле */
+  .snap-ciact__jump { position: absolute; left: 400px; top: 34px; z-index: 2; }
+  /* в кадре у Select form подпись внутри рамки (в css компонента — строкой в ряд) */
+  .panel[data-vpanel="examples"] .ds-select-form__input-frame { flex-direction: column; align-items: flex-start; justify-content: center; height: 56px; gap: 2px; position: relative; padding-right: 40px; }
+  .panel[data-vpanel="examples"] .ds-select-form__icon { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
   .snap-ci__support { display: flex; justify-content: space-between; padding: 0 12px; width: 100%; box-sizing: border-box; }
   .snap-ci-support { font-size: 12px; line-height: 16px; color: var(--ds-color-form-field-filled-default-support-text-color, #616161); }
   .snap-ci-hint { font-size: 12px; line-height: 16px; color: var(--ds-color-form-field-filled-default-support-text-color, #616161); }
@@ -72,6 +197,8 @@
   <div class="ds-tabs" role="tablist" aria-label="Chips Input">
     <button class="ds-tab ds-tab--active" role="tab" aria-selected="true" data-vtab="basic">Basic example</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="chips-input">Chips Input</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="examples">Chips Input examples</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="action">Chips Input (Поведение)</button>
   </div>
 
   <!-- 2. Chips Input (компонент 52916:14622, 16 вариантов) -->
@@ -103,7 +230,7 @@
                 <div class="ds-chips-input__content">
                   <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text 1</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
                   <span class="snap-ci-input">|</span>
-                  <span class="ds-chips-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg><use href="#ic-info"/></svg></span></span>
+                  <span class="ds-chips-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span>
                 </div>
               </div>
             </div>
@@ -229,7 +356,538 @@
           </div>
         </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) витрина — 16 вариантов, расположение как в Figma: колонка M (8 вариантов) слева, колонка S (8 вариантов) справа; состав M: кадр (пад 4/12/8/12, r12), подпись «Label» 12/16, строка [чип «Chip text 1» + ввод + Element right 20 (info/close)]; у S подписи нет; поддержка (Support) в компоненте скрыта — не выводим; (б) тексты канвы: «Label», «Chip text 1», «Placeholder», «Text»; каретка «|» в Focus, «Text|» в Focus+Value; правые иконки ⓘ (Default/Hover/Focus/Error/Disable) и ✕ (Focus+Value/Focus+Placeholder); (в) css выгрузки не покрывает подпись 12/16, цвета Focus/Error — обвязка токенами (пробел ДС, журнал №126); высоты полей на стенде: M 66 (кадр 64 + рамка 2 — border сверх кадра), S 38 (в Figma 36: у S-кадра в css нет паддингов 6/12, используется M 4/8; S-чип 24 — уже fixes п.40); Disable: рамка кадра #E0E0E0 (в Figma; #EBEBEB — рамка чипа); плейсхолдер: Figma #333, токен Text/Placeholder #D6D6D6, стенд #616161 — решить в Фигме; зазор ввод↔иконка 8 на стенде против 0 в Figma; в css два класса — `.ds-chips-input` и `.ds-chips-input-2` — второй без применения, решить в ДС; (г) ховер заморожен стенд-классом snap-ci--hover (живой ховер живёт в кадре — fixes №136), Error+Hover — оба класса; (д) иконки — инстансы «Icon size» в Figma: поле (Element right) — Size=20, крестик чипа — Size=20 (M) / Size=16 (S); глифы на стенде обёрнуты в ds-icon-size--5x (поле, чип M) и ds-icon-size--4x (чип S), в живом примере у триггерной иконки поля — ds-icon-size--state; (е) примеры «Поведение» (2304×2983) и «Примеры» (1298×928) не воспроизводим — динамический компонент (Basic = живой, §4); выпадающие списки — компонент Select (см. Select_DS); аватары и форма — вне стенда. Журнал №126, №155, №156.</p>
+    <p class="snap-note">Пометки для ревью: (а) витрина — 16 вариантов, расположение как в Figma: колонка M (8 вариантов) слева, колонка S (8 вариантов) справа; состав M: кадр (пад 4/12/8/12, r12), подпись «Label» 12/16, строка [чип «Chip text 1» + ввод + Element right 20 (info/close)]; у S подписи нет; поддержка (Support) в компоненте скрыта — не выводим; (б) тексты канвы: «Label», «Chip text 1», «Placeholder», «Text»; каретка «|» в Focus, «Text|» в Focus+Value; правые иконки сверены по вариантам: ⓘ — Default, Hover, Error, Error+Hover, Disable и S·Focus (в Figma у S-Focus стоит info); ✕ — M·Focus, M/S·Focus+Placeholder, M/S·Focus+Value; (в) css выгрузки не покрывает подпись 12/16, цвета Focus/Error — обвязка токенами (пробел ДС, журнал №126); высоты полей на стенде: M 66 (кадр 64 + рамка 2 — border сверх кадра), S 38 (в Figma 36 — те же +2 border; паддинги S-кадра 6/12/6/12 по токенам Form field/S, чип по центру — правка 17.11.2026, журнал №279; S-чип 24 — уже fixes п.40); Disable: рамка кадра #EBEBEB (токен filled/disable/border-color), фон #F5F5F5, подпись/текст/плейсхолдер/иконки #9E9E9E; плейсхолдер в остальных состояниях — #333 (цвет in-fill текста, не серый); Error+Hover — фон #F5F5F5 при красной рамке #FF5252; зазор ввод↔иконка 8 на стенде против 0 в Figma; в css два класса — `.ds-chips-input` и `.ds-chips-input-2` — второй без применения, решить в ДС; (г) ховер заморожен стенд-классом snap-ci--hover (живой ховер живёт в кадре — fixes №136), Error+Hover — оба класса; (д) иконки — инстансы «Icon size» в Figma: поле (Element right) — Size=20, крестик чипа — Size=20 (M) / Size=16 (S); глифы на стенде обёрнуты в ds-icon-size--5x (поле, чип M) и ds-icon-size--4x (чип S), в живом примере у триггерной иконки поля — ds-icon-size--state; ⚠ для &lt;symbol&gt; у path обязателен fill="currentColor": CSS-правило `.ds-chips-input__icon svg path { fill: currentColor }` не достаёт до shadow-DOM &lt;use&gt;, и без атрибута иконка красится в чёрный при верном computed color (журнал №279); (е) кадр примеров «Примеры» (60567:51660) вынесен в отдельную вкладку «Chips Input examples» (16.11.2026), кадр «Поведение» (2304×2983) не воспроизводим — динамический компонент (Basic = живой, §4); выпадающие списки — компонент Select (см. Select_DS). Журнал №126, №155, №156, №278.</p>
+  </div>
+
+  <!-- 4. Chips Input (Поведение) — кадр Figma 59527:36473: пять сценариев работы -->
+  <div class="panel" data-vpanel="action" role="tabpanel" hidden>
+    <div class="snap-ciact">
+
+      <div class="snap-ciact__block">
+        <p class="snap-ciact__h snap-ciact__h--m">Free Input</p>
+        <p class="snap-ciact__desc">Пользователь может вводить произвольные значения. Выпадающего списка вариантов нет. Значение преобразуется в Chip после клика на Enter или запятой. После создания Chip фокус остается в поле ввода, чтобы пользователь мог продолжить добавлять значения.</p>
+        <div class="snap-ciact__row">
+          <div class="snap-ciact__cell snap-ciact__form snap-ciact__line16">
+            <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="snap-ciact__line-text">Отправлять на e-mail</span></div></div></div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__form snap-ciact__form--focus">
+            <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Отправлять на e-mail</span><span class="snap-ciact__inline"><span class="snap-ciact__caret16">|</span><span class="snap-ciact__ph">Введите почту</span></span></div></div></div>
+          </div>
+          <div class="snap-ciact__arrow"><span class="snap-ciact__note snap-ciact__note--below">Enter<br>Запятая</span></div>
+          <div class="snap-ciact__cell snap-ciact__form snap-ciact__form--focus">
+            <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Отправлять на e-mail</span><span class="snap-ciact__inline">asmirnova@iikosoftware.com|</span></div></div></div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Отправлять на e-mail</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">asmirnova@iikosoftware.com</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="snap-ciact__caret-ph">|</span><span class="snap-ciact__ph-dark">Placeholder</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Отправлять на e-mail</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">asmirnova@iikosoftware.com</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="snap-ciact__ph-dark">Placeholder</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ciact__block">
+        <p class="snap-ciact__h snap-ciact__h--m">Autocomplete</p>
+        <p class="snap-ciact__desc">Пользователь выбирает значения из списка. При активации поля открывается выпадающее меню с доступными вариантами. Пользователь может искать значения с помощью ввода текста. Выбранные значения преобразуются в Chip и исключаются из списка доступных вариантов.</p>
+        <div class="snap-ciact__row">
+          <div class="snap-ciact__cell snap-ciact__form snap-ciact__form--empty">
+            <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span></div></div></div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="snap-ciact__form snap-ciact__form--focus">
+              <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span><span class="ds-input__field">|</span></div></div></div>
+            </div>
+            <div class="ds-select-container">
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Какао</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Кофе</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молоко</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молочный коктейль</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Мороженое</span></span></div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="snap-ciact__form snap-ciact__form--focus">
+              <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span><span class="ds-input__field">М|</span></div></div></div>
+            </div>
+            <div class="ds-select-container">
+              <div class="ds-select-item ds-select-item--false snap-ciact__item--hover"><span class="ds-select-item__content"><span class="ds-select-item__label">Молоко</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молочный коктейль</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Мороженое</span></span></div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Товары</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Молоко</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="snap-ci-input">|</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Товары</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Молоко</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="snap-ci-input">|</span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-select-container">
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Какао</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Кофе</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молочный коктейль</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Мороженое</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ciact__block">
+        <p class="snap-ciact__h snap-ciact__h--s">Нельзя создать новую категорию</p>
+        <p class="snap-ciact__desc">Если введенное значение отсутствует в списке, отображается состояние «Ничего не найдено». Пользователь может только выбрать существующий вариант. Введенный текст не преобразуется в Chip.</p>
+        <div class="snap-ciact__row">
+          <div class="snap-ciact__cell snap-ciact__form snap-ciact__form--empty">
+            <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span></div></div></div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="snap-ciact__form snap-ciact__form--focus">
+              <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span><span class="ds-input__field">|</span></div></div></div>
+            </div>
+            <div class="ds-select-container">
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Какао</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Кофе</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молоко</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молочный коктейль</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Мороженое</span></span></div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="snap-ciact__form snap-ciact__form--focus">
+              <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span><span class="ds-input__field">Мясо|</span></div></div></div>
+            </div>
+            <div class="ds-select-container">
+              <div class="snap-ciact__none">Ничего не найдено</div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__form snap-ciact__form--empty">
+            <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ciact__block">
+        <p class="snap-ciact__h snap-ciact__h--s">Можно создать новую категорию</p>
+        <p class="snap-ciact__desc">Если введенное значение отсутствует в списке, пользователю предлагается создать новый вариант. Новые значения могут быть созданы через действие «Добавить». Создание также может быть подтверждено клавишей Enter или запятой. После создания новой категории фокус остается в поле ввода, чтобы пользователь мог продолжить добавлять значения.</p>
+        <div class="snap-ciact__row">
+          <div class="snap-ciact__cell snap-ciact__form snap-ciact__form--empty">
+            <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span></div></div></div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="snap-ciact__form snap-ciact__form--focus">
+              <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span><span class="ds-input__field snap-ciact__ph">Добавьте товары</span></div></div></div>
+            </div>
+            <div class="ds-select-container">
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Какао</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Кофе</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молоко</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молочный коктейль</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Мороженое</span></span></div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow"></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="snap-ciact__form snap-ciact__form--focus">
+              <div class="ds-input ds-input--m"><div class="ds-input__frame"><div class="ds-input__content"><span class="ds-input__label">Товары</span><span class="ds-input__field">Мясо|</span></div></div></div>
+            </div>
+            <div class="ds-select-container">
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Добавить</span></span></div>
+            </div>
+            <svg class="snap-ciact__jump" width="66" height="32" viewBox="0 0 66 32" fill="none" aria-hidden="true"><path d="M2 30C20 30 24 6 54 6" stroke="#616161" stroke-width="1.5"/><path d="M64 6l-9-4v8z" fill="#616161"/></svg>
+          </div>
+          <div class="snap-ciact__arrow"><span class="snap-ciact__note snap-ciact__note--above">Enter<br>Запятая</span></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Товары</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Мясо</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="snap-ci-input">|</span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-select-container">
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Какао</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Кофе</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молоко</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Молочный коктейль</span></span></div>
+              <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__content"><span class="ds-select-item__label">Мороженое</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ciact__block">
+        <p class="snap-ciact__h snap-ciact__h--s">Редактирование chips внутри chips input</p>
+        <p class="snap-ciact__desc">Один клик по chip переводит его в режим редактирования. Chip остается на своем месте, внутри появляется текстовый курсор. При необходимости открывается выпадающий список. Enter и потеря фокуса — сохранить изменения. Если текст очищен полностью — chip удаляется.</p>
+        <div class="snap-ciact__row">
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Товары</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Молоко</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Йогурт</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Сметана</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--64"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Товары</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Молоко</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Йогурт</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Сметана</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+            <svg class="snap-ciact__cursor snap-ciact__cursor--text" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M5 2h8M9 2v14M5 16h8" stroke="#333333" stroke-width="1.6"/></svg>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--64"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Товары</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Молоко</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined snap-ciact__edit"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Йогурт</span><span class="snap-ciact__caret">|</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Сметана</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--64"></div>
+          <div class="snap-ciact__cell snap-ciact__pair">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Товары</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Молоко</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined snap-ciact__edit"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Йогурт</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Сметана</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="ds-select-container">
+              <div class="ds-select-item ds-select-item--false snap-ciact__item--hover"><span class="ds-select-item__content"><span class="ds-select-item__label">Йогурт</span></span></div>
+            </div>
+            <svg class="snap-ciact__cursor snap-ciact__cursor--hand" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 2.5l11 7.2-4.6.9 2.7 5.5-2 1-2.7-5.4-3 3.3z" fill="#ffffff" stroke="#333333" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--64"><span class="snap-ciact__note snap-ciact__note--above">Enter</span></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Товары</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Молоко</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined snap-ciact__edit"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Йогурт</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Сметана</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ciact__block">
+        <p class="snap-ciact__h snap-ciact__h--s">Перетаскивание</p>
+        <p class="snap-ciact__desc">Пользователь может изменить порядок Chips с помощью перетаскивания. Во время перетаскивания между Chips отображается индикатор позиции вставки, показывающий место, куда будет перемещен элемент. После отпускания указателя Chip занимает новую позицию, а компонент Chips input возвращается в дефолтное состояние.</p>
+        <div class="snap-ciact__row">
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--64"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="snap-ciact__insert"></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="snap-ciact__drag">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3l12 8-5 1 3 6-2.4 1.2-3-6-3.2 3.6z" fill="#ffffff" stroke="#333333" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--64"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ciact__block">
+        <p class="snap-ciact__h snap-ciact__h--s">Отображение курсора</p>
+        <p class="snap-ciact__desc">При получении фокуса текстовый курсор отображается после последнего Chip. Поле ввода располагается в конце списка Chip и переносится на новую строку, если на текущей строке недостаточно места. Минимальная ширина поля ввода 150px.</p>
+        <div class="snap-ciact__row">
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--64"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content snap-ciact__lines">
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  </div>
+                  <div class="snap-ciact__line"><span class="snap-ci-input">|</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="snap-ciact__row">
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content snap-ciact__lines">
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  </div>
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Роза</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Пчела</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--multi"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content snap-ciact__lines">
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  </div>
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Роза</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Пчела</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="snap-ci-input">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--multi"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci snap-ci--focus">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content snap-ciact__lines">
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  </div>
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Роза</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Пчела</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="snap-ciact__clip">Лепесток, Пчела и Шершень|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snap-ciact__arrow snap-ciact__arrow--multi"></div>
+          <div class="snap-ciact__cell">
+            <div class="ds-chips-input snap-ci">
+              <div class="ds-chips-input__frame"><span class="snap-ci-caption">Участвуют в акции</span>
+                <div class="ds-chips-input__content snap-ciact__lines">
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Ромашка</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Василёк</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Майский жук</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  </div>
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Роза</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Пчела</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  </div>
+                  <div class="snap-ciact__line">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Лепесток, Пчела и Шершень</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="snap-note">Пометки для ревью: (а) вкладка повторяет кадр Figma «Chips Input action» (59527:36473) — семь блоков и все кадры-шаги: Free Input (Input 48: пусто → каретка → e-mail; Chips Input 64: Focus → Default), Autocomplete (поле → список 5 → ввод «М» + список 3 с ховером «Молоко» → чип «Молоко» + каретка → Focus + список 4 без «Молоко»), «Нельзя создать новую категорию» (поле → список 5 → «Мясо|» + «Ничего не найдено» → пустое поле), «Можно создать новую категорию» (поле → placeholder «Добавьте товары» + список 5 → «Мясо|» + пункт «Добавить» → чип «Мясо» + список 5), «Редактирование…» (три чипа → курсор-текст на «Йогурт» → чип в правке с каретой → чип в правке + список «Йогурт» с ховером → чип в правке), «Перетаскивание» (исходный порядок → индикатор вставки + перетаскиваемый чип с курсором → новый порядок), «Отображение курсора» (каретка переносится на вторую строку; строка «Роза/Пчела»: каретка после последнего чипа → ввод «Лепесток, Пчела и Шершень» с обрезкой под чипом → новый чип на третьей строке); (б) заголовки 24/32 у первых двух блоков и 18/24 у остальных, описания — дословно из канвы (Body S 14/20 #616161), ширина 720; (в) поля 400, выпадашки — Select (Container) 8/8 с пунктами по 36, зазор «поле ↔ список» 2; (г) аннотации кадра (стрелки 45, подписи «Enter / Запятая», курсоры I-beam и рука, дуга от «Добавить» к полю) воспроизведены стендовыми элементами, ховер пункта — #F5F5F5; (д) в кадре у полей скрыт Element right (ⓘ) — поэтому иконок в полях нет; (е) живое поведение — только на «Basic example», здесь статичные кадры (`pointer-events: none`). Журнал №126, №155, №156, №279.</p>
+  </div>
+
+  <!-- 3. Chips Input examples — кадр Figma 60567:51660 -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden>
+    <div class="snap-ciex">
+
+      <div class="snap-ciex__col" style="width:500px">
+        <p class="snap-ciex__h">Внутри формы</p>
+        <div class="ds-card ds-card--outlined" style="width:500px">
+          <div class="ds-card__content">
+            <div class="snap-ciex__form">
+              <div class="ds-input ds-input--m" style="width:452px">
+                <div class="ds-input__frame">
+                  <div class="ds-input__content">
+                    <span class="ds-input__label">Название рассылки</span>
+                    <span class="ds-input__field">Результаты прошлой недели</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ds-textarea ds-textarea--populated">
+                <div class="ds-textarea__input-frame" style="height:auto;min-height:96px;flex-direction:column;align-items:flex-start;gap:2px;">
+                  <span class="ds-textarea__label">Описание</span>
+                  <span class="snap-ciex__t14">Еженедельная рассылка с основной информацией (создана автоматически)</span>
+                </div>
+                <span class="ds-textarea__hint" style="justify-content:flex-end;color:var(--ds-color-text-secondary,#616161);">150/300</span>
+              </div>
+              <div class="ds-select-form ds-select-form--m" style="width:452px">
+                <div class="ds-select-form__input-frame"><span class="ds-select-form__label">Отправлять сотрудникам</span><span class="ds-select-form__input">Все</span><span class="ds-select-form__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 7 5 6 5-6H5Z"/></svg></span></span></div>
+              </div>
+              <div class="ds-chips-input snap-ci">
+                <div class="ds-chips-input__frame"><span class="snap-ci-caption">Отправлять на e-mail</span>
+                  <div class="ds-chips-input__content">
+                    <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">asmirnova@iikosoftware.com</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                    <input class="snap-ci-input" placeholder="Placeholder">
+                    <span class="ds-chips-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-info"/></svg></span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="snap-ciex__h" style="margin-top:16px;">Пример в размере S</p>
+        <p class="snap-ciex__body">В элементах с высокой плотностью информации, а также внутри контейнеров с собственным заголовком (Modal, Accordion), где отображение label у поля не требуется.</p>
+        <div class="ds-expansion ds-expansion--info" style="width:500px">
+          <div class="ds-expansion__header">
+            <span class="ds-expansion__title">Expansion panel</span>
+            <span class="ds-expansion__action">Подробнее <span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m5 12 5-6 5 6H5Z"/></svg></span></span>
+          </div>
+          <div class="ds-expansion-content">
+            <div class="ds-chips-input ds-chips-input--s snap-ci snap-ci--s">
+              <div class="ds-chips-input__frame">
+                <div class="ds-chips-input__content">
+                  <span class="ds-chips ds-chips--outlined ds-chips--s"><span class="ds-chips__chip-container"><span class="ds-chips__chip-text">Chip text 1</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--4x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+                  <input class="snap-ci-input" placeholder="Placeholder">
+                  <span class="ds-chips-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-info"/></svg></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ciex__col" style="width:436px">
+        <p class="snap-ciex__h">Chips с аватарами</p>
+        <div class="snap-ciex__pair">
+        <div class="ds-chips-input snap-ci snap-ci--focus" style="width:427px">
+          <div class="ds-chips-input__frame"><span class="snap-ci-caption">Сотрудники</span>
+            <div class="ds-chips-input__content">
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__icon-size"><span class="snap-ciex__avatar"><svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1.5c-2.5 0-4.5 1.4-4.5 3v.5h9v-.5c0-1.6-2-3-4.5-3Z"/></svg></span></span><span class="ds-chips__chip-text">Петров Роман</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+              <input class="snap-ci-input" placeholder="Placeholder">
+              <span class="ds-chips-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-info"/></svg></span></span>
+            </div>
+          </div>
+        </div>
+        <div class="ds-select-container" style="width:427px">
+          <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__element-left"><span class="ds-icon-size ds-icon-size--5x"><span class="snap-ciex__avatar"><svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1.5c-2.5 0-4.5 1.4-4.5 3v.5h9v-.5c0-1.6-2-3-4.5-3Z"/></svg></span></span></span><span class="ds-select-item__content"><span class="ds-select-item__label">Иванова Мария</span></span></div>
+          <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__element-left"><span class="ds-icon-size ds-icon-size--5x"><span class="snap-ciex__avatar"><svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1.5c-2.5 0-4.5 1.4-4.5 3v.5h9v-.5c0-1.6-2-3-4.5-3Z"/></svg></span></span></span><span class="ds-select-item__content"><span class="ds-select-item__label">Петров Алексей</span></span></div>
+          <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__element-left"><span class="ds-icon-size ds-icon-size--5x"><span class="snap-ciex__avatar"><svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1.5c-2.5 0-4.5 1.4-4.5 3v.5h9v-.5c0-1.6-2-3-4.5-3Z"/></svg></span></span></span><span class="ds-select-item__content"><span class="ds-select-item__label">Соколова Виктория</span></span></div>
+        </div>
+        </div>
+
+        <p class="snap-ciex__h" style="margin-top:16px;">Chips с выбором цвета</p>
+        <div class="snap-ciex__pair">
+        <div class="ds-chips-input snap-ci snap-ci--focus" style="width:436px">
+          <div class="ds-chips-input__frame"><span class="snap-ci-caption">Цвета</span>
+            <div class="ds-chips-input__content">
+              <span class="ds-chips ds-chips--outlined"><span class="ds-chips__chip-container"><span class="ds-chips__icon-size"><span class="snap-ciex__dot snap-ciex__dot--red"></span></span><span class="ds-chips__chip-text">Красный</span></span><span class="ds-chips__close"><span class="ds-chips__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-close-20"/></svg></span></span></span></span>
+              <input class="snap-ci-input" placeholder="Placeholder">
+              <span class="ds-chips-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg viewBox="0 0 20 20" fill="currentColor"><use href="#ic-info"/></svg></span></span>
+            </div>
+          </div>
+        </div>
+        <div class="ds-select-container" style="width:436px">
+          <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__element-left"><span class="snap-ciex__dot snap-ciex__dot--orange"></span></span><span class="ds-select-item__content"><span class="ds-select-item__label">Оранжевый</span></span></div>
+          <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__element-left"><span class="snap-ciex__dot snap-ciex__dot--blue"></span></span><span class="ds-select-item__content"><span class="ds-select-item__label">Синий</span></span></div>
+          <div class="ds-select-item ds-select-item--false"><span class="ds-select-item__element-left"><span class="snap-ciex__dot snap-ciex__dot--violet"></span></span><span class="ds-select-item__content"><span class="ds-select-item__label">Фиолетовый</span></span></div>
+        </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="snap-note">Пометки для ревью: (а) вкладка повторяет кадр Figma «Chips Input examples» (60567:51660): левая колонка — «Внутри формы» (Input «Название рассылки» / Textarea «Описание» + счётчик 150/300 / Select form «Отправлять сотрудникам» / Chips Input «Отправлять на e-mail» с чипом asmirnova@iikosoftware.com) и «Пример в размере S» (пояснение «В элементах с высокой плотностью информации…» + Chips Input S внутри Expansion panel); правая — «Chips с аватарами» (чип «Петров Роман» + список «Иванова Мария / Петров Алексей / Соколова Виктория» с аватарами) и «Chips с выбором цвета» (чип «Красный» + список «Оранжевый / Синий / Фиолетовый» с цветными точками); (б) заголовки — компонент «Title variant» H S 20/28 с нижней границей; (в) в обоих правых примерах Chips Input в состоянии Focus (синяя рамка и синий label) + правый слот ⓘ, списки — компонент Select (Container) + Select item с Element select; (г) аватары в Figma — растровые фото, в ДС слота-картинки нет — стоят заглушки-кружки 20; цветные точки — стендовые `.snap-ciex__dot` на токенах (фиолетовый — с фолбэком); (д) в живом компоненте ввод и удаление чипов — на вкладке «Basic example». Журнал №126, №155, №156.</p>
   </div>
 
   <!-- 1. Basic example: живой Chips Input (кадры примеров «Поведение»/«Примеры» не воспроизводим — правило заказчика) -->
@@ -246,14 +904,14 @@
       </div>
     </div>
 
-    <p class="snap-note">Пометки для ревью: (а) живой пример M 280: старт — пустое поле («Placeholder»); ввод + Enter или уход из поля добавляет чип (addOnBlur — как в Material; разметка чипа — из Chips_DS: __chip-container + __close > __icon); Backspace на пустом вводе удаляет последний чип; «✕» чипа удаляет; «✕» поля очищает ввод; пустой ввод — ⓘ; (б) поле — кадр компонента (подпись «Label» 12/16 — обвязка, css не покрывает), чипы — ds-chips--outlined; (в) примеры канвы «Поведение» (2304×2983) и «Примеры» (1298×928) не воспроизводим — компонент динамический (правило §4); сценарии с выпадающими списками — компонент Select (см. Select_DS), аватары и форма — вне стенда. Журнал №126, №155, №156, №257.</p>
+    <p class="snap-note">Пометки для ревью: (а) живой пример M 280: старт — пустое поле («Placeholder»); ввод + Enter или уход из поля добавляет чип (addOnBlur — как в Material; разметка чипа — из Chips_DS: __chip-container + __close > __icon); Backspace на пустом вводе удаляет последний чип; «✕» чипа удаляет; «✕» поля очищает ввод; пустой ввод — ⓘ; (б) поле — кадр компонента (подпись «Label» 12/16 — обвязка, css не покрывает), чипы — ds-chips--outlined; (в) кадры поведения и примеров вынесены в отдельные вкладки: «Chips Input examples» (60567:51660) и «Chips Input (Поведение)» (59527:36473) — добавлены 16.11.2026; сценарии с выпадающими списками — компонент Select (см. Select_DS). Журнал №126, №155, №156, №257, №278.</p>
   </div>
 </div>
 
 <!-- иконки: close 20, info -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="ic-close-20" viewBox="0 0 20 20"><path d="M5.33333 15.8333L4.16667 14.6667L8.83333 10L4.16667 5.33333L5.33333 4.16667L10 8.83333L14.6667 4.16667L15.8333 5.33333L11.1667 10L15.8333 14.6667L14.6667 15.8333L10 11.1667L5.33333 15.8333Z"/></symbol>
-  <symbol id="ic-info" viewBox="0 0 24 24"><path d="M11 17H13V11H11V17ZM12 9C12.2833 9 12.5208 8.90417 12.7125 8.7125C12.9042 8.52083 13 8.28333 13 8C13 7.71667 12.9042 7.47917 12.7125 7.2875C12.5208 7.09583 12.2833 7 12 7C11.7167 7 11.4792 7.09583 11.2875 7.2875C11.0958 7.47917 11 7.71667 11 8C11 8.28333 11.0958 8.52083 11.2875 8.7125C11.4792 8.90417 11.7167 9 12 9ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"/></symbol>
+  <symbol id="ic-close-20" viewBox="0 0 20 20"><path fill="currentColor" d="M5.33333 15.8333L4.16667 14.6667L8.83333 10L4.16667 5.33333L5.33333 4.16667L10 8.83333L14.6667 4.16667L15.8333 5.33333L11.1667 10L15.8333 14.6667L14.6667 15.8333L10 11.1667L5.33333 15.8333Z"/></symbol>
+  <symbol id="ic-info" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17H13V11H11V17ZM12 9C12.2833 9 12.5208 8.90417 12.7125 8.7125C12.9042 8.52083 13 8.28333 13 8C13 7.71667 12.9042 7.47917 12.7125 7.2875C12.5208 7.09583 12.2833 7 12 7C11.7167 7 11.4792 7.09583 11.2875 7.2875C11.0958 7.47917 11 7.71667 11 8C11 8.28333 11.0958 8.52083 11.2875 8.7125C11.4792 8.90417 11.7167 9 12 9ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"/></symbol>
 </svg>
 
 <script>

@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: var(--ds-size-1x);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, 'Roboto', 'Helvetica Neue', Arial, sans-serif);
 }
 .ds-chips-input__label {
   font-size: var(--ds-font-body-m-16-normal-regular-size);
@@ -66,6 +66,14 @@
 .ds-chips-input--s {
   gap: var(--ds-form-field-gap-input-support, 4px);
 }
+/* S: паддинги кадра 6/12/6/12 (Form field/S size/Pad input) — в выгрузке
+   подставлялись M-значения 4/8, из-за чего чип прилипал к верху рамки */
+.ds-chips-input--s .ds-chips-input__frame {
+  padding: var(--ds-form-field-s-size-pad-input-top, 6px)
+           var(--ds-form-field-s-size-pad-input-right, 12px)
+           var(--ds-form-field-s-size-pad-input-bottom, 6px)
+           var(--ds-form-field-s-size-pad-input-left, 12px);
+}
 .ds-chips-input--s .ds-chips-input__icon {
   width: var(--ds-size-5x);
   height: var(--ds-size-5x);
@@ -93,7 +101,7 @@
   flex-direction: column;
   gap: var(--ds-form-field-gap-input-support, 4px);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, 'Roboto', 'Helvetica Neue', Arial, sans-serif);
 }
 .ds-chips-input-2__label {
   font-size: var(--ds-font-body-m-16-normal-regular-size);

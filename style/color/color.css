@@ -1,0 +1,72 @@
+/* Страница Color — отрисовка по данным макета Figma (style/color/color.json). */
+
+* { box-sizing: border-box; }
+
+html,
+body { margin: 0; padding: 0; }
+
+body {
+  background: var(--ds-color-surface-default);
+  color: var(--ds-color-text-primary);
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--ds-size-10x) 0;
+}
+
+.blocks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-size-10x);
+}
+
+/* Блок: контейнер во всю ширину страницы; высоту задаёт скрипт (h × scale). */
+.block {
+  position: relative;
+  width: 100%;
+}
+
+/* «Лист» блока фиксированного размера (w × h), вписывается масштабом. */
+.sheet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.frame {
+  position: absolute;
+  left: 0;
+}
+
+/* Тексты — абсолютно по x/y из данных. */
+.tt {
+  position: absolute;
+  margin: 0;
+  font-family: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* Код цвета в карточке — капсом, как в компоненте макета. */
+.tt--code { text-transform: uppercase; }
+
+/* Карточка: фон, прозрачность и скругление — из данных. */
+.card {
+  position: absolute;
+  box-shadow: inset 0 0 0 1px var(--ds-palette-neutral-100);
+}
+
+/* Подписи колонок палитр — Header S из токенов. */
+.col-label {
+  position: absolute;
+  font: var(--ds-font-header-s-20-normal-medium);
+  letter-spacing: var(--ds-font-header-s-20-normal-medium-spacing);
+  color: var(--ds-color-text-primary);
+  white-space: nowrap;
+}
+

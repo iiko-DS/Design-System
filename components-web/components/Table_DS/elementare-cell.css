@@ -2,7 +2,7 @@
   width: fit-content;
   display: flex;
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-elementare-cell__label {
   font-size: var(--ds-font-caption-l-12-normal-medium-size);

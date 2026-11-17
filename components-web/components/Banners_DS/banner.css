@@ -14,7 +14,7 @@
   border-radius: var(--ds-radius-3x);                     /* 12px */
   background: var(--ds-color-banners-accent-background);  /* #F0F5FF */
   color: var(--ds-color-banners-text-color);              /* #333333 */
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-typography-body-font-size-s);       /* 14px */
   line-height: var(--ds-typography-body-line-height-s);   /* 20px */
   letter-spacing: var(--ds-typography-letter-spacing-s);

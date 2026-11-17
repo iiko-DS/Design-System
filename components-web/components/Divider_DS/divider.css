@@ -13,7 +13,7 @@
   align-items: stretch;
   gap: var(--ds-space-0);
   border-bottom: 1px solid var(--ds-color-divider-solid-default-color); /* #E0E0E0 */
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 
 }
 

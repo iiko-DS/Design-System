@@ -4,7 +4,7 @@
   display: flex;
   gap: var(--ds-size-2-5x);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-tree__icon {
   flex-shrink: 0;

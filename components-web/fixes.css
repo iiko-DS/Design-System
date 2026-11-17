@@ -80,7 +80,7 @@
 .ds-control-panel--control{justify-content:space-between}
 .ds-datepicker__divider{width:100%;height:var(--ds-size-0-25x,1px);flex:none;background:var(--ds-color-stroke-default,#e0e0e0)}
 .ds-datepicker__days{width:100%;padding:var(--ds-size-1x) 0;display:flex;flex-direction:column;align-items:center}
-.ds-datepicker__week-6{height:auto;width:100%;padding:var(--ds-size-0-5x,2px) 0;align-items:center;justify-content:space-between}
+.ds-datepicker__week-6{height:auto;width:100%;padding:var(--ds-size-0-5x,2px) 0;align-items:center;justify-content:center;gap:0}
 .ds-elements--cell{justify-content:center}
 .ds-elements--year,.ds-elements--month{align-items:center}
 .ds-datepicker .ds-elements--cell{cursor:pointer}
@@ -868,3 +868,44 @@ input.ds-search__label::placeholder { color: var(--ds-color-search-focus-text-co
   outline-offset: -1px;
 }
 .ds-expansion--info.ds-expansion--disabled { outline-color: var(--ds-color-stroke-disable, #ebebeb); }
+
+/* 46. Заголовки групп в списках — НЕ интерактивны (правило владельца 16.11.2026:
+   «У заголовков, которые разбивают данные на группы, не может быть наведения ховер»).
+   Заголовок группы — это слот Title (`.ds-select-container__title` / `.ds-menu-container__title`),
+   а НЕ Select item / Menu item: у него нет ховера, пресса, выбора и курсора-указателя.
+   В css слот Title не имел ни `cursor`, ни защиты от :hover — добавляем.
+   Если в макете заголовок нарисован пунктом списка (так бывает в Figma: «Title 2» — Select item
+   с Medium-кеглем), пункт помечаем модификатором `--title` (см. ниже): ховера и выбора у него тоже нет.
+   Журнал №273. */
+.ds-select-container__title,
+.ds-select-container__title:hover,
+.ds-select-container__title:active,
+.ds-menu-container__title,
+.ds-menu-container__title:hover,
+.ds-menu-container__title:active {
+  cursor: default;
+  background: var(--ds-color-menu-item-default-background, #ffffff);
+}
+
+/* Пункт-заголовок (если по макету заголовок — строка списка): не кликается, не подсвечивается,
+   курсор обычный; текст — Body S 14/20 Medium через `--ds-font-body-s-14-normal-medium`. */
+.ds-select-item--title,
+.ds-select-item--title:hover,
+.ds-select-item--title:active,
+.ds-menu-item--title,
+.ds-menu-item--title:hover,
+.ds-menu-item--title:active,
+.ds-list-item--title,
+.ds-list-item--title:hover,
+.ds-list-item--title:active {
+  cursor: default;
+  background: var(--ds-color-select-item-default-background, #ffffff);
+  pointer-events: none;
+}
+.ds-select-item--title .ds-select-item__label,
+.ds-menu-item--title .ds-menu-item__label,
+.ds-list-item--title .ds-list-item__label {
+  font: var(--ds-font-body-s-14-normal-medium);
+  letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing);
+  color: var(--ds-color-text-primary);
+}

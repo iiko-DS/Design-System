@@ -9,9 +9,15 @@
   Табы — компонент ДС Tabs (Tabs_DS/tabs.css: ds-tabs / ds-tab / ds-tab--active); переключение панелей — скрипт стенда.
   Порядок табов — как в Фигме (слева направо), первым — сборка: 1) Basic example (живое поле + раскрывашка),
   2) Input Datepicker (Empty / Populated — узел 58548-4764), 3) Elements Datepicker (ячейки — узел 58501-4220),
-  4) Control Panel Datepicker (Control / Week / Calendar — узел 58501-4052), 5) Datepicker (Day / Year / Month — узел 58509-5439).
+  4) Control Panel Datepicker (Control / Week / Calendar — узел 58501-4052), 5) Datepicker (Day / Year / Month — узел 58509-5439),
+  6) Поведение — спека примеров (узел 58987-16573): разделы «Дефолтный выбор даты», «Выбор диапазона дат»
+  и «Выбор месяца и года в календаре» — пошаговые состояния поля (Default → Hover → Focus → Focus+Value → Selected)
+  и календари в выпадающем слое (классы .dpb-* в <style> стенда; новые режимы mountInput: state / text / caret,
+  вид года — opts.decade с заголовком «2020 - 2039»).
   Табы 2–5 — статичные витрины вариантов, как в Figma (интерактив — только в «Сборке»);
-  состояния Hover/Press показаны «замороженно» (классы st-hover/st-press — те же токены, что у :hover/:active).
+  ВКЛАДКА «ПОВЕДЕНИЕ» ЖИВАЯ: поля — настоящие ds-input-datepicker (ввод работает, иконка открывает
+  календарь-дропдаун), календари — интерактивные (клик по дню/году/месяцу, стрелки и пилюля переключают вид);
+  состояния Hover/Press/Focus показаны «замороженно» (классы st-hover/st-press/dpb--* — те же токены, что у :hover/:active/:focus).
   Вид — сгенерированный слой ДС + ручной слой ../../fixes.css; разметку и поведение строит datepicker.js.
   Данные — актуальные: текущий месяц и сегодняшняя дата.
 -->
@@ -25,7 +31,7 @@
 <script src="datepicker.js" defer></script>
 <style>
   /* каркас демо-стенда — как у других стендов (ср. organisms/app-header/demo.html) */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
   .demo-bar__state { margin-left: 12px; color: var(--ds-color-text-secondary, #616161); font-variant-numeric: tabular-nums; }
@@ -39,7 +45,8 @@
   .rows.rows--panel { gap: 0; }                                    /* Control Panel: Control → Week 24; Week → Calendar 28 */
   .rows--panel > :nth-child(2) { margin-top: 24px; }
   .rows--panel > :nth-child(3) { margin-top: 28px; }
-  .cards.cards--datepicker { gap: 46px; }                           /* Day / Year / Month: x 67 → 425 → 783 (312 + 46) */
+  .cards.cards--datepicker { gap: 46px; width: 100%; max-width: 100%; overflow-x: auto; padding-bottom: 8px; }   /* Day / Year / Month: x 67 → 425 → 783 (312 + 46); ряд скроллится, страница не разъезжается */
+  .panel { min-width: 0; width: 100%; box-sizing: border-box; }   /* иначе flex-колонка .view растягивается под широкие витрины */
   .card__cap { font-size: 12px; line-height: 16px; color: var(--ds-color-text-secondary, #616161); margin-bottom: 8px; }
   .fields { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; }
   .rows { display: flex; flex-direction: column; gap: 20px; }
@@ -87,6 +94,58 @@
   .st-hover.ds-elements--month.ds-elements--default, .st-hover .ds-elements--month.ds-elements--default { background: var(--ds-color-elements-datepicker-month-default-hover-background, #f5f5f5); }
   .st-press.ds-elements--month.ds-elements--default, .st-press .ds-elements--month.ds-elements--default { background: var(--ds-color-elements-datepicker-month-default-press-background, #e0e0e0); }
   .material-icons { font-family: 'Material Icons Outlined'; }   /* иконки — только аутлайн (правило) */
+  /* ── вкладка «Поведение» (спека Examples 58987-16573) ───────────────────── */
+  .dpb { width: 100%; min-width: 0; max-width: 100%; overflow-x: auto; padding-bottom: 8px; }
+  /* панель «Поведение» — широкая спека: скроллим внутри, страница не разъезжается */
+  .panel[data-vpanel="behavior"] { width: 100%; min-width: 0; max-width: 100%; overflow-x: hidden; }
+  .panel[data-vpanel="behavior"] .dpb-sec,
+  .panel[data-vpanel="behavior"] .dpb-block { width: max-content; max-width: none; }
+  .dpb-sec { margin-bottom: 64px; }
+  .dpb-sec__title { width: max-content; margin: 0 0 8px;
+    font-size: var(--ds-font-header-l-34-normal-medium-size, 34px);
+    line-height: var(--ds-font-header-l-34-normal-medium-line, 40px);
+    letter-spacing: var(--ds-font-header-l-34-normal-medium-spacing, 0px);
+    font-weight: var(--ds-font-header-l-34-normal-medium-weight, 500);
+    color: var(--ds-color-text-primary, #333333); }
+  .dpb-sec__body { width: 944px; margin: 0 0 32px;
+    font-size: var(--ds-font-body-s-14-normal-regular-size, 14px);
+    line-height: var(--ds-font-body-s-14-normal-regular-line, 20px);
+    letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, .5px);
+    font-weight: var(--ds-font-body-s-14-normal-regular-weight, 400);
+    color: var(--ds-color-text-secondary, #616161); }
+  .dpb-block { margin-bottom: 40px; }
+  .dpb-block__title { width: max-content; margin: 0 0 8px;
+    font-size: var(--ds-font-body-l-18-normal-medium-size, 18px);
+    line-height: var(--ds-font-body-l-18-normal-medium-line, 24px);
+    letter-spacing: var(--ds-font-body-l-18-normal-medium-spacing, .5px);
+    font-weight: var(--ds-font-body-l-18-normal-medium-weight, 500);
+    color: var(--ds-color-text-primary, #333333); }
+  .dpb-note { width: max-content; max-width: 900px; margin: 0 0 16px;
+    font-size: var(--ds-font-caption-l-12-normal-regular-size, 12px);
+    line-height: var(--ds-font-caption-l-12-normal-regular-line, 16px);
+    letter-spacing: var(--ds-font-caption-l-12-normal-regular-spacing, .5px);
+    font-weight: var(--ds-font-caption-l-12-normal-regular-weight, 400);
+    color: var(--ds-color-text-secondary, #616161); }
+  .dpb-row { display: flex; flex-wrap: nowrap; align-items: flex-start; gap: 24px 32px; margin-bottom: 24px; width: max-content; }
+  .dpb-step { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .dpb-cap { width: max-content; font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px); letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, .5px); font-weight: var(--ds-font-body-s-14-normal-regular-weight, 400); color: var(--ds-color-text-secondary, #616161); }
+  .dpb-arrow { align-self: flex-start; margin-top: 24px; font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px); letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, .5px); color: var(--ds-color-text-tertiary, #9e9e9e); }
+  .dpb-field { width: 250px; }
+  .dpb-field .ds-input-datepicker { width: 250px; }
+  /* замороженные состояния поля (те же токены, что у :hover/:focus) */
+  .dpb--hover .ds-input__frame { background: var(--ds-color-form-field-filled-hover-background, #f5f5f5); }
+  .dpb--focus .ds-input__frame { border-color: var(--ds-color-stroke-accent, #448aff); }
+  .dpb--focus .ds-input__label { color: var(--ds-color-text-accent, #448aff); }
+  .dpb--focus .ds-input__icon { color: var(--ds-color-icon-accent, #448aff); }
+  /* статичный текст вместо input (витрина состояний) */
+  .ds-input-datepicker__text { display: block; white-space: nowrap; overflow: hidden; color: var(--ds-color-text-placeholder, #d6d6d6); }
+  .dpb--focus .ds-input-datepicker__text { color: var(--ds-color-text-tertiary, #9e9e9e); }
+  .dpb--selected .ds-input-datepicker__text { color: var(--ds-color-text-primary, #333333); }
+  .ds-input-datepicker__caret { display: inline-block; width: 1px; height: 20px; margin: 0 1px; vertical-align: -4px; background: var(--ds-color-text-primary, #333333); }
+  /* календарь в выпадающем слое */
+  .dpb-cal { width: 312px; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 6px rgba(33,33,33,.10), 0 0 16px rgba(33,33,33,.12); }
+  .dpb-cal .ds-datepicker { border-color: transparent; }
+  .dpb-hover-cell { background: var(--ds-color-brand-neutral-super-light, #f5f5f5) !important; }
 </style>
 </head>
 <body>
@@ -102,6 +161,7 @@
     <button class="ds-tab" role="tab" data-vtab="elements" aria-selected="false">Elements Datepicker</button>
     <button class="ds-tab" role="tab" data-vtab="panel" aria-selected="false">Control Panel Datepicker</button>
     <button class="ds-tab" role="tab" data-vtab="datepicker" aria-selected="false">Datepicker</button>
+    <button class="ds-tab" role="tab" data-vtab="behavior" aria-selected="false">Поведение</button>
   </div>
 
   <!-- 1. Basic example: живое поле + раскрывашка (как пример «Focus» — «По меню календарь» в Figma) -->
@@ -181,7 +241,7 @@
       <div>
         <div class="ds-control-panel ds-control-panel--control">
           <span class="ds-elements ds-elements--month ds-elements--default">
-            <span class="ds-control-panel__label">Октябрь 2026</span>
+            <span class="ds-control-panel__label">Июнь 2026</span>
             <span class="ds-control-panel__icon"><span class="material-icons">arrow_drop_down</span></span>
           </span>
           <span class="ds-control-panel__button-icon-group">
@@ -219,6 +279,11 @@
       <div id="cal-month"></div>
     </div>
   </div>
+
+  <!-- 6. Поведение: спека кадра 58987-16573 (Examples) — состояния поля и календари -->
+  <div class="panel" data-vpanel="behavior" role="tabpanel" hidden>
+    <div class="dpb" id="dpb-root"></div>
+  </div>
 </div>
 <script>
   window.addEventListener('DOMContentLoaded', function () {
@@ -232,24 +297,205 @@
     /* 1. Basic example: одно живое поле, календарь открыт сразу (пример «Focus»), выбор даты работает */
     Datepicker.mountInput(document.getElementById('asm-example'), { open: true, onPick: show });
 
-    /* 2. Input Datepicker: Empty / Populated — статичные поля (без выпадашки) */
-    Datepicker.mountInput(document.getElementById('inp-empty'), { static: true });
-    Datepicker.mountInput(document.getElementById('inp-populated'), { static: true, value: today });
+    /* 2. Input Datepicker: Empty / Populated — статичные поля (без выпадашки);
+       по кадру 58548-4764: Empty — одна строка «ДД.ММ.ГГГГ» цветом label (#616161),
+       Populated — подпись «Дата» 12/16 + «ДД.ММ.ГГГГ» 16/24 цветом плейсхолдера (#D6D6D6) */
+    Datepicker.mountInput(document.getElementById('inp-empty'), { static: true, label: 'ДД.ММ.ГГГГ' });
+    Datepicker.mountInput(document.getElementById('inp-populated'), { static: true, label: 'Дата', populated: true });
 
-    /* 4. Control Panel: вариант «Calendar» — сетка дней из статичной сборки */
+    /* 4. Control Panel: вариант «Calendar» — сетка дней (кадр Figma: июнь 2026, «сегодня» 03) */
     var tmpCal = document.createElement('div');
     tmpCal.style.display = 'none';
     document.body.appendChild(tmpCal);
-    Datepicker.mount(tmpCal, { static: true });
+    Datepicker.mount(tmpCal, { static: true, view: new Date(2026, 5, 1), today: new Date(2026, 5, 3) });
     document.getElementById('cp-calendar').appendChild(tmpCal.querySelector('.ds-datepicker__days'));
     tmpCal.remove();
 
-    /* 5. Datepicker: три вида (Day / Year / Month) — статичные, как узлы Figma;
-       в дне — «сегодня» кольцом и выбранное 12-е (как в макете: today + selected) */
-    var sel12 = new Date(today.getFullYear(), today.getMonth(), 12);
-    Datepicker.mount(document.getElementById('cal-day'), { static: true, start: sel12, end: sel12 });
-    Datepicker.mount(document.getElementById('cal-year'), { static: true, mode: 'year' });
-    Datepicker.mount(document.getElementById('cal-month'), { static: true, mode: 'month' });
+    /* 5. Datepicker: три вида (Day / Year / Month) — статичные, как узлы Figma 58509-5439;
+       данные кадра: июнь 2026, «сегодня» 03 (кольцо), выбранное 10 (синий кружок) */
+    var dpView = new Date(2026, 5, 1), dpToday = new Date(2026, 5, 3), dpSel = new Date(2026, 5, 10);
+    Datepicker.mount(document.getElementById('cal-day'), { static: true, view: dpView, today: dpToday, start: dpSel, end: dpSel });
+    Datepicker.mount(document.getElementById('cal-year'), { static: true, mode: 'year', view: dpView, today: dpToday });
+    Datepicker.mount(document.getElementById('cal-month'), { static: true, mode: 'month', view: dpView, today: dpToday });
+
+    /* 6. Поведение — спека Examples (58987-16573): состояния поля и календари.
+       Тексты и раскладка — по кадру; календарь в выпадающем слое — карточка 312. */
+    (function buildBehavior() {
+      var root = document.getElementById('dpb-root');
+      if (!root) return;
+      try {
+      var JUNE = new Date(2026, 5, 1), TODAY = new Date(2026, 5, 3), SEL = new Date(2026, 5, 10);
+
+      function el(tag, cls, html) {
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (html != null) e.innerHTML = html;
+        return e;
+      }
+
+      function stepField(o) {
+        var step = el('div', 'dpb-step');
+        if (o.cap) step.appendChild(el('span', 'dpb-cap', o.cap));
+        var w = el('div', 'dpb-field');
+        step.appendChild(w);
+        /* поле — ЖИВОЕ: ввод с клавиатуры работает, иконка открывает календарь;
+           класс состояния (dpb--*) только замораживает вид. */
+        var api = Datepicker.mountInput(w, {
+          label: o.label || 'Выберите дату',
+          state: o.state || '',
+          populated: !!o.populated,
+          placeholder: o.placeholder || 'ДД.ММ.ГГГГ'
+        });
+        if (o.text) {
+          api.input.value = o.text;
+          api.input.dispatchEvent(new Event('input'));
+        }
+        return step;
+      }
+
+      function stepCal(o) {
+        var step = el('div', 'dpb-step');
+        if (o.cap) step.appendChild(el('span', 'dpb-cap', o.cap));
+        var card = el('div', 'dpb-cal');
+        var host = el('div');
+        card.appendChild(host);
+        step.appendChild(card);
+        /* календарь — ЖИВОЙ: клик по дню/году/месяцу, стрелки и пилюля работают */
+        var cal = Datepicker.mount(host, {
+          mode: o.mode || 'day',
+          months: o.months || 1,
+          decade: !!o.decade,
+          view: o.view || JUNE,
+          today: TODAY,
+          start: o.start || SEL,
+          end: o.end || (o.mode === 'year' || o.mode === 'month' ? null : SEL)
+        });
+        if (o.hoverDay) {
+          var ts = new Date(o.hoverDay).getTime();
+          var cell = host.querySelector('[data-day="' + ts + '"]');
+          if (cell) cell.classList.add('dpb-hover-cell');
+        }
+        return step;
+      }
+
+      function row(steps) {
+        var r = el('div', 'dpb-row');
+        steps.forEach(function (s, i) {
+          if (i) r.appendChild(el('span', 'dpb-arrow', '→'));
+          r.appendChild(s);
+        });
+        return r;
+      }
+
+      function section(o) {
+        var s = el('section', 'dpb-sec');
+        s.appendChild(el('h3', 'dpb-sec__title', o.title));
+        if (o.body) s.appendChild(el('p', 'dpb-sec__body', o.body));
+        (o.blocks || []).forEach(function (b) {
+          var blk = el('div', 'dpb-block');
+          if (b.title) blk.appendChild(el('h4', 'dpb-block__title', b.title));
+          if (b.note) blk.appendChild(el('p', 'dpb-note', b.note));
+          (b.rows || []).forEach(function (steps) { blk.appendChild(row(steps)); });
+          s.appendChild(blk);
+        });
+        return s;
+      }
+
+      var F = stepField, C = stepCal;
+
+      /* 1. Дефолтный выбор даты */
+      root.appendChild(section({
+        title: 'Дефолтный выбор даты',
+        body: 'Компонент выбора даты позволяет пользователям вводить дату либо с помощью текстового поля, либо выбирая дату из календаря',
+        blocks: [{
+          title: 'По текстовому полю (input)',
+          rows: [[
+            F({ cap: 'Default' }),
+            F({ cap: 'Hover', state: 'hover' }),
+            F({ cap: 'Focus', state: 'focus', placeholder: 'дд.мм.гггг' }),
+            F({ cap: 'Focus+Value', state: 'focus-value', text: '10.06.2026' }),
+            F({ cap: 'Selected', state: 'selected', text: '10.06.2026' })
+          ]]
+        }, {
+          title: 'По иконке календаря',
+          rows: [[
+            F({ cap: 'Default' }),
+            F({ cap: 'Hover', state: 'hover' }),
+            F({ cap: 'Focus', state: 'focus', placeholder: 'дд.мм.гггг' }),
+            C({ cap: 'Дата сегодня' }),
+            C({ cap: 'Дата сегодня и выбираемая дата (hover)', hoverDay: new Date(2026, 5, 17) }),
+            C({ cap: 'Дата сегодня и выбранная дата (selected)' })
+          ]]
+        }, {
+          title: 'Микс',
+          note: 'Выпадающий календарь также появляется при клике в текстовом поле',
+          rows: [[
+            F({ cap: 'Default' }),
+            F({ cap: 'Hover', state: 'hover' }),
+            F({ cap: 'Focus', state: 'focus', placeholder: 'дд.мм.гггг' }),
+            F({ cap: 'Selected', state: 'selected', text: '10.06.2026' })
+          ]]
+        }]
+      }));
+
+      /* 2. Выбор диапазона дат */
+      root.appendChild(section({
+        title: 'Выбор диапазона дат',
+        body: 'Компонент выбора диапазона дат позволяет пользователям вводить начальную и конечную дату соответственно с помощью текстового поля, либо выбирая дату из календаря',
+        blocks: [{
+          title: 'По текстовому полю (input)',
+          rows: [[
+            F({ cap: 'Default', label: 'Выберите диапазон дат' }),
+            F({ cap: 'Hover', label: 'Выберите диапазон дат', state: 'hover' }),
+            F({ cap: 'Focus', label: 'Выберите диапазон дат', state: 'focus', placeholder: 'ДД.ММ.ГГГГ - ДД.ММ.ГГГГ' }),
+            F({ cap: 'Focus+Value', label: 'Выберите диапазон дат', state: 'focus-value', text: '10.06.2026' }),
+            F({ cap: 'Selected', label: 'Выберите диапазон дат', state: 'selected', text: '10.06.2026 - 21.06.2026' })
+          ]]
+        }, {
+          title: 'По иконке календаря',
+          rows: [[
+            F({ cap: 'Default', label: 'Выберите диапазон дат' }),
+            F({ cap: 'Hover', label: 'Выберите диапазон дат', state: 'hover' }),
+            F({ cap: 'Focus', label: 'Выберите диапазон дат', state: 'focus', placeholder: 'ДД.ММ.ГГГГ - ДД.ММ.ГГГГ' }),
+            C({ cap: 'Дата сегодня' }),
+            C({ cap: 'Дата сегодня и выбираемая дата (hover)', hoverDay: new Date(2026, 5, 17) }),
+            C({ cap: 'Дата сегодня и выбранная дата (selected)' })
+          ]]
+        }]
+      }));
+
+      /* 3. Календарь на два месяца (кадр 61306-79280: две колонки 312 + разделитель 1×280) */
+      root.appendChild(section({
+        title: 'Календарь на два месяца',
+        body: 'В режиме выбора периода календарь показывает два месяца подряд: левая колонка — текущий месяц, правая — следующий. Стрелки листают сразу оба месяца.',
+        blocks: [{
+          rows: [[
+            C({ cap: 'Default' }),
+            C({ cap: 'Hover', hoverDay: new Date(2026, 5, 26) }),
+            C({ cap: 'Focus', months: 2, view: new Date(2026, 6, 1) }),
+            C({ cap: 'Focus', months: 2, view: new Date(2026, 6, 1), hoverDay: new Date(2026, 7, 5) })
+          ]]
+        }]
+      }));
+
+      /* 4. Выбор месяца и года в календаре */
+      root.appendChild(section({
+        title: 'Выбор месяца и года в календаре',
+        body: 'Выбора месяца и года позволяет пользователям просматривать и выбирать разные месяцы и годы соответственно',
+        blocks: [{
+          rows: [[
+            C({ cap: 'Focus' }),
+            C({ cap: 'Focus', hoverDay: new Date(2026, 5, 3) }),
+            C({ cap: 'Focus', mode: 'year', decade: true, hoverDay: null }),
+            C({ cap: 'Focus', mode: 'year', decade: true }),
+            C({ cap: 'Focus', mode: 'month' })
+          ]]
+        }, {
+          note: 'Выбранный год — показывается блок годов, в котором находится выбор (2020 - 2039); выбранный месяц — сетка месяцев того же года.'
+        }]
+      }));
+      } catch (e) { console.error('behavior tab:', e); }
+    })();
 
     /* Табы — компонент ДС Tabs: переключаем активный таб и панель */
     var tabs = Array.prototype.slice.call(document.querySelectorAll('.ds-tab[data-vtab]'));

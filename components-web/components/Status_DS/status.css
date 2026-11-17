@@ -7,7 +7,7 @@
   border-radius: var(--ds-status-border-radius, 8px);
   padding: var(--ds-status-pad-top, 4px) var(--ds-status-pad-right, 6px) var(--ds-status-pad-bottom, 4px) var(--ds-status-pad-left, 6px);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-status__label {
   font-size: var(--ds-font-caption-l-12-normal-medium-size);
