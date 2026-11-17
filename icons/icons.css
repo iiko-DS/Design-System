@@ -1,0 +1,40 @@
+/* icons.css — иконки дизайн-системы (inline-SVG из windows.DS_ICONS).
+
+   Размер: 1em от font-size контейнера — как у шрифта Material Icons, поэтому все
+   существующие правила ДС и прототипов (.ds-input__icon .material-icons{font-size:20px} и т.п.)
+   продолжают работать без изменений.
+   Цвет: currentColor — как и у шрифта (иконка красится цветом текста).
+   Логотипы (sprite-logos.js) несут собственные цвета в атрибутах path — они не перекрываются.
+
+   Базис .material-icons ниже — те же значения, что даёт css шрифта Google. Нужен, чтобы
+   иконки ДС выглядели так же и без доступа к fonts.googleapis.com (когда работает резерв). */
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Наш svg внутри слота иконки: размер по месту, цвет — от текста. */
+.ds-ic-svg {
+  width: 1em;
+  height: 1em;
+  min-width: 1em;
+  display: block;
+  fill: currentColor;
+  flex: none;
+  pointer-events: none;
+}
+
+/* Если иконки в ДС нет — остаётся лигатура, её рисует шрифт Google (ничего не делаем). */

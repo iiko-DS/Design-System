@@ -1,0 +1,49 @@
+/* Страница Shadows — отрисовка по данным макета Figma (style/shadow/shadow.json). */
+
+* { box-sizing: border-box; }
+
+html,
+body { margin: 0; padding: 0; }
+
+body {
+  background: var(--ds-color-surface-default);
+  color: var(--ds-color-text-primary);
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--ds-size-10x) 0;
+}
+
+.block {
+  position: relative;
+  width: 100%;
+}
+
+/* «Лист» макета фиксированного размера (w × h), вписывается масштабом. */
+.sheet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+/* Превью теней из данных. */
+.box { position: absolute; }
+
+/* Тексты — абсолютно по x/y из данных. */
+.tt {
+  position: absolute;
+  margin: 0;
+  font-family: inherit;
+}
+
+.tt--nowrap { white-space: pre; }
+
+.tt--wrap {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}

@@ -9,8 +9,11 @@
      • путь можно указывать и абсолютным: <script src="file:///C:/.../Design-System/connect.js" defer></script>
 
    ЧТО ПОДТЯГИВАЕТСЯ САМО:
-     1) стили ДС: components-web/font.css, tokens.css, styles.css, components/index.css, fixes.css;
-     2) иконки Material Icons (обычные + Outlined);
+     1) стили ДС: components-web/font.css, tokens.css, styles.css, components/index.css, fixes.css,
+        icons/icons.css;
+     2) иконки — СНАЧАЛА из ДС (icons/sprite-*.js + icons/icons.js: лигатура .material-icons
+        подменяется на inline-SVG), а шрифт Google Material Icons (обычные + Outlined)
+        подключается резервом — им рисуются только имена, которых в ДС нет;
      3) демо-страницу прототипа — одним комплектом: плашка (ds-review: общий заголовок раздела,
         «Экраны», «Размер»), шапка app-header (с правой панелью app-right-panel — её шторка)
         и боковое меню app-sidenav (css + js);
@@ -58,7 +61,8 @@
     /* Radio: в index.css файлы Radio-Button_DS не подключены (пробел выгрузки ДС №108) — тянем явно, как checkbox */
     'components-web/components/Radio-Button_DS/radio.css',
     'components-web/components/Radio-Button_DS/radio-icons.css',
-    'components-web/fixes.css'
+    'components-web/fixes.css',
+    'icons/icons.css'
   ];
   if (FLAGS.mobile) CSS.push('components-mobile/modes.css', 'components-mobile/components/index.css');
   /* Демо-страница — одним комплектом: плашка + шапка + меню (вместо отдельных подключений
@@ -66,7 +70,16 @@
   if (FLAGS.header) CSS.push('organisms/app-right-panel/app-right-panel.css?v=2', 'organisms/app-header/app-header.css?v=21');
   if (FLAGS.sidenav) CSS.push('organisms/app-sidenav/app-sidenav.css?v=16');
 
-  var JS = [];
+  /* Иконки ДС — первыми: сначала спрайты (window.DS_ICONS), затем подстановка svg вместо лигатур.
+     Имена в спрайтах = лигатуры Material Icons, разметка страниц не меняется. */
+  var JS = [
+    'icons/sprite-custom.js',
+    'icons/sprite-logos.js',
+    'icons/sprite-material-1.js',
+    'icons/sprite-material-2.js',
+    'icons/sprite-material-3.js',
+    'icons/icons.js'
+  ];
   if (FLAGS.header) JS.push('organisms/app-right-panel/app-right-panel.js?v=1', 'organisms/app-header/app-header.js?v=20');
   if (FLAGS.sidenav) JS.push('organisms/app-sidenav/app-sidenav.js?v=15');
   /* плашка демо-страницы (общий заголовок, «Экраны», «Размер»); css подтягивает сам ds-review.js,
@@ -124,6 +137,7 @@
     var marker = CSS[c].split('?')[0];
     if (!hasLink(marker)) frag.appendChild(addCss(CSS[c]));
   }
+  /* Резерв: шрифт Google нужен только для имён, которых нет в ДС (см. icons/icons.js). */
   if (!hasIcons(false)) frag.appendChild(addCss('https://fonts.googleapis.com/icon?family=Material+Icons'));
   if (!hasIcons(true)) frag.appendChild(addCss('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined'));
 

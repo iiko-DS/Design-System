@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color — iiko Web DS</title>
+<link rel="stylesheet" href="../../components-web/font.css">
+<link rel="stylesheet" href="../../components-web/tokens.css">
+<link rel="stylesheet" href="color.css">
+</head>
+<body>
+<main class="page">
+  <div class="blocks" id="blocks"></div>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  const SRC = 'color.json';
+  // Заголовки колонок палитр стоят над блоком: 36 (строка заголовков) + 16 (зазор) в макете.
+  const COL_HEAD = 52;
+
+  const px = v => (v == null ? '' : v + 'px');
+
+  function rgba(hex, alpha) {
+    const h = String(hex || '').replace('#', '');
+    const s = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+    const r = parseInt(s.slice(0, 2), 16);
+    const g = parseInt(s.slice(2, 4), 16);
+    const b = parseInt(s.slice(4, 6), 16);
+    const a = alpha == null ? 1 : alpha;
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+  }
+
+  function textNode(t, isCardText) {
+    const el = document.createElement('div');
+    el.className = 'tt' + (isCardText && t.y >= 116 ? ' tt--code' : '');
+    el.style.left = px(t.x);
+    el.style.top = px(t.y);
+    el.style.width = px(t.w);
+    if (t.h) el.style.height = px(t.h);
+    el.style.fontSize = px(t.size);
+    el.style.fontWeight = t.weight || 400;
+    if (t.lh) el.style.lineHeight = px(t.lh);
+    if (t.ls) el.style.letterSpacing = px(t.ls);
+    if (t.align) el.style.textAlign = t.align;
+    el.style.color = rgba(t.color, t.alpha);
+    el.textContent = t.text;
+    return el;
+  }
+
+  function cardNode(c) {
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.style.left = px(c.x);
+    el.style.top = px(c.y);
+    el.style.width = px(c.w);
+    el.style.height = px(c.h);
+    el.style.borderRadius = px(c.radius);
+    el.style.background = rgba(c.hex, c.alpha);
+    (c.texts || []).forEach(t => el.appendChild(textNode(t, true)));
+    return el;
+  }
+
+  function colLabel(col) {
+    const el = document.createElement('div');
+    el.className = 'col-label';
+    el.style.left = px(col.x);
+    el.style.top = '4px';
+    el.style.width = px(col.w);
+    el.textContent = col.title;
+    return el;
+  }
+
+  // В данных последняя колонка палитр названа повторно Contrast-3; в макете она Contrast-4.
+  function uniqueTitle(title, used) {
+    if (!used.has(title)) return title;
+    let next = title;
+    let n = Number((next.match(/(\d+)(?!.*\d)/) || [])[1] || 0);
+    do {
+      n += 1;
+      next = title.replace(/(\d+)(?!.*\d)/, String(n));
+    } while (used.has(next));
+    return next;
+  }
+
+  function blockNode(b) {
+    const el = document.createElement('section');
+    el.className = 'block';
+    el.dataset.block = b.id;
+
+    const head = b.columns && b.columns.length ? COL_HEAD : 0;
+
+    const sheet = document.createElement('div');
+    sheet.className = 'sheet';
+    sheet.style.width = px(b.w);
+    sheet.style.height = px(b.h + head);
+
+    const frame = document.createElement('div');
+    frame.className = 'frame';
+    frame.style.top = px(head);
+    frame.style.width = px(b.w);
+    frame.style.height = px(b.h);
+    (b.items || []).forEach(it => {
+      frame.appendChild(it.kind === 'card' ? cardNode(it) : textNode(it, false));
+    });
+    sheet.appendChild(frame);
+
+    if (head) {
+      const used = new Set();
+      b.columns.forEach(col => {
+        const title = uniqueTitle(col.title, used);
+        used.add(title);
+        sheet.appendChild(colLabel({ ...col, title }));
+      });
+    }
+
+    el.appendChild(sheet);
+    return { el, sheet, w: b.w, h: b.h + head };
+  }
+
+  const host = document.getElementById('blocks');
+  const entries = [];
+
+  function fit() {
+    const width = host.clientWidth;
+    if (!width) return;
+    entries.forEach(e => {
+      const scale = width / e.w;
+      e.sheet.style.transform = `scale(${scale})`;
+      e.el.style.height = (e.h * scale) + 'px';
+    });
+  }
+
+  function render(data) {
+    host.textContent = '';
+    (data.blocks || []).forEach(b => {
+      const entry = blockNode(b);
+      host.appendChild(entry.el);
+      entries.push(entry);
+    });
+    fit();
+  }
+
+  new ResizeObserver(fit).observe(host);
+
+  fetch(SRC)
+    .then(r => {
+      if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+      return r.json();
+    })
+    .then(render)
+    .catch(err => {
+      host.textContent = 'Не удалось прочитать ' + SRC + ': ' + err.message;
+    });
+})();
+</script>
+</body>
+</html>
