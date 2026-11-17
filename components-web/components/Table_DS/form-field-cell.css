@@ -3,14 +3,14 @@
   width: fit-content;
   display: flex;
   flex-direction: row;
-  background: #ffffff;
+  background: transparent;
   box-sizing: border-box;
   font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-form-field-cell__table-content-chips-input {
   display: flex;
   flex-direction: row;
-  background: #ffffff;
+  background: transparent;
 }
 .ds-form-field-cell__table-content {
   display: flex;

@@ -177,7 +177,8 @@ body.dsr-page .panel { background: var(--ds-color-surface-default, #ffffff); }
 /* Статусбар экрана — 44: «8:00» + иконки сети/батареи (макет, белый) */
 .dsr-status { position: relative; height: 44px; background: #fff; }
 .dsr-status__time { position: absolute; left: 18px; top: 16px; width: 50px; text-align: center; font: 700 15px/18px 'Montserrat', 'Roboto', Arial, sans-serif; color: #070707; letter-spacing: 0; }
-.dsr-status__stats { position: absolute; right: 18px; top: 19px; display: block; width: 67px; height: 12px; }
+.dsr-status__stats { position: absolute; right: 18px; top: 19px; display: flex; align-items: center; justify-content: flex-end; gap: 4px; width: 67px; height: 12px; }
+.dsr-status__stats img { display: block; height: 12px; width: auto; }
 .dsr-chrome[data-w="375"] .dsr-status { border-top-left-radius: 24px; border-top-right-radius: 24px; }
 .dsr-chrome[data-w="1024"] .dsr-status { border-top-left-radius: 14px; border-top-right-radius: 14px; }
 

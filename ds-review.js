@@ -404,38 +404,41 @@
   function navHFor(w) { return isMobileW(w) ? NAV_H : 0; }
   function chromeOn() { return !!(S.chromeEl && S.sections.chrome !== false && !window.DSR_NO_CHROME); }
   function buildChrome() {
-    var A = function (n) { return BASE + 'dsr-assets/' + n + '.svg'; };
+    /* все иконки «хрома» — из общей папки icons (подпапка browser удалена) */
+    var A = function (n) { return BASE + 'icons/' + n + '.svg'; };
     var ch = el('div', 'dsr-chrome');
     ch.innerHTML =
       '<div class="dsr-chrome__desktop">' +
         '<div class="dsr-chrome__top">' +
           '<div class="dsr-chrome__tabs">' +
-            '<div class="dsr-chrome__bookend"><span class="dsr-chrome__roundbtn"><img src="' + A('chevron') + '" alt=""></span></div>' +
-            '<div class="dsr-chrome__tab"><img class="dsr-chrome__favicon" src="' + A('logo-iiko') + '" alt="">' +
-              '<span class="dsr-chrome__tabname">iiko</span><img class="dsr-chrome__tabclose" src="' + A('x-close') + '" alt=""></div>' +
-            '<div class="dsr-chrome__newtab"><img src="' + A('new-tab') + '" alt=""></div>' +
+            '<div class="dsr-chrome__bookend"><span class="dsr-chrome__roundbtn"><img src="' + A('keyboard_arrow_down') + '" alt=""></span></div>' +
+            '<div class="dsr-chrome__tab"><img class="dsr-chrome__favicon" src="' + A('logo_iiko') + '" alt="">' +
+              '<span class="dsr-chrome__tabname">iiko</span><img class="dsr-chrome__tabclose" src="' + A('close') + '" alt=""></div>' +
+            '<div class="dsr-chrome__newtab"><img src="' + A('add') + '" alt=""></div>' +
           '</div>' +
           '<div class="dsr-chrome__win">' +
             '<span class="dsr-chrome__winbtn"><i class="dsr-chrome__min"></i></span>' +
             '<span class="dsr-chrome__winbtn"><i class="dsr-chrome__max"></i></span>' +
-            '<span class="dsr-chrome__winbtn dsr-chrome__winbtn--close"><img src="' + A('close-window') + '" alt=""></span>' +
+            '<span class="dsr-chrome__winbtn dsr-chrome__winbtn--close"><img src="' + A('close') + '" alt=""></span>' +
           '</div>' +
         '</div>' +
         '<div class="dsr-chrome__bar">' +
-          '<span class="dsr-chrome__nav"><img src="' + A('back') + '" alt=""><img src="' + A('forward') + '" alt=""><img src="' + A('refresh') + '" alt=""></span>' +
+          '<span class="dsr-chrome__nav"><img src="' + A('arrow_back') + '" alt=""><img src="' + A('arrow_forward') + '" alt=""><img src="' + A('refresh') + '" alt=""></span>' +
           '<span class="dsr-chrome__url"><img class="dsr-chrome__lock" src="' + A('lock') + '" alt="">' +
             '<span class="dsr-chrome__urltext">iiko</span><img class="dsr-chrome__star" src="' + A('star') + '" alt=""></span>' +
-          '<span class="dsr-chrome__right"><img src="' + A('puzzle') + '" alt=""><span class="dsr-chrome__div"></span>' +
-            '<img src="' + A('profile') + '" alt=""><img src="' + A('kebab') + '" alt=""></span>' +
+          '<span class="dsr-chrome__right"><img src="' + A('extension') + '" alt=""><span class="dsr-chrome__div"></span>' +
+            '<img src="' + A('account_circle') + '" alt=""><img src="' + A('more_vert') + '" alt=""></span>' +
         '</div>' +
       '</div>' +
       '<div class="dsr-chrome__mobile">' +
-        '<div class="dsr-status"><span class="dsr-status__time">8:00</span><img class="dsr-status__stats" src="' + A('stats') + '" alt=""></div>' +
+        '<div class="dsr-status"><span class="dsr-status__time">8:00</span>' +
+          '<span class="dsr-status__stats"><img src="' + A('signal_cellular_alt') + '" alt="">' +
+          '<img src="' + A('wifi') + '" alt=""><img src="' + A('battery_full') + '" alt=""></span></div>' +
         '<div class="dsr-mbar">' +
           '<img class="dsr-mbar__home" src="' + A('home') + '" alt="">' +
-          '<span class="dsr-mbar__url"><img class="dsr-mbar__lock" src="' + A('lock-mobile') + '" alt=""><span class="dsr-mbar__text">iiko</span></span>' +
+          '<span class="dsr-mbar__url"><img class="dsr-mbar__lock" src="' + A('lock') + '" alt=""><span class="dsr-mbar__text">iiko</span></span>' +
           '<span class="dsr-mbar__tabs">1</span>' +
-          '<img class="dsr-mbar__more" src="' + A('more') + '" alt="">' +
+          '<img class="dsr-mbar__more" src="' + A('more_vert') + '" alt="">' +
         '</div>' +
       '</div>';
     return ch;

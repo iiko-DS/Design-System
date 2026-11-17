@@ -44,9 +44,10 @@
   flex-direction: row;
   gap: var(--ds-list-item-gap, 8px);
 }
-.ds-table-header-cell:hover {
-  background: var(--ds-color-table-cell-header-hover-background, #f8f9fc);
-}
+/* Состояния Hover у ячейки шапки нет (Figma 60098:45424: Default / Disable / Null; решение заказчика
+   17.11.2026): фон при наведении не меняется, реагирует только иконка действия внутри ячейки
+   (круглая подложка .ds-icon-size--state и цвет Icon/Primary — fixes.css). Правило .ds-table-header-cell:hover
+   с фоном Table cell/Header/Hover #F8F9FC снято. */
 .ds-table-header-cell:disabled {
   background: var(--ds-color-table-cell-header-disable-background, #f0f5ff);
   color: var(--ds-color-text-ui-disable-label-text-color, #9e9e9e);
