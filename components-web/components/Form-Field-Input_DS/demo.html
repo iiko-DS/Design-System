@@ -42,6 +42,9 @@
   .panel { width: fit-content; max-width: 1920px; box-sizing: border-box; padding: 32px; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); background: #fff; }
   .snap-cap { font-size: 12px; line-height: 16px; color: var(--ds-color-text-secondary, #616161); margin: 0 0 8px; }
 
+  /* подпись группы во вкладке «Примеры» — Figma: TEXT 20/28 w400 ls0.5 #333333 (Header S) */
+  .ep-cap { margin: 0; font: var(--ds-font-header-s-20-normal-regular, 400 20px/28px "Roboto"); letter-spacing: .5px; color: var(--ds-color-text-primary, #333333); }
+
   /* иконки слотов — svg (symbol/use): размер задаёт input.css (.ds-input__icon svg), цвет — currentColor */
   .ds-input__icon svg { fill: currentColor; }
 
@@ -65,6 +68,22 @@
   .st-focus .ds-input__frame { border-color: var(--ds-color-form-field-filled-focus-border-color, #448aff); }
   .st-focus .ds-input__label { color: var(--ds-color-form-field-filled-focus-label-text-color, #448aff); }
 
+  /* иконка-кнопка в поле: замороженные состояния State (Icon size — круг 28×28 под глифом 20×20)
+     Figma: Input/Element right · State/Hover #EBEBEB, State/Pressed #E0E0E0 */
+  .st-icon-hover .ds-input__icon,
+  .st-icon-press .ds-input__icon { position: relative; }
+  .st-icon-hover .ds-input__icon::before,
+  .st-icon-press .ds-input__icon::before {
+    content: ""; position: absolute; left: 50%; top: 50%;
+    width: var(--ds-size-7x, 28px); height: var(--ds-size-7x, 28px);
+    margin: calc(var(--ds-size-7x, 28px) / -2) 0 0 calc(var(--ds-size-7x, 28px) / -2);
+    border-radius: 50%;
+  }
+  .st-icon-hover .ds-input__icon::before { background: var(--ds-palette-neutral-100, #ebebeb); }
+  .st-icon-press .ds-input__icon::before { background: var(--ds-palette-neutral-200, #e0e0e0); }
+  .st-icon-hover .ds-input__icon > *,
+  .st-icon-press .ds-input__icon > * { position: relative; }
+
   /* живой пример */
   .snap-live { width: 250px; }
 </style>
@@ -80,6 +99,7 @@
   <div class="ds-tabs" role="tablist" aria-label="Form field input">
     <button class="ds-tab ds-tab--active" role="tab" aria-selected="true" data-vtab="basic">Basic example</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="input">Form field input</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="examples">Примеры</button>
   </div>
 
   <!-- 2. Форм-филд инпут: 29 вариантов (52670:7573) -->
@@ -345,6 +365,157 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- 3. Примеры — фрейм «Input (Examples)» 57781:45298 (2173×865): 7 групп канвы.
+       Тексты — из узлов REST (figma-texts.js), разметка — компонент ds-input, подписи групп — Header S 20/28. -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden style="max-width: 100%; overflow-x: auto;">
+    <div style="display: flex; gap: 48px; align-items: flex-start;">
+
+      <!-- колонка 1 — «Input with a clear button»: 4 × M/Populated (Default, Default+иконка Hover, Default+иконка Pressed, Focus) -->
+      <div style="display: flex; flex-direction: column; gap: 24px; width: 250px;">
+        <p class="ep-cap">Input with a clear button</p>
+        <div class="ds-input ds-input--m ds-input--populated" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">Input text</span></div>
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+          </div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated st-icon-hover" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">Input text</span></div>
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+          </div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated st-icon-press" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">Input text</span></div>
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+          </div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated st-focus" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">|</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- колонка 2 — «Symbol limit»: M/Populated Default (Hint 3/5), Default (Support + 10/256), Error (Support + 278/256) -->
+      <div style="display: flex; flex-direction: column; gap: 24px; width: 250px;">
+        <p class="ep-cap">Symbol limit</p>
+        <div class="ds-input ds-input--m ds-input--populated" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Code</span><span class="ds-input__field">123</span></div>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__hint">3/5</span></div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">Input text</span></div>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__support">Limit max 256 symbol</span><span class="ds-input__hint">10/256</span></div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated ds-input--error" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">Input text lorem Ipsum is s...</span></div>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__support">Limit max 256 symbol</span><span class="ds-input__hint">278/256</span></div>
+        </div>
+      </div>
+
+      <!-- колонка 3 — «Input with support»: M/Empty Default (лейбл внутри — 16/24) и M/Populated Default -->
+      <div style="display: flex; flex-direction: column; gap: 24px; width: 250px;">
+        <p class="ep-cap">Input with support</p>
+        <div class="ds-input ds-input--m ds-input--empty" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__field">Label</span></div>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__support">Support text</span></div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">Input text</span></div>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__support">Support text</span></div>
+        </div>
+      </div>
+
+      <!-- колонка 4 — «Inputs with prefixes»: 2 × M/Populated · Focus+Placeholder (иконка слева, каретка + плейсхолдер #D6D6D6) -->
+      <div style="display: flex; flex-direction: column; gap: 24px; width: 250px;">
+        <p class="ep-cap">Inputs with prefixes</p>
+        <div class="ds-input ds-input--m ds-input--populated st-focus" style="width: 250px;">
+          <div class="ds-input__frame">
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-call" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+            <div class="ds-input__content"><span class="ds-input__label">Telephone</span><span class="ds-input__field snap-ph">|Input text</span></div>
+          </div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated st-focus" style="width: 250px;">
+          <div class="ds-input__frame">
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-mail" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+            <div class="ds-input__content"><span class="ds-input__label">E-mail</span><span class="ds-input__field snap-ph">|Input text</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- колонка 5 — «Input with error messages»: M/Empty Error (лейбл внутри 16/24 #616161) и M/Populated Error -->
+      <div style="display: flex; flex-direction: column; gap: 24px; width: 250px;">
+        <p class="ep-cap">Input with error messages</p>
+        <div class="ds-input ds-input--m ds-input--empty ds-input--error" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__field">Label *</span></div>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__support">Error text</span></div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated ds-input--error" style="width: 250px;">
+          <div class="ds-input__frame">
+            <div class="ds-input__content"><span class="ds-input__label">Label *</span><span class="ds-input__field">Input text</span></div>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__support">Error text</span></div>
+        </div>
+      </div>
+
+      <!-- колонка 6 — «Icon input»: M/Empty Default (без Support) и M/Populated Default (Support text) -->
+      <div style="display: flex; flex-direction: column; gap: 24px; width: 250px;">
+        <p class="ep-cap">Icon input</p>
+        <div class="ds-input ds-input--m ds-input--empty" style="width: 250px;">
+          <div class="ds-input__frame">
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-search" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+            <div class="ds-input__content"><span class="ds-input__field">Label</span></div>
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-close" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+          </div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated" style="width: 250px;">
+          <div class="ds-input__frame">
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-person" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">Input text</span></div>
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__support">Support text</span></div>
+        </div>
+      </div>
+
+      <!-- колонка 7 — «Input disable»: M/Empty Disable (без Support) и M/Populated Disable (Support text) -->
+      <div style="display: flex; flex-direction: column; gap: 24px; width: 250px;">
+        <p class="ep-cap">Input disable</p>
+        <div class="ds-input ds-input--m ds-input--empty ds-input--disabled" style="width: 250px;">
+          <div class="ds-input__frame">
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-search" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+            <div class="ds-input__content"><span class="ds-input__field">Label</span></div>
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+          </div>
+        </div>
+        <div class="ds-input ds-input--m ds-input--populated ds-input--disabled" style="width: 250px;">
+          <div class="ds-input__frame">
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-person" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+            <div class="ds-input__content"><span class="ds-input__label">Label</span><span class="ds-input__field">Input text</span></div>
+            <span class="ds-input__icon"><span class="ds-icon-size ds-icon-size--5x"><svg class="i-info" data-ds-icon="1" aria-hidden="true" focusable="false"></svg></span></span>
+          </div>
+          <div class="ds-input__support"><span class="ds-input__support">Support text</span></div>
+        </div>
+      </div>
+
+    </div>
+    <p class="snap-note">Пометки для ревью: кадр <b>Input (Examples) 57781:45298</b> (2173×865) — 7 групп по 250 px, шаг колонок 298, подпись группы Header S 20/28. Все поля — один компонент <code>ds-input</code> в разных вариантах из Figma: <b>Variant</b> Empty (лейбл внутри, Body M 16/24 #616161) / Populated (Label Caption L 12/16 + значение Body M 16/24), <b>State</b> Default / Focus / Focus+Placeholder / Error / Disable. Колонка 1: hover и pressed иконки-кнопки (State 28×28 #EBEBEB / #E0E0E0). Колонка 2: Hint-only 3/5, Support+Hint 10/256, Error+278/256. Колонка 4: Focus+Placeholder с кареткой. Колонки 6–7: Support только у Populated. Поддержка — строка 250×16, gap 4 от рамки, текст с паддингом 12.</p>
   </div>
 </div>
 

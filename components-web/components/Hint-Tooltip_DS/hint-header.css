@@ -1,83 +1,58 @@
+/* ============================================================
+   iiko DS — Hint header
+   Figma: COMPONENT_SET «Hint header» 54594:2219 — 5 стилей
+   (Style = Neutral / Primary / Secondary / Warning / Error)
+   250×32 · pad 8 / 12 / 4 / 12 · gap 8 · background #424242
+   Состав: [ⓘ Icon size 20] [Hint title — Body S 14/20 Medium, белый] [✕ Clear 20]
+   Скругления у самого header нет — его даёт контейнер (overflow: hidden).
+   ============================================================ */
+
 .ds-hint-header {
-  min-height: var(--ds-size-8x);
-  width: 250px;
   display: flex;
-  flex-direction: row;
+  align-items: center;
   gap: var(--ds-hint-header-gap, 8px);
+  width: 250px;
+  min-height: var(--ds-size-8x, 32px);
+  box-sizing: border-box;
   padding: var(--ds-hint-header-pad-top, 8px) var(--ds-hint-header-pad-right, 12px) var(--ds-hint-header-pad-bottom, 4px) var(--ds-hint-header-pad-left, 12px);
   background: var(--ds-color-hint-background-color, #424242);
-  box-sizing: border-box;
   font-family: var(--ds-font-family, Roboto, sans-serif);
+  color: var(--ds-color-hint-header-text-color, #ffffff);
 }
+
+/* TEXT «Hint title» */
+.ds-hint-header__title,
 .ds-hint-header__label {
-  font-size: var(--ds-font-body-s-14-normal-medium-size);
-  line-height: var(--ds-font-body-s-14-normal-medium-line);
-  letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing);
-  font-weight: var(--ds-font-body-s-14-normal-medium-weight);
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font: var(--ds-font-body-s-14-normal-medium, 500 14px/20px "Roboto");
+  letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing, 0.5px);
   color: var(--ds-color-hint-header-text-color, #ffffff);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+/* Icon size 20 — ⓘ слева и ✕ справа; по умолчанию белые */
 .ds-hint-header__icon {
-  flex-shrink: 0;
-  width: var(--ds-size-5x);
-  height: var(--ds-size-5x);
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: var(--ds-size-5x, 20px);
+  height: var(--ds-size-5x, 20px);
+  color: var(--ds-color-hint-header-icon-color, #ffffff);
 }
 .ds-hint-header__icon svg {
   width: 100%;
   height: 100%;
   display: block;
 }
-.ds-hint-header__icon svg path {
-  fill: currentColor;
-}
-.ds-hint-header__icon-size {
-  height: var(--ds-size-5x);
-  display: flex;
-  flex-direction: row;
-}
-.ds-hint-header__info {
-  height: var(--ds-size-5x);
-  display: flex;
-  flex-direction: row;
-  background: #ffffff;
-}
-.ds-hint-header__title {
-  display: flex;
-  flex-direction: row;
-  background: var(--ds-color-hint-header-text-color, #ffffff);
-  font-size: var(--ds-font-body-s-14-normal-medium-size);
-  line-height: var(--ds-font-body-s-14-normal-medium-line);
-  letter-spacing: var(--ds-font-body-s-14-normal-medium-spacing);
-  font-weight: var(--ds-font-body-s-14-normal-medium-weight);
-  color: var(--ds-color-hint-header-text-color, #ffffff);
-}
-.ds-hint-header__clear {
-  height: var(--ds-size-5x);
-  display: flex;
-  flex-direction: row;
-}
-.ds-hint-header__close {
-  height: var(--ds-size-5x);
-  display: flex;
-  flex-direction: row;
-  background: #ffffff;
-}
-.ds-hint-header--neutral {
-  color: var(--ds-color-hint-header-text-color, #ffffff);
-}
-.ds-hint-header--primary {
-  color: var(--ds-color-hint-header-text-color, #ffffff);
-}
-.ds-hint-header--secondary {
-  color: var(--ds-color-hint-header-text-color, #ffffff);
-}
-.ds-hint-header--warning {
-  color: var(--ds-color-hint-header-text-color, #ffffff);
-}
-.ds-hint-header--error {
-  color: var(--ds-color-hint-header-text-color, #ffffff);
-}
 
+/* Hint/Header/[Style]/Icon color — красится только левая иконка ⓘ */
+.ds-hint-header--neutral   .ds-hint-header__icon--info { color: var(--ds-color-hint-header-neutral-icon-color, #ffffff); }
+.ds-hint-header--primary   .ds-hint-header__icon--info { color: var(--ds-color-hint-header-accent-icon-color, #448aff); }
+.ds-hint-header--secondary .ds-hint-header__icon--info { color: var(--ds-color-hint-header-positive-icon-color, #14b456); }
+.ds-hint-header--warning   .ds-hint-header__icon--info { color: var(--ds-color-hint-header-warning-icon-color, #ea7806); }
+.ds-hint-header--error     .ds-hint-header__icon--info { color: var(--ds-color-hint-header-negative-icon-color, #ff5252); }

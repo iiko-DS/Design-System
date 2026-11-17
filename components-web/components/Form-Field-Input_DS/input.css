@@ -59,10 +59,9 @@
 }
 
 .ds-input__label {
-  font-size: var(--ds-typography-font-size-3x);    /* 12px — Input/[M|S|XS] size/Text label */
-  font-weight: var(--ds-typography-font-weight-regular);
-  letter-spacing: var(--ds-typography-letter-spacing-s);
-  line-height: 16px;
+  /* Figma: Input/Text label — Caption L 12/16, regular, ls 0.5 */
+  font: var(--ds-font-caption-l-12-normal-regular, 400 12px/16px "Roboto");
+  letter-spacing: var(--ds-font-caption-l-12-normal-regular-spacing, 0.5px);
   color: var(--ds-color-text-secondary);           /* #616161 — Input/Input label text color */
   transition: color 0.15s ease;
 }
@@ -75,10 +74,9 @@
   background: transparent;
   padding: 0;
   font-family: inherit;
-  font-size: var(--ds-typography-font-size-4x);    /* 16px — M/S: Text */
-  font-weight: var(--ds-typography-font-weight-regular);
-  letter-spacing: var(--ds-typography-letter-spacing-s);
-  line-height: 24px;
+  /* Figma: Input/Text (M) — Body M 16/24, regular, ls 0.5 */
+  font: var(--ds-font-body-m-16-normal-regular, 400 16px/24px "Roboto");
+  letter-spacing: var(--ds-font-body-m-16-normal-regular-spacing, 0.5px);
   color: var(--ds-color-text-primary);             /* #333333 */
 }
 
@@ -102,12 +100,28 @@
   justify-content: space-between;   /* как в Figma: Support text слева, Hint text справа (фреймы 176/74) */
 }
 
+/* Figma: Support-блок (250×16) — это строка; внутри неё Text / Hint со своими фреймами pad 12/12.
+   Правило одно и то же для всех инстансов: паддинг только у ВЛОЖЕННЫХ текстов, у самой строки его нет
+   (иначе получалось двойное 12+12 и текст уезжал). */
+.ds-input__support {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* как в Figma: Support text слева, Hint text справа (176/74) */
+  box-sizing: border-box;
+  min-height: var(--ds-typography-line-height-4x, 16px);
+}
+.ds-input__support > .ds-input__support,
+.ds-input__support > .ds-input__hint {
+  display: block;
+  padding-left: var(--ds-space-3x, 12px);
+  padding-right: var(--ds-space-3x, 12px);
+}
+
 .ds-input__support,
 .ds-input__hint {
-  font-size: var(--ds-typography-font-size-3x);    /* 12px — Text support */
-  font-weight: var(--ds-typography-font-weight-regular);
-  letter-spacing: var(--ds-typography-letter-spacing-s);
-  line-height: 16px;
+  /* Figma: Support/Hint — Caption L 12/16, regular, ls 0.5 */
+  font: var(--ds-font-caption-l-12-normal-regular, 400 12px/16px "Roboto");
+  letter-spacing: var(--ds-font-caption-l-12-normal-regular-spacing, 0.5px);
   color: var(--ds-color-text-secondary);           /* #616161 */
   transition: color 0.15s ease;
 }
@@ -135,8 +149,10 @@
 .ds-input--error .ds-input__frame:hover {
   background: var(--ds-color-shapes-hover);        /* Error+Hover: фон #F5F5F5 */
 }
+/* Figma: Input/Filled/Error/* — красные и Label, и Support text, и Hint text (278/256) */
 .ds-input--error .ds-input__label,
-.ds-input--error .ds-input__support {
+.ds-input--error .ds-input__support,
+.ds-input--error .ds-input__hint {
   color: var(--ds-color-text-negative);            /* #FF5252 */
 }
 

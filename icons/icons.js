@@ -1,4 +1,4 @@
-/* icons.js — иконки берутся из библиотеки ДС (icons/svg/*.svg), шрифт Google — только резерв.
+/* icons.js — иконки берутся из библиотеки ДС (icons/<раздел>/*.svg), шрифт Google — только резерв.
    Класс .material-icons с именем-лигатурой превращается в маску i-<имя> из icons.css;
    если правила для имени нет (в Figma такой иконки нет) — остаётся лигатура и её рисует шрифт.
 
@@ -53,5 +53,5 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
   else run();
 
-  window.DSIcons = { apply: apply, count: 1171 };
+  window.DSIcons = { apply: apply, count: 1178 };
 })();
