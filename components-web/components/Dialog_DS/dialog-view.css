@@ -7,7 +7,7 @@
   background: var(--ds-color-dialog-background, #ffffff);
   box-shadow: var(--ds-shadow-shadows-12-dp-m);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-dialog-view__label {
   font-size: var(--ds-font-header-s-20-normal-medium-size);

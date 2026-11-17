@@ -5,7 +5,7 @@
   gap: var(--ds-select-item-gap, 8px);
   padding: var(--ds-select-item-pad-top-sub, 12px) var(--ds-select-item-pad-right, 16px) var(--ds-select-item-pad-bottom-sub, 6px) var(--ds-select-item-pad-left, 16px);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, 'Roboto', 'Helvetica Neue', Arial, sans-serif);
 }
 .ds-select-item__label {
   font-size: var(--ds-font-caption-l-12-normal-regular-size);

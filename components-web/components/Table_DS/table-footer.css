@@ -6,7 +6,7 @@
   background: var(--ds-color-table-footer-background, #ffffff);
   box-shadow: var(--ds-shadow-shadows-01-dp-sl);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-table-footer__label {
   font-size: var(--ds-font-body-s-14-normal-regular-size);

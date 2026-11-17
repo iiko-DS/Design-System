@@ -45,7 +45,12 @@
   /* Текст пилюли: дни/год — «Октябрь 2026» (месяц+год, как в Figma), месяцы — «2026». */
   function headText(st) {
     var y = st.view.getFullYear();
-    return st.mode === 'month' ? String(y) : MONTHS[st.view.getMonth()] + ' ' + y;
+    if (st.mode === 'month') return String(y);
+    if (st.mode === 'year' && st.decade) {          /* Examples: вид года показывает блок «2020 - 2039» */
+      var b = Math.floor(y / 20) * 20;
+      return b + ' - ' + (b + 19);
+    }
+    return MONTHS[st.view.getMonth()] + ' ' + y;
   }
 
   /* Панель-шапка: пилюля «месяц год ⌄» (клик переключает вид) + стрелки ‹ › (только в виде дней). */
@@ -64,15 +69,16 @@
     '</div>';
   }
 
-  /* Сетка дней месяца: строки по 7. Текущий месяц — «01»…«31» (default/today/selected + диапазон),
-     дни соседних месяцев — выключенные серые (как в Figma: opacity .38, клику недоступны). */
-  function dayRowsHTML(st) {
-    var y = st.view.getFullYear(), m = st.view.getMonth();
+  /* Сетка дней месяца: строки по 7. y/m — какой месяц рисуем (для двухмесячного вида).
+     Текущий месяц — «01»…«31» (default/today/selected + диапазон), дни соседних месяцев — выключенные
+     серые (как в Figma: opacity .38, клику недоступны). */
+  function dayRowsFor(st, y, m, maxRows) {
     var offset = (new Date(y, m, 1).getDay() + 6) % 7;      /* Пн = 0 */
     var days = new Date(y, m + 1, 0).getDate();
     var prevDays = new Date(y, m, 0).getDate();
-    var today = cut(new Date());
+    var today = st.today || cut(new Date());   /* st.today — фиксированное «сегодня» для витрин */
     var total = Math.ceil((offset + days) / 7) * 7;
+    if (maxRows) total = Math.min(total, maxRows * 7);   /* двухмесячный вид: фиксированные 5 рядов, как в Figma */
     var rows = '', row = '';
     for (var i = 0; i < total; i++) {
       var day = i - offset + 1, inner;
@@ -102,10 +108,41 @@
     return rows;
   }
 
-  /* Вид года: блок 12 лет (4×3) вокруг текущего (view.year − 2 … +9), выбранный — синяя пилюля. */
+  function dayRowsHTML(st) {
+    return dayRowsFor(st, st.view.getFullYear(), st.view.getMonth());
+  }
+
+  /* Панель одного месяца двухмесячного вида: стрелка + пилюля месяца (Elements Datepicker/Month,
+     текст Body S 14/20 Medium — по данным Figma), шапка недели, разделитель, сетка дней. */
+  function monthPanelHTML(st, date, arrow) {
+    var y = date.getFullYear(), m = date.getMonth();
+    var wd = '';
+    for (var wi = 0; wi < 7; wi++) wd += '<span class="ds-datepicker__label">' + WDAYS[wi] + '</span>';
+    var btn = function (step, glyph, label) {
+      return '<span class="ds-control-panel__button-icon" role="button" tabindex="0" data-cal-step="' + step + '" aria-label="' + label + '">' +
+        '<span class="ds-icon-size ds-icon-size--5x ds-icon-size--state"><span class="material-icons">' + glyph + '</span></span></span>';
+    };
+    return '<div class="ds-datepicker__month">' +
+      '<div class="ds-datepicker__control-panel">' +
+        (arrow === 'left' ? btn(-1, 'chevron_left', 'Предыдущий месяц') : '') +
+        '<span class="ds-elements ds-elements--month ds-elements--default ds-datepicker__month-title">' +
+          '<span class="ds-control-panel__label">' + MONTHS[m] + ' ' + y + '</span>' +
+        '</span>' +
+        (arrow === 'right' ? btn(1, 'chevron_right', 'Следующий месяц') : '') +
+      '</div>' +
+      '<div class="ds-datepicker__elements">' + wd + '</div>' +
+      '<div class="ds-datepicker__divider"></div>' +
+      '<div class="ds-datepicker__days">' + dayRowsFor(st, y, m, 5) + '</div>' +
+    '</div>';
+  }
+
+  /* Вид года: блок 20 лет (4×5) вокруг текущего (view.year − 2 … +17), выбранный — синяя пилюля.
+     В Figma (Type=Year, 312×292) — 4 колонки × 5 рядов по 70×40. */
   function yearsHTML(st) {
-    var cur = st.view.getFullYear(), base = cur - 2, rows = '';
-    for (var r = 0; r < 3; r++) {
+    var cur = st.view.getFullYear();
+    var base = st.decade ? Math.floor(cur / 20) * 20 : cur - 2;   /* decade: блок годов выровнен по 20 */
+    var rows = '';
+    for (var r = 0; r < 5; r++) {
       var row = '';
       for (var c = 0; c < 4; c++) {
         var yy = base + r * 4 + c;
@@ -136,8 +173,18 @@
 
   function calHTML(st) {
     var cls = 'ds-datepicker' + (st.static ? ' ds-datepicker--static' : '');
-    if (st.mode === 'year') return '<div class="' + cls + '">' + headHTML(st, true, false) + yearsHTML(st) + '</div>';
-    if (st.mode === 'month') return '<div class="' + cls + '">' + headHTML(st, true, false) + monthsHTML(st) + '</div>';
+    /* Двухмесячный вид (кадр 61306-79280, 625×337): две колонки по 312 и разделитель 1 */
+    if (st.mode === 'day' && st.months === 2) {
+      var second = new Date(st.view.getFullYear(), st.view.getMonth() + 1, 1);
+      return '<div class="' + cls + ' ds-datepicker--dual">' +
+        monthPanelHTML(st, st.view, 'left') +
+        '<div class="ds-datepicker__vdivider"></div>' +
+        monthPanelHTML(st, second, 'right') +
+      '</div>';
+    }
+    /* Сетка годов/месяцев — в обёртке .ds-datepicker__days (пад 4/4), как в кадре Figma */
+    if (st.mode === 'year') return '<div class="' + cls + '">' + headHTML(st, true, false) + '<div class="ds-datepicker__days">' + yearsHTML(st) + '</div></div>';
+    if (st.mode === 'month') return '<div class="' + cls + '">' + headHTML(st, true, false) + '<div class="ds-datepicker__days">' + monthsHTML(st) + '</div></div>';
     var wd = '';
     for (var wi = 0; wi < 7; wi++) wd += '<span class="ds-datepicker__label">' + WDAYS[wi] + '</span>';
     return '<div class="' + cls + '">' +
@@ -156,8 +203,11 @@
       start: opts.start ? cut(opts.start) : null,
       end: opts.end ? cut(opts.end) : null,
       view: cut(opts.view || opts.start || new Date()),
+      today: opts.today ? cut(opts.today) : null,   /* витрины: «сегодня» как в кадре Figma */
+      decade: !!opts.decade,   /* вид года: блок 20 лет с заголовком «2020 - 2039» */
       pickFrom: null,
       mode: opts.mode || 'day',  /* начальный вид (карточки стенда: 'day' | 'year' | 'month') */
+      months: opts.months || 1,  /* 2 — двухмесячный вид (кадр 61306-79280) */
       static: !!opts.static      /* витрина: без обработчика кликов */
     };
 
@@ -243,14 +293,20 @@
      календарь ds-datepicker (mount выше). Дату можно набрать в поле или выбрать
      в календаре по иконке date_range справа.
      Float-модель лейбла — как в примерах Figma «Datepicker (Examples)» (58987-16573):
-     в покое лейбл «Выберите дату» стоит в строке ввода, при фокусе/значении всплывает
-     наверх (в фокусе — акцентный), а формат «ДД.ММ.ГГГГ» виден только при вводе.
+     в покое подпись стоит в строке ввода (в витрине Empty это сам формат «ДД.ММ.ГГГГ»),
+     при фокусе/значении всплывает наверх (в фокусе — акцентный), а формат «ДД.ММ.ГГГГ»
+     виден только при вводе. Витрина Populated (opts.populated) — подпись «Дата» вверху,
+     строка ввода пустая, формат цветом плейсхолдера #D6D6D6 — как в кадре 58548-4764.
      Выпадашка и float-логика — ручной слой fixes.css (раздел «Input Datepicker»).
-     opts: { label, placeholder, value: Date, open: boolean, static: boolean, onPick(s, e) }
+     opts: { label, ariaLabel, placeholder, value: Date, populated, open, static, onPick(s, e) }
      static: true — только поле, без выпадашки и слушателей (витрина вариантов стенда). */
   function mountInput(wrap, opts) {
     opts = opts || {};
-    var label = opts.label || 'Выберите дату';
+    var label = opts.label || 'Дата';
+    var ariaLabel = opts.ariaLabel || 'Дата';
+    var state = opts.state || '';   /* витрина «Поведение»: '' | hover | focus | focus-value | selected */
+    var isText = opts.text !== undefined;   /* вместо <input> — текст (статичная витрина состояний) */
+    var forcePopulated = !!opts.populated || state === 'focus' || state === 'focus-value' || state === 'selected';
     var ph = opts.placeholder || 'ДД.ММ.ГГГГ';
     var isStatic = !!opts.static;
     var iconHTML = isStatic
@@ -259,12 +315,17 @@
     var ddHTML = isStatic ? '' : '<div class="ds-input-datepicker__dropdown" hidden><div class="ds-input-datepicker__calendar"></div></div>';
     wrap.classList.add('ds-input-datepicker');
     if (isStatic) wrap.classList.add('ds-input-datepicker--static');
+    if (state) wrap.classList.add('dpb--' + state);
+    var fieldHTML = isText
+      ? '<span class="ds-input__field ds-input-datepicker__text">' + opts.text +
+        (opts.caret ? '<span class="ds-input-datepicker__caret"></span>' : '') + '</span>'
+      : '<input class="ds-input__field" type="text" placeholder="' + ph + '" autocomplete="off" aria-label="' + ariaLabel + '">';
     wrap.innerHTML =
       '<div class="ds-input ds-input--m">' +
         '<div class="ds-input__frame">' +
           '<div class="ds-input__content">' +
             '<span class="ds-input__label">' + label + '</span>' +
-            '<input class="ds-input__field" type="text" placeholder="' + ph + '" autocomplete="off" aria-label="' + label + '">' +
+            fieldHTML +
           '</div>' +
           iconHTML +
         '</div>' +
@@ -297,8 +358,7 @@
       syncState();
     }
     function syncState() {
-      var has = !!field.value;
-      wrap.classList.toggle('ds-input-datepicker--populated', has);
+      var has = forcePopulated || !!field.value;      wrap.classList.toggle('ds-input-datepicker--populated', has);
       wrap.classList.toggle('ds-input-datepicker--empty', !has);
     }
     function open() {
@@ -332,7 +392,7 @@
     }
     field.addEventListener('input', syncState);   /* набранный руками текст — тоже «заполнено» */
 
-    if (current) setValue(current);
+    if (!isText && current) setValue(current);
     syncState();
     if (opts.open) open();
 

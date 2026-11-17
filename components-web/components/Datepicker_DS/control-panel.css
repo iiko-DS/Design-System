@@ -2,9 +2,20 @@
   display: flex;
   width: 280px;
   padding: var(--ds-size-1x) 0 var(--ds-size-1x) 0;
-  gap: 74px;
+  justify-content: space-between;   /* Figma: пилюля слева, группа кнопок справа (gap не задан) */
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
+}
+
+/* Кнопки-иконки календаря — Button icon Size=M: пад 8 + иконка 20 = 36×36 */
+.ds-control-panel .material-icons {
+  font-size: var(--ds-size-5x);
+  line-height: var(--ds-size-5x);
+  width: var(--ds-size-5x);
+  height: var(--ds-size-5x);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .ds-control-panel__label {
   font-size: var(--ds-font-body-s-14-normal-medium-size);

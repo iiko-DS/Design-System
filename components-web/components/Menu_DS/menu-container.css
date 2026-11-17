@@ -9,7 +9,7 @@
   background: var(--ds-color-menu-background, #ffffff);
   box-shadow: var(--ds-shadow-shadows-08-dp-s);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-menu-container__label {
   font-size: var(--ds-font-body-s-14-normal-regular-size);

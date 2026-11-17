@@ -9,7 +9,9 @@
   Источник — канва «Badge_DS» Figma «Iiko Web DS (New)»: компонент «Badge» (54428:187; 8 вариантов:
   Style Accent/Positive/Warning/Negative × Type Counter/Point) и блок «Badge examples» (58335:20773):
   9 групп (Text item + Counter/Point; Button + Counter/Point; Button icon + Counter/Point ×3; Icon size 24 + Point)
-  + 2 пункта Sidenav (L1 hover + Counter «17»; L2 + Counter «17» + Divider). Вкладки: Basic example / Badge.
+  + 2 пункта Sidenav (L1 hover + Counter «17»; L2 + Counter «17» + Divider).
+  Вкладки (схема 16.11.2026): Basic example (универсальный рабочий вариант) / Badge (витрина 8 вариантов) /
+  Badge (Examples) (все кадры фрейма «Badge examples», 58335:20773).
   Состав: Counter — пилюля 19×18 (пад 1/6, радиус 9999), текст «7» 12/16 Medium белый, трекинг 0.5;
   Point — точка 8×8. Смещение бейджа на элементе — половина габарита за верхний правый угол
   (счётчик −9/−9; точка −4/−4; в кадрах 3 и 9 Figma — легаси-инстансы 20×20, смещение −10/−10);
@@ -24,7 +26,7 @@
 <link rel="stylesheet" href="../../fixes.css">
 <style>
   /* каркас демо-стенда — как у других стендов */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
   .view { padding: 24px; }
@@ -59,6 +61,7 @@
   .snap-ex__row--r3 { gap: 39px; }
   .snap-ex__row--r3 .snap-ex__item:last-child { margin-left: 10px; }
   .snap-ex__row--r4 { gap: 26px; }
+  .snap-ex__row--basic { gap: 64px; align-items: center; }
   .snap-ex__row--l1 { margin-top: 24px; }
   .snap-ex__col { display: flex; flex-direction: column; gap: 15px; }
   .snap-ex__item { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
@@ -83,12 +86,45 @@
 <body>
 <div class="demo-bar">
   <span class="demo-bar__title">Badge — демо стенд</span>
-  <span>Figma: Badge (54428-187) — 8 вариантов · примеры: «Badge examples» (58335-20773)</span>
+  <span>Figma: Badge (54428-187) — 8 вариантов · Badge examples (58335-20773) — 9 групп + 2 пункта Sidenav</span>
 </div>
 <div class="view">
   <div class="ds-tabs" role="tablist" aria-label="Badge">
     <button class="ds-tab ds-tab--active" role="tab" aria-selected="true" data-vtab="basic">Basic example</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="badge">Badge</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="examples">Badge (Examples)</button>
+  </div>
+
+  <!-- 1. Basic example: универсальный рабочий вариант — Counter (число) и Point (факт) на Text UI -->
+  <div class="panel" data-vpanel="basic" role="tabpanel">
+    <div class="snap-sect">
+      <p class="snap-cap" style="margin: 0 0 24px;">Basic example — универсальный вариант: Counter (когда важно количество) и Point (когда важен только факт) на типовом носителе; число — реальное из данных, «99+» — при больших значениях</p>
+      <div class="snap-ex">
+        <div class="snap-ex__row snap-ex__row--basic">
+          <div class="snap-ex__col">
+            <div class="snap-ex__item">
+              <span class="snap-anchor">
+                <span class="ds-text-ui snap-text-item"><span class="ds-text-ui__label">Text item</span></span>
+                <span class="ds-badge ds-badge--counter ds-badge--accent snap-badge snap-badge--tc">7</span>
+              </span>
+            </div>
+            <div class="snap-ex__item">
+              <span class="snap-anchor">
+                <span class="ds-text-ui snap-text-item"><span class="ds-text-ui__label">Text item</span></span>
+                <span class="ds-badge ds-badge--point ds-badge--negative snap-badge snap-badge--tp"></span>
+              </span>
+            </div>
+          </div>
+          <div class="snap-ex__item">
+            <span class="snap-anchor">
+              <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--filled"><span class="ds-btn__label">Button</span></button>
+              <span class="ds-badge ds-badge--counter ds-badge--positive snap-badge snap-badge--c">7</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="snap-note">Пометки для ревью: (а) универсальный вариант — бейдж ставится на носитель (текст/кнопка/пункт списка) со смещением на половину своего габарита за верхний правый угол: счётчик −9/−9, точка −4/−4; у текста («Text item») бейдж сразу за концом строки и приподнят (−9 / −4); (б) Counter — пилюля 19×18 (пад 1/6, радиус circular), текст 12/16 Medium белый с трекингом 0.5; Point — точка 8×8; (в) Style: Accent — обычное новое, Positive — успех, Warning — внимание, Negative — ошибка (все четыре — во вкладке «Badge»); (г) число не выдумываем: реальное количество из данных, при больших значениях — «99+»; (д) все остальные сценарии (кнопки, button icon, иконка, Sidenav) — во вкладке «Badge (Examples)». Журнал №114, №137.</p>
   </div>
 
   <!-- 2. Badge (54428:187; 8 вариантов) -->
@@ -113,8 +149,8 @@
     <p class="snap-note">Пометки для ревью: (а) компонент — 8 вариантов (ряд точек над рядом счётчиков; порядок Accent/Positive/Warning/Negative — как в Figma); (б) счётчик — 19×18 (пад 1/6, радиус circular), текст «7» 12/16 Medium белый с трекингом 0.5 — в css трекинг отсутствовал, добавлен фиксом п. 32 (журнал №137); (в) цвета — токены badge/* (#448aff / #14b456 / #ffab40 / #ff5252); (г) у Badge нет размеров и состояний (только Style × Type) — как в Figma; (д) число — реальное количество из данных («99+» при больших значениях); бейдж — не Status и не Chips. Журнал №114, №137.</p>
   </div>
 
-  <!-- 1. Basic example: примеры канвы «Badge examples» (58335:20773) — 9 групп + 2 пункта Sidenav -->
-  <div class="panel" data-vpanel="basic" role="tabpanel">
+  <!-- 3. Badge (Examples) — кадры фрейма Figma «Badge examples» (58335:20773): 9 групп + 2 пункта Sidenav -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden>
     <div class="snap-ex">
       <div class="snap-ex__row">
         <div class="snap-ex__col">

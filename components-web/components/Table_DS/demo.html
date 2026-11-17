@@ -45,7 +45,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 <style>
   /* каркас демо-стенда — как у других стендов */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .material-icons { font-family: 'Material Icons Outlined'; }   /* иконки — только аутлайн (правило) */
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
@@ -317,7 +317,7 @@
   .snap-live--v2.snap-cards-on .ds-table-content-cell[data-label] { display: flex; align-items: center; gap: 8px; min-height: 24px; }
   .snap-live--v2.snap-cards-on .ds-table-content-cell[data-label]::before {
     content: attr(data-label); flex: none;
-    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--ds-font-family, Roboto, sans-serif);
     font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px);
     letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, 0.25px); color: var(--ds-color-text-primary, #333333);
   }
@@ -358,7 +358,7 @@
     .panel[data-vpanel="all-example"] .snap-live--v2 .ds-table-content-cell[data-label] { display: flex; align-items: center; gap: 8px; min-height: 24px; }
     .panel[data-vpanel="all-example"] .snap-live--v2 .ds-table-content-cell[data-label]::before {
       content: attr(data-label); flex: none;
-      font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      font-family: var(--ds-font-family, Roboto, sans-serif);
       font-size: var(--ds-font-body-s-14-normal-regular-size, 14px); line-height: var(--ds-font-body-s-14-normal-regular-line, 20px);
       letter-spacing: var(--ds-font-body-s-14-normal-regular-spacing, 0.25px); color: var(--ds-color-text-primary, #333333);
     }

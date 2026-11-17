@@ -12,7 +12,7 @@
   flex-direction: column;
   gap: var(--ds-space-1x);            /* 4px — Input/Gap input support */
   width: 100%;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, 'Roboto', 'Helvetica Neue', Arial, sans-serif);
 }
 
 /* ── Рамка поля (Input Frame) ─────────────────────────── */

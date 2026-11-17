@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="../../fixes.css">
 <style>
   /* каркас демо-стенда — как у других стендов */
-  html, body { margin: 0; background: #fff; font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; color: var(--ds-color-text-primary); }
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary); }
   .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
   .demo-bar__title { font-weight: 500; margin-right: 8px; }
   .view { padding: 24px; }
@@ -49,6 +49,16 @@
   .snap-row { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
   .snap-item-gap { display: flex; flex-direction: column; gap: 8px; }
   .snap-groupbox { display: flex; flex-direction: column; }
+  /* ── Checkbox (Examples), кадр 58195:5346 ── */
+  .panel[data-vpanel="examples"] { max-width: none; }
+  .snap-ex { display: flex; flex-direction: column; gap: 48px; }
+  .snap-ex__row { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+  .snap-ex__block { display: flex; flex-direction: column; gap: 24px; }
+  .snap-ex__h { margin: 0; font-size: 24px; line-height: 28px; font-weight: 500; color: var(--ds-color-text-primary); }
+  /* горизонтальная группа не должна схлопываться в колонку от .snap-groupbox */
+  .ds-checkbox-group--horizontal.snap-groupbox { flex-direction: row; flex-wrap: wrap; align-items: center; row-gap: 8px; }
+  /* подпись поддержки/ошибки в горизонтальной группе — отдельной строкой (Support up / Support down) */
+  .ds-checkbox-group--horizontal.snap-groupbox > .ds-checkbox__support { flex: 0 0 100%; }
   /* Витрина: заморозка Hover/Press — подложка State 28×28 (fixes.css п. 38, токены компонента) */
   .panel .st-hover .ds-checkbox__box::after { background-color: var(--ds-color-checkbox-normal-deselected-hover-background, #ebebeb); }
   .panel .st-hover .ds-checkbox__input:checked ~ .ds-checkbox__box::after { background-color: var(--ds-color-checkbox-normal-selected-hover-background, #e8f0ff); }
@@ -75,6 +85,7 @@
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="checkbox">Checkbox</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="checkbox-label">Checkbox label</button>
     <button class="ds-tab" role="tab" aria-selected="false" data-vtab="checkbox-group">Checkbox group</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="examples">Checkbox (Examples)</button>
   </div>
 
   <!-- 2. Checkbox (компонент 53806:5694, 21 вариант) -->
@@ -195,6 +206,138 @@
     <p class="snap-note">Пометки для ревью: (а) 3 варианта: Vertical и Horizontal (зазор 8 между пунктами, подпись поддержки «Support/Error text» сверху и снизу) + Group (строки 20 + гэп 8); подписи пунктов — текст компонента «Checkbox label»; (б) у «Checkbox label» в css нет сброса фона у `__support-text` (плашка?) — проверено: фон не задан, ок; (в) группы живые — можно кликать. Журнал №119, №160, №187.</p>
   </div>
 
+  <!-- 5. Checkbox (Examples) — кадр Figma 58195:5346: 12 блоков + 2 группы -->
+  <div class="panel" data-vpanel="examples" role="tabpanel" hidden>
+    <div class="snap-ex">
+
+      <div class="snap-ex__row">
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Basic checkbox left</p>
+          <div class="ds-checkbox-label ds-checkbox-label--normal ds-checkbox-label--deselected" style="width:182px">
+            <div class="ds-checkbox-label__form"><span class="ds-checkbox-label__left"><span class="ds-checkbox-label__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-cb-off"/></svg></span></span><span class="ds-checkbox-label__label">Checkbox label</span></div>
+          </div>
+        </div>
+
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Checkbox support text</p>
+          <div class="ds-checkbox-label ds-checkbox-label--normal ds-checkbox-label--deselected" style="width:211px">
+            <div class="ds-checkbox-label__form"><span class="ds-checkbox-label__left"><span class="ds-checkbox-label__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-cb-off"/></svg></span></span><span class="ds-checkbox-label__label">Checkbox label</span></div>
+            <div class="ds-checkbox-label__support"><span class="ds-checkbox-label__support-text">Support text</span></div>
+          </div>
+        </div>
+
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Checkbox error text</p>
+          <div class="ds-checkbox-label ds-checkbox-label--error ds-checkbox-label--deselected" style="width:183px">
+            <div class="ds-checkbox-label__form"><span class="ds-checkbox-label__left"><span class="ds-checkbox-label__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-cb-off"/></svg></span></span><span class="ds-checkbox-label__label">Checkbox label</span></div>
+            <div class="ds-checkbox-label__support"><span class="ds-checkbox-label__support-text">Error text</span></div>
+          </div>
+        </div>
+
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Checkbox group support text</p>
+          <div style="display:flex;flex-direction:column;gap:24px;width:284px;">
+            <div class="ds-checkbox-group ds-checkbox-group--vertical snap-groupbox">
+              <span class="ds-checkbox__support" style="margin:0 0 4px;">Support text</span>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+            </div>
+            <div class="ds-checkbox-group ds-checkbox-group--horizontal snap-groupbox">
+              <span class="ds-checkbox__support" style="margin:0 0 4px;">Support text</span>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Checkbox group error text</p>
+          <div style="display:flex;flex-direction:column;gap:24px;width:284px;">
+            <div class="ds-checkbox-group ds-checkbox-group--vertical snap-groupbox">
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <span class="ds-checkbox__support" style="margin:4px 0 0;">Error text</span>
+            </div>
+            <div class="ds-checkbox-group ds-checkbox-group--horizontal snap-groupbox">
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <span class="ds-checkbox__support" style="margin:4px 0 0;">Error text</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Checkbox group support text &amp; error text</p>
+          <div style="display:flex;flex-direction:column;gap:24px;width:380px;">
+            <div class="ds-checkbox-group ds-checkbox-group--vertical snap-groupbox">
+              <span class="ds-checkbox__support" style="margin:0 0 4px;">Support text</span>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <span class="ds-checkbox__support" style="margin:4px 0 0;">Error text</span>
+            </div>
+            <div class="ds-checkbox-group ds-checkbox-group--horizontal snap-groupbox">
+              <span class="ds-checkbox__support" style="margin:0 0 4px;">Support text</span>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+              <span class="ds-checkbox__support" style="margin:4px 0 0;">Error text</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ex__row">
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Basic checkbox right</p>
+          <div class="ds-checkbox-label ds-checkbox-label--normal ds-checkbox-label--deselected" style="width:194px">
+            <div class="ds-checkbox-label__form"><span class="ds-checkbox-label__label">Checkbox label</span><span class="ds-checkbox-label__right"><span class="ds-checkbox-label__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-cb-off"/></svg></span></span></div>
+          </div>
+        </div>
+
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Checkbox support text (right)</p>
+          <div class="ds-checkbox-label ds-checkbox-label--normal ds-checkbox-label--deselected" style="width:274px">
+            <div class="ds-checkbox-label__form"><span class="ds-checkbox-label__label">Checkbox label</span><span class="ds-checkbox-label__right"><span class="ds-checkbox-label__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-cb-off"/></svg></span></span></div>
+            <div class="ds-checkbox-label__support"><span class="ds-checkbox-label__support-text">Support text</span></div>
+          </div>
+        </div>
+
+        <div class="snap-ex__block">
+          <p class="snap-ex__h">Checkbox error text (right)</p>
+          <div class="ds-checkbox-label ds-checkbox-label--error ds-checkbox-label--deselected" style="width:246px">
+            <div class="ds-checkbox-label__form"><span class="ds-checkbox-label__label">Checkbox label</span><span class="ds-checkbox-label__right"><span class="ds-checkbox-label__icon"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#ic-cb-off"/></svg></span></span></div>
+            <div class="ds-checkbox-label__support"><span class="ds-checkbox-label__support-text">Error text</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="snap-ex__row">
+        <div class="snap-ex__block">
+          <div class="ds-checkbox-group ds-checkbox-group--vertical snap-groupbox" style="width:577px;">
+            <span class="ds-checkbox__support" style="margin:0 0 4px;">Support text</span>
+            <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+            <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+            <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+          </div>
+        </div>
+        <div class="snap-ex__block">
+          <div class="ds-checkbox-group ds-checkbox-group--vertical snap-groupbox" style="width:577px;">
+            <span class="ds-checkbox__support" style="margin:0 0 4px;">Support text</span>
+            <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+            <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+            <label class="ds-checkbox"><input class="ds-checkbox__input" type="checkbox"><span class="ds-checkbox__box"></span><span class="ds-checkbox__label">Checkbox label</span></label>
+            <span class="ds-checkbox__support" style="margin:4px 0 0;">Support text</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="snap-note">Пометки для ревью: (а) вкладка повторяет кадр Figma «Checkbox (Examples)» (58195:5346): верхний ряд — Basic checkbox left · Checkbox support text · Checkbox error text · Checkbox group support text · Checkbox group error text · Checkbox group support text &amp; error text; второй ряд — те же три блока с чекбоксом справа; внизу — две группы Checkbox (577) с подписью поддержки сверху и сверху+снизу; (б) подписи пунктов — текст компонента «Checkbox label», подписи поддержки/ошибки — «Support text» / «Error text»: в метаданных тексты внутри инстансов не раскрываются, взяты дефолтные подписи компонента (в кадре три подписи разной ширины 161/351/137 — то есть текст длиннее дефолтного); (в) состояния Error — вариант `--error`, Disable — `--disable`; группы живые (клик переключает); (г) подложка State 28×28 у Hover/Press — на вкладке «Checkbox», здесь статика кадра. Журнал №119, №160, №187.</p>
+  </div>
+
   <!-- 1. Basic example: «Checkbox (Examples)» (58195:5346) -->
   <div class="panel" data-vpanel="basic" role="tabpanel">
     <div class="snap-sect">
@@ -207,7 +350,7 @@
         </div>
       </div>
     </div>
-    <p class="snap-note">Пометки для ревью: (а) живой чекбокс: клик переключает Deselected ↔ Selected; второй вариант — с подписью поддержки (обёртка ds-checkbox-wrap: контрол 20 + 4 + подпись 16); (б) индетерминат (data-ind) — в витрине «Checkbox»; (в) кадры примеров «Checkbox (Examples)» (58195:5346) на стенде НЕ воспроизводим — компонент динамический, в Basic только живой компонент (§4); (г) мобильные компоненты — вне веба. Журнал №119, №160, №187.</p>
+    <p class="snap-note">Пометки для ревью: (а) живой чекбокс: клик переключает Deselected ↔ Selected; второй вариант — с подписью поддержки (обёртка ds-checkbox-wrap: контрол 20 + 4 + подпись 16); (б) индетерминат (data-ind) — в витрине «Checkbox»; (в) кадры примеров «Checkbox (Examples)» (58195:5346) вынесены в отдельную вкладку «Checkbox (Examples)» (16.11.2026); (г) мобильные компоненты — вне веба. Журнал №119, №160, №187.</p>
   </div>
 </div>
 

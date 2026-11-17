@@ -8,7 +8,7 @@
   padding: var(--ds-hint-footer-pad-top, 16px) var(--ds-hint-footer-pad-right, 12px) var(--ds-hint-footer-pad-bottom, 12px) var(--ds-hint-footer-pad-left, 12px);
   background: var(--ds-color-hint-background-color, #424242);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-hint-footer__label {
   font-size: var(--ds-font-body-s-14-normal-medium-size);

@@ -6,7 +6,7 @@
   align-items: center;
   gap: var(--ds-icon-size-gap-group-2x, 8px);
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 .ds-icon-group__icon {
   flex-shrink: 0;

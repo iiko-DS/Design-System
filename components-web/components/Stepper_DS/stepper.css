@@ -11,7 +11,7 @@
   align-items: center;
   gap: var(--ds-space-2x);                                  /* 8px */
   background: var(--ds-color-stepper-background);
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 
 /* ── Шаг ──────────────────────────────────────────────────── */
@@ -127,7 +127,7 @@
   align-items: center;
   gap: var(--ds-space-4x);                                  /* 16px */
   min-height: 36px;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
 }
 
 /* «N из M» — TEXT 14/500 lh20 #333333 */

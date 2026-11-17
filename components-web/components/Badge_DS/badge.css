@@ -12,7 +12,7 @@
   justify-content: center;
   flex-shrink: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--ds-font-family, Roboto, sans-serif);
   font-size: var(--ds-typography-font-size-3x);      /* 12px */
   font-weight: var(--ds-typography-font-weight-medium); /* 500 */
   line-height: var(--ds-typography-caption-line-height-l); /* 16px */
