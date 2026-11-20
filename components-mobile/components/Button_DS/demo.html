@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Button (семейство) — мобильный демо стенд</title>
+<!--
+  Демо стенд мобильного семейства Button. Папка: DS/components-mobile/components/Button_DS/.
+  Один файл и один css на семейство — как у веб-компонента (components-web/components/Button_DS).
+  Вкладки: Button / Button group / FAB / Bottom action bar / Desktop / Mobile.
+
+  Источник — Figma «Iiko Web DS (New)» (REST, depth 3–4):
+    Button_mob 61827:103096 (51), Button group_mob 61837:4995,
+    FAB_mob 61832:103569 (17), Bottom action bar_mob 61832:103610 (10).
+  Мобильные значения живут в button-mobile.css и modes.css; разметка та же, что на десктопе:
+  режим включается атрибутом data-mode (на вкладках — на панели, чтобы показать Desktop и Mobile рядом).
+  Button M: 133×44, pad 16/12, gap 8, radius 8, иконка 20; кегль подписи 14/20 (Body S).
+  FAB: 56×56, иконка 24, radius 16, паддинги 16; тень — из Figma, токенов FAB/* нет (№295).
+  Bar: 375×90 / 375×142, pad 16 / 12 / 16 / 34, gap 8 (safe area 34).
+  Loading у Button/FAB — стендовая обвязка: состояния Loading в css ДС нет (№40).
+  Вкладка «Desktop / Mobile» перенесена из prototypes/button-modes.html: показывает оба режима рядом
+  и снимает таблицу замеров из браузера (в Figma режим глобальный, два варианта рядом не показать).
+-->
+<link rel="stylesheet" href="../../../components-web/font.css">
+<link rel="stylesheet" href="../../../components-web/tokens.css">
+<link rel="stylesheet" href="../../modes.css">
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../../components-web/components/index.css">
+<link rel="stylesheet" href="../../../components-web/fixes.css">
+<link rel="stylesheet" href="../../../icons/icons.css">
+<script src="../../../icons/icons.js" defer></script>
+<style>
+  /* каркас демо-стенда — как у веб-стендов ДС */
+  html, body { margin: 0; background: #fff; font-family: var(--ds-font-family, Roboto, sans-serif); color: var(--ds-color-text-primary, #333); }
+  .demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--ds-color-stroke-default, #e0e0e0); font-size: 13px; }
+  .demo-bar__title { font-weight: 500; margin-right: 8px; }
+  .view { padding: 24px; }
+  .view .ds-tabs { margin-bottom: 24px; }
+  .panel { width: fit-content; max-width: 1920px; box-sizing: border-box; padding: 32px; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); background: #fff; }
+  .snap-sect { margin: 0 0 40px; }
+  .snap-sect:last-child { margin-bottom: 0; }
+  .snap-sect__title { font-weight: 500; margin: 0 0 12px; }
+  .snap-cap { font-size: 12px; line-height: 16px; color: var(--ds-color-text-secondary, #616161); margin: 0; }
+  .snap-note { font-size: 12px; line-height: 16px; color: var(--ds-color-text-secondary, #616161); margin: 16px 0 0; max-width: 760px; }
+  .snap-grid { display: grid; grid-template-columns: max-content max-content max-content max-content; column-gap: 24px; row-gap: 16px; align-items: center; justify-items: start; }
+  .snap-style { grid-column: 1 / -1; margin-top: 8px; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ds-color-text-primary, #333); }
+  .snap-live-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .snap-frame { width: 375px; box-sizing: border-box; padding: 16px; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: var(--ds-radius-2x); background: #fff; }
+  .snap-groups { display: flex; gap: 64px; align-items: flex-start; flex-wrap: wrap; }
+  .snap-groups > div { display: flex; flex-direction: column; gap: 12px; }
+  .snap-groups .ds-btn-group { width: fit-content; }
+  .snap-groups .snap-frame .ds-btn-group { width: 100%; }
+  .snap-fab-grid { display: grid; grid-template-columns: max-content repeat(5, max-content); column-gap: 24px; row-gap: 16px; align-items: center; justify-items: center; }
+  .snap-fab-grid .snap-cap { justify-self: center; }
+  .snap-fab-box { position: relative; display: inline-flex; }
+  .snap-spinner { position: absolute; inset: 0; margin: auto; box-sizing: border-box; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--ds-color-button-neutral-disable, #EBEBEB); border-top-color: var(--ds-color-button-accent-default, #448AFF); animation: snap-spin .9s linear infinite; pointer-events: none; }
+  @keyframes snap-spin { to { transform: rotate(360deg); } }
+  .snap-bar-frame { width: 375px; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: var(--ds-radius-2x); overflow: hidden; background: var(--ds-color-surface-default-variant, #F8F9FC); }
+  .snap-bar-content { height: 96px; padding: 16px; box-sizing: border-box; font-size: 12px; line-height: 16px; color: var(--ds-color-text-secondary, #616161); }
+
+  /* вкладка «Desktop / Mobile» (перенесена из prototypes/button-modes.html) */
+  .modes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .modes-panel { border: 1px dashed var(--ds-color-stroke-default, #e0e0e0); border-radius: var(--ds-radius-2x); padding: 12px; box-sizing: border-box; }
+  .modes-panel__tag { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ds-color-text-secondary, #616161); margin-bottom: 8px; }
+  .mcard { background: #fff; border: 1px solid var(--ds-color-stroke-default, #e0e0e0); border-radius: var(--ds-radius-3x); padding: 16px; box-sizing: border-box; }
+  .mcard + .mcard { margin-top: 16px; }
+  .mcard h3 { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ds-color-text-secondary, #616161); margin: 16px 0 8px; }
+  .mcard h3:first-of-type { margin-top: 0; }
+  .mrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .modes-measure { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 16px; margin: 0 0 8px; }
+  .modes-measure th, .modes-measure td { border: 1px solid var(--ds-color-stroke-default, #e0e0e0); padding: 6px 10px; text-align: left; white-space: nowrap; }
+  .modes-measure thead th { background: #fafafa; font-weight: 500; text-align: center; }
+  .modes-measure thead th[rowspan] { text-align: left; background: #fafafa; }
+  .modes-measure thead tr.grp th { background: var(--ds-color-surface-default-variant, #F8F9FC); font-weight: 500; }
+  .modes-measure tbody th { background: #fafafa; font-weight: 500; color: var(--ds-color-text-secondary, #616161); text-align: left; position: sticky; left: 0; }
+  .modes-measure tbody tr:nth-child(even) td { background: #fdfdfd; }
+  .modes-measure td { text-align: center; }
+  .modes-measure td.col-mobile { background: var(--ds-color-surface-default-variant, #F8F9FC); }
+  .modes-measure tbody tr:nth-child(even) td.col-mobile { background: #f1f4fa; }
+  .modes-measure .ok { color: var(--ds-color-button-positive-press, #0F852C); font-weight: 500; }
+  .modes-measure .warn { color: var(--ds-color-button-warning-press, #EA7806); font-weight: 500; }
+
+  /* замороженные состояния — стендовыми классами st-hover/st-press (в ДС :hover/:active) */
+  .st-hover .ds-btn--accent.ds-btn--filled { background: var(--ds-color-button-accent-hover); }
+  .st-hover .ds-btn--accent.ds-btn--outlined,
+  .st-hover .ds-btn--accent.ds-btn--text { background: var(--ds-color-button-accent-lite-hover); }
+  .st-press .ds-btn--accent.ds-btn--filled { background: var(--ds-color-button-accent-press); }
+  .st-press .ds-btn--accent.ds-btn--outlined,
+  .st-press .ds-btn--accent.ds-btn--text { background: var(--ds-color-button-accent-lite-press); }
+
+  .st-hover .ds-btn--neutral.ds-btn--filled,
+  .st-hover .ds-btn--neutral.ds-btn--outlined,
+  .st-hover .ds-btn--neutral.ds-btn--text { background: var(--ds-color-button-neutral-hover); }
+  .st-press .ds-btn--neutral.ds-btn--filled,
+  .st-press .ds-btn--neutral.ds-btn--outlined,
+  .st-press .ds-btn--neutral.ds-btn--text { background: var(--ds-color-button-neutral-press); }
+
+  .st-hover .ds-btn--positive.ds-btn--filled { background: var(--ds-color-button-positive-hover); }
+  .st-hover .ds-btn--positive.ds-btn--outlined,
+  .st-hover .ds-btn--positive.ds-btn--text { background: var(--ds-color-button-positive-lite-hover); }
+  .st-press .ds-btn--positive.ds-btn--filled { background: var(--ds-color-button-positive-press); }
+  .st-press .ds-btn--positive.ds-btn--outlined,
+  .st-press .ds-btn--positive.ds-btn--text { background: var(--ds-color-button-positive-lite-press); }
+
+  .st-hover .ds-btn--warning.ds-btn--filled { background: var(--ds-color-button-warning-hover); }
+  .st-hover .ds-btn--warning.ds-btn--outlined,
+  .st-hover .ds-btn--warning.ds-btn--text { background: var(--ds-color-button-warning-lite-hover); }
+  .st-press .ds-btn--warning.ds-btn--filled { background: var(--ds-color-button-warning-press); }
+  .st-press .ds-btn--warning.ds-btn--outlined,
+  .st-press .ds-btn--warning.ds-btn--text { background: var(--ds-color-button-warning-lite-press); }
+
+  .st-hover .ds-btn--negative.ds-btn--filled { background: var(--ds-color-button-negative-hover); }
+  .st-hover .ds-btn--negative.ds-btn--outlined,
+  .st-hover .ds-btn--negative.ds-btn--text { background: var(--ds-color-button-negative-lite-hover); }
+  .st-press .ds-btn--negative.ds-btn--filled { background: var(--ds-color-button-negative-press); }
+  .st-press .ds-btn--negative.ds-btn--outlined,
+  .st-press .ds-btn--negative.ds-btn--text { background: var(--ds-color-button-negative-lite-press); }
+
+  .st-hover .ds-fab--neutral { background: var(--ds-color-button-neutral-hover); }
+  .st-press .ds-fab--neutral { background: var(--ds-color-button-neutral-press); }
+  .st-hover .ds-fab--accent { background: var(--ds-color-button-accent-hover); }
+  .st-press .ds-fab--accent { background: var(--ds-color-button-accent-press); }
+  .st-hover .ds-fab--positive { background: var(--ds-color-button-positive-hover); }
+  .st-press .ds-fab--positive { background: var(--ds-color-button-positive-press); }
+  .st-hover .ds-fab--warning { background: var(--ds-color-button-warning-hover); }
+  .st-press .ds-fab--warning { background: var(--ds-color-button-warning-press); }
+  .st-hover .ds-fab--negative { background: var(--ds-color-button-negative-hover); }
+  .st-press .ds-fab--negative { background: var(--ds-color-button-negative-press); }
+</style>
+</head>
+<body>
+<div class="demo-bar">
+  <span class="demo-bar__title">Button (семейство) — мобильный демо стенд</span>
+  <span>Figma: Button_mob (61827-103096) · Button group_mob (61837-4995) · FAB_mob (61832-103569) · Bottom action bar_mob (61832-103610)</span>
+</div>
+<div class="view">
+  <div class="ds-tabs" role="tablist" aria-label="Button (семейство)">
+    <button class="ds-tab ds-tab--active" role="tab" aria-selected="true" data-vtab="button">Button</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="group">Button group</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="fab">FAB</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="bar">Bottom action bar</button>
+    <button class="ds-tab" role="tab" aria-selected="false" data-vtab="modes">Desktop / Mobile</button>
+  </div>
+
+<div class="panel" data-vpanel="button" data-mode="mobile" role="tabpanel">
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Матрица M: 5 стилей × 3 типа × Default/Hover/Press + Disable (44 px)</div>
+      <div class="snap-grid">
+        <span class="snap-cap"></span><span class="snap-cap">Default</span><span class="snap-cap">Hover</span><span class="snap-cap">Press</span>
+        <div class="snap-style">Neutral</div>
+        <span class="snap-cap">Filled</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Outlined</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Text</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <div class="snap-style">Accent</div>
+        <span class="snap-cap">Filled</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Outlined</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Text</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <div class="snap-style">Positive</div>
+        <span class="snap-cap">Filled</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Outlined</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Text</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <div class="snap-style">Warning</div>
+        <span class="snap-cap">Filled</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Outlined</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Text</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <div class="snap-style">Negative</div>
+        <span class="snap-cap">Filled</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Outlined</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="snap-cap">Text</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--text"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button></span>
+        <div class="snap-style">Disable</div>
+        <span class="snap-cap">Filled</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--filled" disabled><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span></span><span></span>
+        <span class="snap-cap">Outlined</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--outlined" disabled><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Button</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <span></span><span></span>
+        <span class="snap-cap">Text</span>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--text" disabled><span class="ds-btn__label">Button</span></button>
+        <span></span><span></span>
+      </div>
+      <p class="snap-note">Button_mob (61827:103096) — 51 вариант: Style Neutral/Accent/Positive/Warning/Negative ×
+      Type Filled/Outlined/Text × State Default/Hover/Press (45) + Style=Disable × Type × State Disable/Loading (6).
+      На стенде показаны 45 + 3 Disable; Loading (3) — поведение кнопки, состояния Loading в css ДС нет (журнал №40).</p>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Иконки (слот Element left / Element right — Icon size 20)</div>
+      <div class="snap-live-row">
+        <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Добавить</span></button>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Далее</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text"><span class="ds-btn__label">Перейти</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span></button>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--outlined"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Удалить</span></button>
+      </div>
+      <p class="snap-note">Иконка — 20 px внутри кнопки M (десктоп и мобиле одинаково), тач-зона 48×48 добавляется
+      невидимым слоем <code>::after</code> из button-mobile.css.</p>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Длинная подпись</div>
+      <div class="snap-live-row">
+        <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Сохранить и перейти к следующему шагу</span></button>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отменить изменения и вернуться к списку</span></button>
+      </div>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Full width (375)</div>
+      <div class="snap-frame">
+        <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+        <div style="height:8px"></div>
+        <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined ds-btn--full-width"><span class="ds-btn__label">Отмена</span></button>
+      </div>
+    </div>
+  </div>
+
+<div class="panel" data-vpanel="group" data-mode="mobile" role="tabpanel" hidden>
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Button group_mob — Orientation × Margins</div>
+      <div class="snap-groups">
+        <div>
+          <p class="snap-cap">Horizontally × Margins=Off</p>
+          <div class="snap-frame"><div class="ds-btn-group ds-btn-group--horizontal"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+          <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Сохранить</span></button></div></div>
+          <p class="snap-cap">Horizontally × Margins=On</p>
+          <div class="snap-frame"><div class="ds-btn-group ds-btn-group--horizontal ds-btn-group--margins"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+          <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Сохранить</span></button></div></div>
+        </div>
+        <div>
+          <p class="snap-cap">Vertically × Margins=Off</p>
+          <div class="ds-btn-group ds-btn-group--vertical"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+          <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Сохранить</span></button></div>
+          <p class="snap-cap">Vertically × Margins=On</p>
+          <div class="ds-btn-group ds-btn-group--vertical ds-btn-group--margins"><button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined"><span class="ds-btn__label">Отмена</span></button>
+          <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled"><span class="ds-btn__label">Сохранить</span></button></div>
+        </div>
+      </div>
+      <p class="snap-note">Горизонтальная группа на мобиле делит строку поровну (fill): две кнопки по (375 − 32) / 2 − 4 = 167,5
+      при gap 8. Vertically — кнопки по содержимому, gap 8. Margins=On добавляет паддинги 8/16 (Button group/Margins/*).
+      Полоса 375 здесь — рамка стенда, ширина компонента задаётся контейнером.</p>
+    </div>
+  </div>
+
+<div class="panel" data-vpanel="fab" data-mode="mobile" role="tabpanel" hidden>
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">FAB_mob — 5 стилей × состояния, 17 вариантов</div>
+      <div class="snap-fab-grid">
+        <span class="snap-cap"></span><span class="snap-cap">Default</span><span class="snap-cap">Hover</span><span class="snap-cap">Press</span><span class="snap-cap">Disable</span><span class="snap-cap">Loading</span>
+        <span class="snap-cap" style="justify-self:start">Neutral</span>
+        <button type="button" class="ds-fab ds-fab--neutral"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-fab ds-fab--neutral"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-fab ds-fab--neutral"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <button type="button" class="ds-fab ds-fab--disabled" disabled><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="snap-fab-box"><button type="button" class="ds-fab ds-fab--disabled" disabled aria-label="Loading"></button><span class="snap-spinner"></span></span>
+        <span class="snap-cap" style="justify-self:start">Accent</span>
+        <button type="button" class="ds-fab ds-fab--accent"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-fab ds-fab--accent"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-fab ds-fab--accent"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <button type="button" class="ds-fab ds-fab--disabled" disabled><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="snap-fab-box"><button type="button" class="ds-fab ds-fab--disabled" disabled aria-label="Loading"></button><span class="snap-spinner"></span></span>
+        <span class="snap-cap" style="justify-self:start">Positive</span>
+        <button type="button" class="ds-fab ds-fab--positive"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-fab ds-fab--positive"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-fab ds-fab--positive"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <button type="button" class="ds-fab ds-fab--disabled" disabled><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="snap-fab-box"><button type="button" class="ds-fab ds-fab--disabled" disabled aria-label="Loading"></button><span class="snap-spinner"></span></span>
+        <span class="snap-cap" style="justify-self:start">Warning</span>
+        <button type="button" class="ds-fab ds-fab--warning"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-fab ds-fab--warning"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-fab ds-fab--warning"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <button type="button" class="ds-fab ds-fab--disabled" disabled><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="snap-fab-box"><button type="button" class="ds-fab ds-fab--disabled" disabled aria-label="Loading"></button><span class="snap-spinner"></span></span>
+        <span class="snap-cap" style="justify-self:start">Negative</span>
+        <button type="button" class="ds-fab ds-fab--negative"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="st-hover"><button type="button" class="ds-fab ds-fab--negative"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <span class="st-press"><button type="button" class="ds-fab ds-fab--negative"><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button></span>
+        <button type="button" class="ds-fab ds-fab--disabled" disabled><span class="ds-fab__icon"><span class="ds-icon-size ds-icon-size--6x"><span class="material-icons">add</span></span></span></button>
+        <span class="snap-fab-box"><button type="button" class="ds-fab ds-fab--disabled" disabled aria-label="Loading"></button><span class="snap-spinner"></span></span>
+      </div>
+      <p class="snap-note">56×56, иконка 24, радиус 16. Паддинги 16 дают размер: 16 + 24 + 16 = 56
+      (box-sizing: border-box). Loading — спиннер по центру (в css ДС состояния Loading нет, как у Button, №40;
+      на стенде собран обвязкой).</p>
+    </div>
+  </div>
+
+<div class="panel" data-vpanel="bar" data-mode="mobile" role="tabpanel" hidden>
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Bottom action bar_mob — 5 стилей × 2 раскладки, 10 вариантов</div>
+      <p class="snap-note">Высоты 90 и 142, safe area 34: паддинги 16/12/16/34 и gap 8 дают обе высоты из кнопок 44.
+      Primary — Filled своего стиля, Secondary — Text своего стиля; обе M и на всю ширину.</p>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Neutral</div>
+      <div class="snap-live-row" style="align-items:flex-start; gap:32px">
+        <div>
+          <p class="snap-cap">Primary only — 90</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-only">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+    </div>
+  </div>
+        </div>
+        <div>
+          <p class="snap-cap">Primary + Secondary — 142</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-secondary">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+      <button type="button" class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text ds-btn--full-width"><span class="ds-btn__label">Отмена</span></button>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Accent</div>
+      <div class="snap-live-row" style="align-items:flex-start; gap:32px">
+        <div>
+          <p class="snap-cap">Primary only — 90</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-only">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+    </div>
+  </div>
+        </div>
+        <div>
+          <p class="snap-cap">Primary + Secondary — 142</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-secondary">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+      <button type="button" class="ds-btn ds-btn--m ds-btn--accent ds-btn--text ds-btn--full-width"><span class="ds-btn__label">Отмена</span></button>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Positive</div>
+      <div class="snap-live-row" style="align-items:flex-start; gap:32px">
+        <div>
+          <p class="snap-cap">Primary only — 90</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-only">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+    </div>
+  </div>
+        </div>
+        <div>
+          <p class="snap-cap">Primary + Secondary — 142</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-secondary">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+      <button type="button" class="ds-btn ds-btn--m ds-btn--positive ds-btn--text ds-btn--full-width"><span class="ds-btn__label">Отмена</span></button>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Warning</div>
+      <div class="snap-live-row" style="align-items:flex-start; gap:32px">
+        <div>
+          <p class="snap-cap">Primary only — 90</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-only">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+    </div>
+  </div>
+        </div>
+        <div>
+          <p class="snap-cap">Primary + Secondary — 142</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-secondary">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+      <button type="button" class="ds-btn ds-btn--m ds-btn--warning ds-btn--text ds-btn--full-width"><span class="ds-btn__label">Отмена</span></button>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Negative</div>
+      <div class="snap-live-row" style="align-items:flex-start; gap:32px">
+        <div>
+          <p class="snap-cap">Primary only — 90</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-only">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+    </div>
+  </div>
+        </div>
+        <div>
+          <p class="snap-cap">Primary + Secondary — 142</p>
+          <div class="snap-bar-frame">
+    <div class="snap-bar-content">контент экрана</div>
+    <div class="ds-bottom-action-bar ds-bottom-action-bar--primary-secondary">
+      <button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--filled ds-btn--full-width"><span class="ds-btn__label">Сохранить</span></button>
+      <button type="button" class="ds-btn ds-btn--m ds-btn--negative ds-btn--text ds-btn--full-width"><span class="ds-btn__label">Отмена</span></button>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="panel" data-vpanel="modes" role="tabpanel" hidden>
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Button — режим Desktop / Mobile</div>
+      <p class="snap-note" style="margin-top:0">Один и тот же класс <code>.ds-btn</code>, разметка не меняется. Размеры приходят из токенов,
+      режим переключается атрибутом <code>data-mode</code> (файл <code>components-mobile/modes.css</code>).
+      Здесь оба режима стоят рядом: в Figma режим глобальный на файл, два варианта одновременно не показать.</p>
+    </div>
+
+    <div class="snap-sect">
+      <div class="snap-cap snap-sect__title">Замеры отрендеренных кнопок (не из макета, а из браузера)</div>
+      <table class="modes-measure" id="measure"><tbody></tbody></table>
+      <p class="snap-note">Высоты сверяются с ожиданием: M Desktop 36 · M Mobile 44 · S/XS на мобиле 44 (тач-минимум).
+      Тач-зона на мобиле считается достаточной от 44px; отдельный слой нажатия — 48×48 (button-mobile.css).</p>
+    </div>
+
+    <div class="modes-grid">
+      <div class="modes-panel modes-panel--desktop" data-mode="desktop" id="panel-desktop">
+        <div class="modes-panel__tag">data-mode="desktop" (дефолт)</div>
+        <div class="mcard">
+          <h3 style="margin-top:0;color:var(--ds-color-text-primary,#333);font-size:14px;line-height:20px">Размеры</h3>
+          <h3>M — 36px</h3>
+        <div class="mrow" data-size="m">
+          <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Создать</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Далее</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">keyboard_arrow_right</span></span></span></button>
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text" type="button"><span class="ds-btn__label">Отмена</span></button>
+        </div>
+          <h3>S — 28px</h3>
+        <div class="mrow" data-size="s">
+          <button class="ds-btn ds-btn--s ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__label">Создать</span></button>
+          <button class="ds-btn ds-btn--s ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Далее</span></button>
+          <button class="ds-btn ds-btn--s ds-btn--neutral ds-btn--text" type="button"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">delete</span></span></span><span class="ds-btn__label">Удалить</span></button>
+        </div>
+          <h3>XS — 24px</h3>
+        <div class="mrow" data-size="xs">
+          <button class="ds-btn ds-btn--xs ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__label">Создать</span></button>
+          <button class="ds-btn ds-btn--xs ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Далее</span></button>
+          <button class="ds-btn ds-btn--xs ds-btn--neutral ds-btn--text" type="button"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--4x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Добавить</span></button>
+        </div>
+          
+        </div>
+
+        <div class="mcard">
+          <h3 style="margin-top:0;color:var(--ds-color-text-primary,#333);font-size:14px;line-height:20px">Стили и типы (M)</h3>
+          <h3>Filled</h3>
+        <div class="mrow">
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--filled" type="button"><span class="ds-btn__label">Neutral</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__label">Accent</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--positive ds-btn--filled" type="button"><span class="ds-btn__label">Positive</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--warning ds-btn--filled" type="button"><span class="ds-btn__label">Warning</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--negative ds-btn--filled" type="button"><span class="ds-btn__label">Negative</span></button>
+        </div>
+          <h3>Outlined</h3>
+        <div class="mrow">
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Neutral</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined" type="button"><span class="ds-btn__label">Accent</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--positive ds-btn--outlined" type="button"><span class="ds-btn__label">Positive</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--warning ds-btn--outlined" type="button"><span class="ds-btn__label">Warning</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--negative ds-btn--outlined" type="button"><span class="ds-btn__label">Negative</span></button>
+        </div>
+          <h3>Text</h3>
+        <div class="mrow">
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text" type="button"><span class="ds-btn__label">Neutral</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--text" type="button"><span class="ds-btn__label">Accent</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--positive ds-btn--text" type="button"><span class="ds-btn__label">Positive</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--warning ds-btn--text" type="button"><span class="ds-btn__label">Warning</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--negative ds-btn--text" type="button"><span class="ds-btn__label">Negative</span></button>
+        </div>
+          <h3>Disable</h3>
+          <div class="mrow">
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" type="button" disabled><span class="ds-btn__label">Filled</span></button>
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined" type="button" disabled><span class="ds-btn__label">Outlined</span></button>
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--text" type="button" disabled><span class="ds-btn__label">Text</span></button>
+          </div>
+        </div>
+
+        <div class="mcard">
+          <h3 style="margin-top:0;color:var(--ds-color-text-primary,#333);font-size:14px;line-height:20px">Футер формы и группа</h3>
+          <h3>На всю ширину (Bottom action bar)</h3>
+          <div class="mrow">
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled ds-btn--full-width" type="button"><span class="ds-btn__label">Сохранить</span></button>
+          </div>
+          <h3>Button group</h3>
+          <div class="ds-btn-group ds-btn-group--horizontal">
+            <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Отмена</span></button>
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__label">Сохранить</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modes-panel modes-panel--mobile" data-mode="mobile" id="panel-mobile">
+        <div class="modes-panel__tag">data-mode="mobile"</div>
+        <div class="mcard">
+          <h3 style="margin-top:0;color:var(--ds-color-text-primary,#333);font-size:14px;line-height:20px">Размеры</h3>
+          <h3>M — 44px</h3>
+        <div class="mrow" data-size="m">
+          <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Создать</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Далее</span><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">keyboard_arrow_right</span></span></span></button>
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text" type="button"><span class="ds-btn__label">Отмена</span></button>
+        </div>
+          <h3>S — 44px</h3>
+        <div class="mrow" data-size="s">
+          <button class="ds-btn ds-btn--s ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__label">Создать</span></button>
+          <button class="ds-btn ds-btn--s ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Далее</span></button>
+          <button class="ds-btn ds-btn--s ds-btn--neutral ds-btn--text" type="button"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--5x"><span class="material-icons">delete</span></span></span><span class="ds-btn__label">Удалить</span></button>
+        </div>
+          <h3>XS — 44px</h3>
+        <div class="mrow" data-size="xs">
+          <button class="ds-btn ds-btn--xs ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__label">Создать</span></button>
+          <button class="ds-btn ds-btn--xs ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Далее</span></button>
+          <button class="ds-btn ds-btn--xs ds-btn--neutral ds-btn--text" type="button"><span class="ds-btn__icon"><span class="ds-icon-size ds-icon-size--4x"><span class="material-icons">add</span></span></span><span class="ds-btn__label">Добавить</span></button>
+        </div>
+          <p class="snap-note">На мобиле S и XS поднимаются до 44 (тач-минимум), кегль остаётся 14 / 12.</p>
+        </div>
+
+        <div class="mcard">
+          <h3 style="margin-top:0;color:var(--ds-color-text-primary,#333);font-size:14px;line-height:20px">Стили и типы (M)</h3>
+          <h3>Filled</h3>
+        <div class="mrow">
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--filled" type="button"><span class="ds-btn__label">Neutral</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__label">Accent</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--positive ds-btn--filled" type="button"><span class="ds-btn__label">Positive</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--warning ds-btn--filled" type="button"><span class="ds-btn__label">Warning</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--negative ds-btn--filled" type="button"><span class="ds-btn__label">Negative</span></button>
+        </div>
+          <h3>Outlined</h3>
+        <div class="mrow">
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Neutral</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined" type="button"><span class="ds-btn__label">Accent</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--positive ds-btn--outlined" type="button"><span class="ds-btn__label">Positive</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--warning ds-btn--outlined" type="button"><span class="ds-btn__label">Warning</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--negative ds-btn--outlined" type="button"><span class="ds-btn__label">Negative</span></button>
+        </div>
+          <h3>Text</h3>
+        <div class="mrow">
+          <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--text" type="button"><span class="ds-btn__label">Neutral</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--text" type="button"><span class="ds-btn__label">Accent</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--positive ds-btn--text" type="button"><span class="ds-btn__label">Positive</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--warning ds-btn--text" type="button"><span class="ds-btn__label">Warning</span></button>
+          <button class="ds-btn ds-btn--m ds-btn--negative ds-btn--text" type="button"><span class="ds-btn__label">Negative</span></button>
+        </div>
+          <h3>Disable</h3>
+          <div class="mrow">
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" type="button" disabled><span class="ds-btn__label">Filled</span></button>
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--outlined" type="button" disabled><span class="ds-btn__label">Outlined</span></button>
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--text" type="button" disabled><span class="ds-btn__label">Text</span></button>
+          </div>
+        </div>
+
+        <div class="mcard">
+          <h3 style="margin-top:0;color:var(--ds-color-text-primary,#333);font-size:14px;line-height:20px">Футер формы и группа</h3>
+          <h3>На всю ширину (Bottom action bar)</h3>
+          <div class="mrow">
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled ds-btn--full-width" type="button"><span class="ds-btn__label">Сохранить</span></button>
+          </div>
+          <h3>Button group</h3>
+          <div class="ds-btn-group ds-btn-group--horizontal">
+            <button class="ds-btn ds-btn--m ds-btn--neutral ds-btn--outlined" type="button"><span class="ds-btn__label">Отмена</span></button>
+            <button class="ds-btn ds-btn--m ds-btn--accent ds-btn--filled" type="button"><span class="ds-btn__label">Сохранить</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+  /* табы — компонент ДС Tabs (как на стенде Button в components-web) */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.ds-tab[data-vtab]'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('[data-vpanel]'));
+  tabs.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      tabs.forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle('ds-tab--active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach(function (p) { p.hidden = p.getAttribute('data-vpanel') !== btn.getAttribute('data-vtab'); });
+      if (btn.getAttribute('data-vtab') === 'modes') requestAnimationFrame(measureModes);
+    });
+  });
+
+  /* замеры: реальные значения из браузера — сравнительная таблица
+     (строки — свойства, колонки — Desktop/Mobile по размерам) */
+  function measureModes() {
+    var expect = { desktop: { m: 36, s: 28, xs: 24 }, mobile: { m: 44, s: 44, xs: 44 } };
+    var data = { desktop: {}, mobile: {} };
+    var flat = [];
+    ['desktop', 'mobile'].forEach(function (mode) {
+      var panel = document.getElementById('panel-' + mode);
+      ['m', 's', 'xs'].forEach(function (size) {
+        var row = panel.querySelector('[data-size="' + size + '"]');
+        var btnEl = row.querySelector('.ds-btn');
+        var iconEl = row.querySelector('.ds-icon-size');   /* слот Icon size: его кегль и есть размер глифа */
+        var cs = getComputedStyle(btnEl);
+        var h = Math.round(btnEl.getBoundingClientRect().height * 100) / 100;
+        var want = expect[mode][size];
+        var item = {
+          mode: mode, size: size, height: h, want: want,
+          fit: Math.abs(h - want) < 0.6 ? 'ok' : '≠ ' + want,
+          pad: cs.paddingTop + ' / ' + cs.paddingLeft,
+          font: cs.fontSize + ' · ' + cs.fontWeight,
+          line: cs.lineHeight,
+          icon: iconEl ? getComputedStyle(iconEl).fontSize : '—',
+          token: cs.getPropertyValue('--ds-button-' + size + '-size-pad-top').trim(),
+          touch: mode === 'mobile' ? (h >= 44 ? 'ok' : 'ниже 44') : '—'
+        };
+        data[mode][size] = item;
+        flat.push(item);
+      });
+    });
+
+    var SIZES = ['m', 's', 'xs'];
+    var head = '<thead><tr class="grp"><th rowspan="2">Свойство</th>' +
+      SIZES.map(function (s) { return '<th colspan="2">' + s.toUpperCase() + '</th>'; }).join('') +
+      '</tr><tr>' +
+      SIZES.map(function () { return '<th>Desktop</th><th class="col-mobile">Mobile</th>'; }).join('') +
+      '</tr></thead>';
+
+    function cells(fn) {
+      return SIZES.map(function (s) {
+        return '<td>' + fn(data.desktop[s]) + '</td><td class="col-mobile">' + fn(data.mobile[s]) + '</td>';
+      }).join('');
+    }
+
+    var body = '<tbody>' +
+      '<tr><th scope="row">Высота, px</th>' + SIZES.map(function (s) {
+        var d = data.desktop[s], m = data.mobile[s];
+        var dCls = d.fit === 'ok' ? 'ok' : 'warn';
+        var mCls = m.fit === 'ok' ? 'ok' : 'warn';
+        return '<td class="' + dCls + '"><b>' + d.height + '</b> ' + d.fit + '</td>' +
+               '<td class="col-mobile ' + mCls + '"><b>' + m.height + '</b> ' + m.fit + '</td>';
+      }).join('') + '</tr>' +
+      '<tr><th scope="row">Паддинг (верх / лево)</th>' + cells(function (x) { return x.pad; }) + '</tr>' +
+      '<tr><th scope="row">Кегль · вес</th>' + cells(function (x) { return x.font; }) + '</tr>' +
+      '<tr><th scope="row">Строка</th>' + cells(function (x) { return x.line; }) + '</tr>' +
+      '<tr><th scope="row">Иконка</th>' + cells(function (x) { return x.icon; }) + '</tr>' +
+      '<tr><th scope="row">Токен pad-top</th>' + cells(function (x) { return x.token || '—'; }) + '</tr>' +
+      '<tr><th scope="row">Тач-зона (мин. 44)</th>' + SIZES.map(function (s) {
+        return '<td>—</td><td class="col-mobile ' + (data.mobile[s].touch === 'ok' ? 'ok' : 'warn') + '">' + data.mobile[s].touch + '</td>';
+      }).join('') + '</tr>' +
+      '</tbody>';
+
+    document.querySelector('#measure').innerHTML = head + body;
+    window.__measure = flat;
+    document.body.setAttribute('data-measure', JSON.stringify(flat));
+  }
+</script>
+</body>
+</html>

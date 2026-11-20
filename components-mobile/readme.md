@@ -9,8 +9,7 @@ components-mobile/
 ├── modes.css                  ось режима (размер): [data-mode="mobile"]
 ├── components/                только CSS компонентов (как в components-web)
 │   └── index.css              агрегатор мобильного слоя
-├── prototypes/                страницы-прототипы (как в Prototypes)
-│   └── button-modes.html      демо: Desktop и Mobile рядом + замеры из браузера
+│   └── Button_DS/             button-mobile.css + demo.html (стенд с вкладками)
 ├── desktop-to-mobile-plan.md  план перевода компонентов ДС на мобилу
 ├── desktop-to-mobile-plan.xlsx
 ├── mobile-mode-notes.md       архитектура переменных: режимы и темы
@@ -61,8 +60,10 @@ components-mobile/
 
 ## Проверка
 
-Открыть `prototypes/button-modes.html` — там десктоп и мобила стоят
-рядом на одной странице (в Figma так нельзя: режим глобальный на файл) и есть
-таблица замеров, снятых из браузера: высота, паддинги, кегль, иконка, тач-зона.
+Открыть `components/Button_DS/demo.html` — один стенд семейства Button с вкладками:
+Button / Button group / FAB / Bottom action bar / Desktop / Mobile.
+На последней вкладке десктоп и мобила стоят рядом на одной странице (в Figma так нельзя:
+режим глобальный на файл) и есть таблица замеров, снятых из браузера: высота, паддинги,
+кегль, иконка, тач-зона.
 
-Ожидаемые высоты: Desktop M 36 / S 28 / XS 24, Mobile M 44.
+Ожидаемые высоты: Desktop M 36 / S 28 / XS 24, Mobile M 44 (S/XS на мобиле поднимаются до 44).

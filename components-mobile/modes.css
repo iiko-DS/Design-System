@@ -53,8 +53,10 @@
    ---------------------------
    Figma «Iiko Web DS (New)», страница Button_DS, COMPONENT_SET `Button_mob`
    (сверено по прежней странице сравнения):
-     высота 44 · паддинги 12 (верт.) / 16 (гор.) · текст 16px/500 ·
+     высота 44 · паддинги 12 (верт.) / 16 (гор.) · текст 14px/500 ·
      иконка 20px · радиус 8px и цвет — общие, без изменений.
+     Кегль 14 (Body S) — решение задачи 2026-11-20: 16 отклонён (авто-зум
+     относится к полям ввода, M3 держит подпись кнопки на Label Large 14sp).
 
    Временность
    -----------
@@ -77,7 +79,7 @@
 
 /* ── Button (размер M) ───────────────────────────────────────
    Десктоп: паддинг 8/12, кегль 14 → высота 36 (HUG).
-   Мобила:  паддинг 12/16, кегль 16 → высота 44 (HUG).
+   Мобила:  паддинг 12/16, кегль 14/20 → высота 44 (HUG).
    Высота числом не задаётся: складывается из паддингов и строки текста
    (см. components-web/components/Button_DS/button.css), поэтому переопределяем
    только паддинги и кегль — высота получается сама. Это и есть HUG из Figma.
@@ -86,7 +88,7 @@
 [data-mode="mobile"] {
   /* ── Button (размер M) ─────────────────────────────────────
      Десктоп: паддинг 8/12, кегль 14 → высота 36 (HUG).
-     Мобила:  паддинг 12/16, кегль 16 → высота 44 (HUG).
+     Мобила:  паддинг 12/16, кегль 14/20 → высота 44 (HUG).
      Высота числом не задаётся: складывается из паддингов и строки текста
      (см. components-web/components/Button_DS/button.css).
      ──────────────────────────────────────────────────────────── */
@@ -94,7 +96,7 @@
   --ds-button-m-size-pad-bottom: var(--ds-space-3x);                    /* 12px */
   --ds-button-m-size-pad-left: var(--ds-space-4x);                      /* 16px */
   --ds-button-m-size-pad-right: var(--ds-space-4x);                     /* 16px */
-  --ds-button-m-size-text-size: var(--ds-typography-body-font-size-m);  /* 16px */
+  --ds-button-m-size-text-size: var(--ds-typography-body-font-size-s);  /* 14px — как на десктопе (Body S); 16 отклонён в задаче */
   /* Без изменений на мобиле (остаются из tokens.css):
      --ds-button-m-size-gap = 8 · --ds-button-m-size-icon-size = 20 ·
      --ds-button-border-radius = 8 · цвет/тень — ось темы. */
@@ -126,7 +128,7 @@
      Невидимый слой нажатия вокруг кнопки: визуально кнопка 44, нажимаемая
      область 48 — ровно механизм MD3 (`height: max(48px, 100%)`) и Angular
      (`touch-target-size: 48px`). Разметка не меняется.
-     Файл: components-mobile/components/Button_DS/button-touch.css.
+     Файл: components-mobile/components/Button_DS/button-mobile.css.
      ──────────────────────────────────────────────────────────── */
 
   /* ── Button icon (размер M) ────────────────────────────────
@@ -162,7 +164,7 @@
   /* Без изменений: --ds-button-icon-*-size-icon-size (20 / 20 / 16) ·
      --ds-button-icon-border-radius = 8 · цвет — ось темы.
      Тач-зона 48 — общая для всех размеров, файл
-     components-mobile/components/Button_DS/button-touch.css. */
+     components-mobile/components/Button_DS/button-mobile.css. */
 
   /* ── Button toggle ─────────────────────────────────────────
      Своих мобильных значений у переключателя нет: это контейнер, внутри

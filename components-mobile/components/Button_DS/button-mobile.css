@@ -1,0 +1,311 @@
+/* ============================================================
+   iiko DS Mobile — Button (семейство): Button · Button icon ·
+   Button group · FAB · Bottom action bar
+   ------------------------------------------------------------
+   Один файл на семейство — как один стенд и одна папка у веб-компонента
+   (components-web/components/Button_DS). Отдельных папок/файлов под FAB
+   и Bottom action bar не заводим.
+
+   Состав
+   ------
+   1. Button / Button icon — размеры на мобиле и тач-зона 48.
+   2. Button group — кнопки заполняют строку (fill) и full-width.
+   3. FAB — плавающая кнопка главного действия 56×56.
+   4. Bottom action bar — нижний бар действий с safe area.
+
+   Источник мобильных значений — Figma «Iiko Web DS (New)» (REST):
+   Button_mob 61827:103096 (51 вариант), Button group_mob 61837:4995,
+   FAB_mob 61832:103569 (17), Bottom action bar_mob 61832:103610 (10).
+
+   Подключение: components-mobile/components/index.css
+   ============================================================ */
+
+
+/* ══ 1. Button и Button icon: тач-зона 48 px ═══════════════════
+
+   Невидимый слой нажатия: сам элемент остаётся своего размера (на мобиле
+   44 у кнопки с текстом, 40 у иконка-кнопки), но нажимаемая область вокруг
+   него — не меньше 48×48. Ровно этот механизм у платформ:
+     · Material Web, кнопка:      height: max(48px, 100%);
+     · Material Web, иконка-кнопка: height/width: max(48px, 100%);
+     · Angular Material:          touch-target-size: 48px (button),
+                                  icon-button-touch-target-size: 48px.
+   iOS HIG высоту не задаёт, но требует хит-регион минимум 44×44 pt —
+   48 его перекрывает.
+
+   Почему не паддингом
+   -------------------
+   Паддинг изменил бы визуальный размер кнопки и разъехался бы с макетом.
+   Абсолютный слой не влияет на раскладку: край кнопки остаётся там же,
+   куда его поставил дизайн.
+
+   Ограничение (честно)
+   --------------------
+   Слои соседних кнопок могут перекрываться, если кнопки стоят тесно
+   (вертикальный ряд с отступом меньше 48). Тогда, как и у Angular, тач-зону
+   надо выключать — на мобиле такие плотные ряды не используем.
+   ════════════════════════════════════════════════════════════════ */
+
+[data-mode="mobile"] .ds-btn,
+[data-mode="mobile"] .ds-btn-icon {
+  position: relative;
+}
+
+[data-mode="mobile"] .ds-btn::after,
+[data-mode="mobile"] .ds-btn-icon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  min-width: 48px;
+  min-height: 48px;
+  transform: translate(-50%, -50%);
+  /* ничего не рисуем: слой только расширяет область нажатия */
+  background: none;
+  border-radius: inherit;
+}
+
+/* ── Размеры на мобиле: заданы явно ────────────────────────────────
+   Десктопный CSS держит размеры числами (`height: 36px`), поэтому режим
+   не может их сдвинуть. Библиотеку не трогаем — задаём мобильные значения
+   здесь. Числа те же, что на странице: см. «Что меняется на мобиле». */
+
+[data-mode="mobile"] .ds-btn--m {
+  /* Высота — минимальная, не фиксированная: подпись на мобиле переносится на вторую
+     строку (паттерн «Длинная подпись»), и кнопка обязана вырасти. 12 + 20 + 12 = 44
+     остаётся высотой однострочной кнопки. */
+  min-height: 44px;
+  padding: var(--ds-space-3x) var(--ds-space-4x);      /* 12 / 16 */
+  /* Кегль подписи на мобиле — 14/20, как на десктопе (Body S): кнопка не крупнее
+     окружающего текста, M3 держит подпись кнопки на Label Large 14sp. Вариант 16
+     отклонён в задаче «мобильные Button, FAB, Bottom action bar»: авто-зум касается
+     полей ввода, а не кнопок. Высота строки 20 → 12 + 20 + 12 = 44. */
+  font-size: var(--ds-typography-body-font-size-s);    /* 14px */
+  line-height: var(--ds-typography-body-line-height-s); /* 20px */
+}
+
+[data-mode="mobile"] .ds-btn--s {
+  min-height: 44px;
+  padding: var(--ds-space-3x) var(--ds-space-4x);      /* 12 / 16 */
+}
+
+[data-mode="mobile"] .ds-btn--xs {
+  min-height: 44px;
+  padding: var(--ds-space-3-5x) var(--ds-space-4x);    /* 14 / 16 — кегль 12, иначе не дотянуть до 44 */
+}
+
+/* Button icon: на мобиле контейнер 40 x 40 во всех размерах (дефолт MD3) */
+[data-mode="mobile"] .ds-btn-icon--m,
+[data-mode="mobile"] .ds-btn-icon--s {
+  width: 40px;
+  height: 40px;
+  padding: var(--ds-space-2-5x);                        /* 10 */
+}
+
+[data-mode="mobile"] .ds-btn-icon--xs {
+  width: 40px;
+  height: 40px;
+  padding: var(--ds-space-3x);                          /* 12 — иконка 16 */
+}
+
+
+/* ══ 2. Button group: ширина в строке (fill) ═══════════════════
+
+   На мобиле кнопки заполняют строку по ширине:
+     · одна кнопка — всю строку (модификатор .ds-btn--full-width);
+     · две и больше в горизонтальной группе — строку делят поровну,
+       каждая растягивается (fill), даже если подпись короче.
+   На десктопе кнопка идёт по содержимому (HUG): в ряду из двух кнопок
+   каждая своей ширины, и ряд может не занимать всю строку.
+
+   Откуда числа
+   ------------
+   План перевода компонента (components-mobile/desktop-to-mobile-plan.md,
+   строка Button): «Крупнее высота и паддинги под тач; текст и состояния
+   без изменений; опция «на всю ширину» в футерах форм».
+   В макете «Склад_Заказ-товаров» так стоят оба собранных компонента:
+   Button group_mob — 2 × 175,5 + 8 (gap) = 359, то есть строка целиком;
+   Bottom action bar_mob — кнопка на всю ширину.
+   Значения не выдуманы: строку делит flex, ширина кнопок не задаётся числами.
+   ════════════════════════════════════════════════════════════════ */
+
+[data-mode="mobile"] .ds-btn--full-width {
+  width: 100%;
+}
+
+[data-mode="mobile"] .ds-btn-group--horizontal > .ds-btn {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+
+/* ══ 3. FAB — плавающая кнопка главного действия ═══════════════
+
+   Что это
+   -------
+   Квадратная кнопка главного действия экрана: 56×56, радиус 16,
+   иконка 24 по центру. Отдельный компонент только для мобильного:
+   на десктопе главное действие живёт в шапке/футере страницы.
+
+   Варианты (Figma COMPONENT_SET «FAB_mob», 61832:103569)
+   ------------------------------------------------------
+   Style Neutral/Accent/Positive/Warning/Negative ×
+   State Default/Hover/Press (15) + Style=Disable, State=Disable (1)
+   + Style=Disable, State=Loading (1) = 17 вариантов.
+
+   Откуда числа (сверено по REST, узел FAB_mob 61832:103569)
+   ---------------------------------------------------------
+   · 56×56 — размер кадра в наборе (absoluteBoundingBox всех 17 вариантов);
+     в коде высота/ширина держатся паддингами: 16 + 24 + 16 = 56
+     (Space/4x + Icon size/Size 6x);
+   · паддинги 16 — из задания на мобильную волну (Space/4x);
+   · иконка 24 — переменная Icon size/Size 6x (у слоя Icon size = 24);
+   · радиус 16 — Radius/4x (boundVariables rectangleCornerRadii);
+   · заливки — те же токены Button/*, что у кнопки соответствующего стиля
+     (Accent #448AFF, Positive #14B456, Warning #FFAB40, Negative #FF5252,
+     Neutral #FFFFFF; Hover/Press — те же пары токенов);
+   · иконка Neutral — Icon/Primary (как у нейтральной кнопки), у остальных
+     стилей — Text/Inversive, как у Filled-кнопки;
+   · тень в Figma — два слоя 0 4 12 rgba(0,0,0,.15) и 0 2 4 rgba(0,0,0,.08);
+     в ДС группы токенов FAB/* нет — значения объявлены локальным алиасом
+     --ds-fab-shadow, пробел записан в Design-System/fixes.md №295.
+   ════════════════════════════════════════════════════════════════ */
+
+[data-mode="mobile"] .ds-fab {
+  /* локальный алиас: группы FAB/* в токенах нет (пробел ДС №295).
+     Значения — тень FAB_mob из Figma (0 4 12 / 0 2 4). */
+  --ds-fab-shadow: 0 var(--ds-size-1x) var(--ds-size-3x) rgba(0, 0, 0, 0.15),
+                   0 var(--ds-size-0-5x) var(--ds-size-1x) rgba(0, 0, 0, 0.08);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 56px;
+  height: 56px;
+  padding: var(--ds-space-4x);
+  border: 0;
+  border-radius: var(--ds-radius-4x);
+  box-shadow: var(--ds-fab-shadow);
+  font-family: var(--ds-font-family, Roboto, sans-serif);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+[data-mode="mobile"] .ds-fab:focus-visible {
+  outline: 2px solid var(--ds-palette-accent-300);
+  outline-offset: 2px;
+}
+
+[data-mode="mobile"] .ds-fab__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--ds-icon-size-size-6x);
+  height: var(--ds-icon-size-size-6x);
+  font-size: var(--ds-icon-size-size-6x);
+  line-height: 1;
+}
+
+/* Стили (заливки — те же токены, что у Button) */
+
+[data-mode="mobile"] .ds-fab--neutral {
+  background: var(--ds-color-button-neutral-default);
+  color: var(--ds-color-text-secondary);
+}
+[data-mode="mobile"] .ds-fab--neutral:hover  { background: var(--ds-color-button-neutral-hover); }
+[data-mode="mobile"] .ds-fab--neutral:active { background: var(--ds-color-button-neutral-press); }
+
+[data-mode="mobile"] .ds-fab--accent {
+  background: var(--ds-color-button-accent-default);
+  color: var(--ds-color-text-inversive);
+}
+[data-mode="mobile"] .ds-fab--accent:hover  { background: var(--ds-color-button-accent-hover); }
+[data-mode="mobile"] .ds-fab--accent:active { background: var(--ds-color-button-accent-press); }
+
+[data-mode="mobile"] .ds-fab--positive {
+  background: var(--ds-color-button-positive-default);
+  color: var(--ds-color-text-inversive);
+}
+[data-mode="mobile"] .ds-fab--positive:hover  { background: var(--ds-color-button-positive-hover); }
+[data-mode="mobile"] .ds-fab--positive:active { background: var(--ds-color-button-positive-press); }
+
+[data-mode="mobile"] .ds-fab--warning {
+  background: var(--ds-color-button-warning-default);
+  color: var(--ds-color-text-inversive);
+}
+[data-mode="mobile"] .ds-fab--warning:hover  { background: var(--ds-color-button-warning-hover); }
+[data-mode="mobile"] .ds-fab--warning:active { background: var(--ds-color-button-warning-press); }
+
+[data-mode="mobile"] .ds-fab--negative {
+  background: var(--ds-color-button-negative-default);
+  color: var(--ds-color-text-inversive);
+}
+[data-mode="mobile"] .ds-fab--negative:hover  { background: var(--ds-color-button-negative-hover); }
+[data-mode="mobile"] .ds-fab--negative:active { background: var(--ds-color-button-negative-press); }
+
+/* Disable */
+[data-mode="mobile"] .ds-fab:disabled,
+[data-mode="mobile"] .ds-fab--disabled {
+  background: var(--ds-color-button-neutral-disable);
+  color: var(--ds-color-text-disable);
+  pointer-events: none;
+  cursor: default;
+}
+
+
+/* ══ 4. Bottom action bar — нижний бар действий ═════════════════
+
+   Что это
+   -------
+   Полоса действий внизу экрана: Primary (главная кнопка) и, если нужно,
+   Secondary под ней. Ширина — 100% контейнера, внутренние кнопки —
+   на всю ширину (`ds-btn--full-width`).
+
+   Варианты (Figma COMPONENT_SET «Bottom action bar_mob», 61832:103610)
+   -------------------------------------------------------------------
+   Style Neutral/Accent/Positive/Warning/Negative ×
+   Layout Primary only / Primary + Secondary = 10 вариантов.
+
+   Откуда числа (сверено по REST, узел 61832:103610)
+   -------------------------------------------------
+   · pad left/right 16 (Space/4x), top 12 (Space/3x), bottom 34 —
+     safe area (Size/8,5x = переменная paddingBottom слоя);
+   · gap 8 (Button group/Gap = Space/2x);
+   · Primary only: 12 + 44 + 34 = 90; Primary + Secondary:
+     12 + 44 + 8 + 44 + 34 = 142 (absoluteBoundingBox 375×90 и 375×142);
+   · фон — Surface/Default (решение задачи на мобильную волну);
+   · тень сверху — по макету: 0 -1 0 rgba(0,0,0,.06) и 0 -4 12 rgba(0,0,0,.04).
+     Группы токенов Bottom action bar/* в ДС нет — значения объявлены
+     локальным алиасом --ds-bottom-action-bar-shadow (пробел ДС №295).
+     В Figma дополнительно фон 92% + backdrop blur 20: в токенах
+     прозрачности нет, заливка взята Surface/Default.
+   ════════════════════════════════════════════════════════════════ */
+
+[data-mode="mobile"] .ds-bottom-action-bar {
+  /* локальный алиас: группы Bottom action bar/* в токенах нет (пробел ДС №295).
+     Значения — тень бара из Figma (0 -1 0 / 0 -4 12). */
+  --ds-bottom-action-bar-shadow: 0 calc(-1 * var(--ds-size-0-25x)) 0 rgba(0, 0, 0, 0.06),
+                                 0 calc(-1 * var(--ds-size-1x)) var(--ds-size-3x) rgba(0, 0, 0, 0.04);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2x);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--ds-space-3x) var(--ds-space-4x) var(--ds-size-8-5x);
+  background: var(--ds-color-surface-default);
+  box-shadow: var(--ds-bottom-action-bar-shadow);
+}
+
+/* Раскладки: Primary only — одна кнопка (12 + 44 + 34 = 90),
+   Primary + Secondary — две, главная сверху, второстепенная под ней
+   (12 + 44 + 8 + 44 + 34 = 142). Обе раскладки — колонка. */
+[data-mode="mobile"] .ds-bottom-action-bar--primary-only,
+[data-mode="mobile"] .ds-bottom-action-bar--primary-secondary {
+  flex-direction: column;
+}
