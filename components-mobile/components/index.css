@@ -31,10 +31,9 @@
    совпадала с components-web и мобильный слой подключался одной строкой.
    ============================================================ */
 
-/* @import "Button_DS/button-group-mob.css";  — пример для будущих *_mob-компонентов */
 @import "box-sizing.css";
 @import "Stepper_DS/stepper-vertical.css";
-@import "Button_DS/button-touch.css";
+@import "Button_DS/button-mobile.css";
 @import "Checkbox_DS/checkbox-touch.css";
 @import "Slide-Toggle_DS/slide-toggle-touch.css";
 @import "Textarea_DS/textarea-mobile.css";
